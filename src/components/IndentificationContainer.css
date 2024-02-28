@@ -1,0 +1,67 @@
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 100%;
+  transform: translateY(-50%);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#container .titleArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  width: 100%;
+  height: 80%;
+}
+
+#container .titleArea .title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #00A286;
+}
+
+#container .titleArea .description {
+  font-size: 1rem;
+  color: black;
+  padding: 0 3rem;
+  font-weight: bold;
+}
+
+#container .buttonArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 20%;
+  gap: 1rem;
+}
+
+#container .buttonArea .get-started-button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 90%;
+  padding: .5rem 0;
+  background: linear-gradient(0deg, rgba(0,162,134,1) 0%, rgba(2,199,170,1) 100%);
+  border-radius: 8px;
+}
+
+#container .buttonArea .already-account-button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  width: 90%;
+  padding: .5rem 0;
+  border: 2px solid #02C7AA;
+  border-radius: 8px;
+  color: black;
+}
