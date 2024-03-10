@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "Monteserrat";
+  src: url("./src/font/Montserrat-VariableFont_wght.ttf");
+}
+
+* {
+  font-family: "Monteserrat";
+  color: black;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
