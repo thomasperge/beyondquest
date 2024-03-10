@@ -2,7 +2,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/rea
 import Button from '../../components/button/button.js';
 import Heading from '../../components/heading/heading.js';
 import { useIonRouter } from '@ionic/react';
-import './login.css'
+import './signin.css'
 
 const LoginPage: React.FC = () => {
   const navigate = useIonRouter();
@@ -11,7 +11,7 @@ const LoginPage: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className="container">
-          hello
+          Login
         </div>
       </IonContent>
     </IonPage>
