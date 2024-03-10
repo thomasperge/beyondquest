@@ -1,25 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { IonContent } from "@ionic/react";
+import React, { useEffect } from "react";
 import HobbiesCategoriesComponent from "../HobbiesCategories/HobbiesCategories.js";
 import "./ScrollableHobbiesList.css";
 
 interface ScrollableHobbiesListProps {
   categories: string[];
+  selectedCategories: string[];
+  onCategoryClick: (category: string) => void;
 }
 
 const ScrollableHobbiesList: React.FC<ScrollableHobbiesListProps> = ({
   categories,
+  selectedCategories,
+  onCategoryClick
 }) => {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   const handleCategoryClick = (category: string) => {
-    setSelectedCategories((prevSelected) => {
-      if (prevSelected.includes(category)) {
-        return prevSelected.filter((c) => c !== category);
-      } else {
-        return [...prevSelected, category];
-      }
-    });
+    if (onCategoryClick) {
+      onCategoryClick(category);
+    }
   };
 
   useEffect(() => {

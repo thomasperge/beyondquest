@@ -1,4 +1,0 @@
-.scrollable-hobbies-list {
-  max-height: 500px; /* Exemple de hauteur maximale */
-  overflow-y: auto; /* Active le défilement si le contenu dépasse la hauteur */
-}

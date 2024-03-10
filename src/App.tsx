@@ -6,6 +6,8 @@ import Auth from './pages/AuthPage/AuthPage.js';
 import Signin from './pages/Signin/signin.js';
 import Information from './pages/Register/Informations/Information.js';
 import Hobbies from './pages/Register/Hobbies/Hobbies.js';
+import SetGoal from './pages/Register/SetGoal/SetGoal.js';
+import Loading from './pages/Register/Loading/Loading.js';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -51,6 +53,12 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/signup/hobbies">
           <Hobbies />
+        </Route>
+        <Route exact path="/signup/goal">
+          <SetGoal />
+        </Route>
+        <Route exact path="/signup/loading">
+          <Loading />
         </Route>
       </IonRouterOutlet>
     </IonReactRouter>

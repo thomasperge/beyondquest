@@ -2,7 +2,9 @@ import {
   IonContent,
   IonPage,
   useIonRouter,
+	IonToast
 } from "@ionic/react";
+import { useState } from "react";
 import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
 import HeadingComponent from "../../../components/heading/heading.js";
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
@@ -13,6 +15,9 @@ import "./Information.css";
 
 const InformationPage: React.FC = () => {
 	const navigate = useIonRouter();
+
+	// Toast
+	const [toastIsShown, setToastIsShown] = useState(false);
 
   const validateInputs = () => {
     const inputs = document.querySelectorAll(".input-field");
@@ -134,9 +139,20 @@ const InformationPage: React.FC = () => {
 							onClick={() => {
 								if (validateInputs()) {
 									navigate.push('/signup/hobbies', 'root', 'replace')
+								} else {
+									setToastIsShown(true);
 								}
 							}}
 						/>
+
+						<IonToast
+              isOpen={toastIsShown}
+              onDidDismiss={() => setToastIsShown(false)}
+              message="Veuillez remplir tout les champs"
+              duration={2500}
+              position="top"
+              className="test"
+            />
 
 						<PrivacyPolicyComponent></PrivacyPolicyComponent>
 					</div>
