@@ -15,7 +15,7 @@ const AuthPage: React.FC = () => {
             {/* Title */}
             <Heading
               text="BeyondQuest"
-              color="#00A286"
+              color="var(--ion-color-600)"
               fontSize="1.8rem"
               fontWeight="700"
             />
@@ -23,7 +23,7 @@ const AuthPage: React.FC = () => {
             {/* Subtitle */}
             <Heading
               text="Boost your efficiency and achieve your goals faster"
-              color="black"
+              color="var(--ion-color-dark)"
               fontSize="1.15rem"
               fontWeight="500"
               padding="0 2rem"
@@ -35,25 +35,25 @@ const AuthPage: React.FC = () => {
             <Button
               text="Get Started"
               width="90%"
-              color="white"
+              color="var(--ion-color-light)"
               fontSize="1.2rem"
               fontWeight="600"
-              background="linear-gradient(0deg, rgba(0,162,134,1) 0%, rgba(2,199,170,1) 100%)"
+              background="var(--ionc-gradient-400)"
               borderRadius="8px"
               padding=".5rem"
-              onClick={() => navigate.push('/signup', 'root', 'replace')}
+              onClick={() => navigate.push('/signup/informations', 'root', 'replace')}
             />
 
             {/* Already have an account */}
             <Button
               text="I already have an account"
               width="90%"
-              color="black"
+              color="var(--ion-color-dark)"
               fontSize="1.2rem"
               fontWeight="600"
               borderRadius="8px"
               background="transparent"
-              border="2px solid #02C7AA"
+              border="2px solid var(--ion-color-500)"
               padding=".5rem"
               onClick={() => navigate.push('/signin', 'root', 'replace')}
             />
