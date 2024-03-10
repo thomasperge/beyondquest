@@ -35,6 +35,7 @@ const AuthPage: React.FC = () => {
             <Button
               text="Get Started"
               width="90%"
+              height="50px"
               color="var(--ion-color-light)"
               fontSize="1.2rem"
               fontWeight="600"
@@ -48,6 +49,7 @@ const AuthPage: React.FC = () => {
             <Button
               text="I already have an account"
               width="90%"
+              height="50px"
               color="var(--ion-color-dark)"
               fontSize="1.2rem"
               fontWeight="600"
@@ -57,6 +59,7 @@ const AuthPage: React.FC = () => {
               padding=".5rem"
               onClick={() => navigate.push('/signin', 'root', 'replace')}
             />
+
           </div>
         </div>
       </IonContent>
