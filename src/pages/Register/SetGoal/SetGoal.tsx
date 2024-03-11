@@ -1,4 +1,4 @@
-import { IonContent, IonPage, useIonRouter } from "@ionic/react";
+import { IonContent, IonPage } from "@ionic/react";
 import HeadingComponent from "../../../components/heading/heading.js";
 import ButtonComponent from "../../../components/button/button.js";
 import targetSvg from "./../../../assets/svg/target.svg";
@@ -8,9 +8,10 @@ import statsSvg from "./../../../assets/svg/stats.svg";
 
 import "./SetGoal.css";
 import GoalitemsComponent from "../../../components/goalItems/goalItems.js";
+import { useHistory } from "react-router";
 
 const SetGoalPage: React.FC = () => {
-	const navigate = useIonRouter();
+  const history = useHistory();
 
 	return (
 		<IonPage>
@@ -67,7 +68,7 @@ const SetGoalPage: React.FC = () => {
 							borderRadius="8px"
 							padding="1rem 0"
               onClick={() => {
-                navigate.push('/signup/loading', 'root', 'replace')
+                history.push('/signup/loading', 'root')
 							}}
 						/>
 					</div>

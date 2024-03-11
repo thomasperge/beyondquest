@@ -1,7 +1,6 @@
 import {
   IonContent,
   IonPage,
-  useIonRouter,
   IonToast
 } from "@ionic/react";
 import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
@@ -12,9 +11,10 @@ import PrivacyPolicyComponent from "../../../components/PrivacyPolicy/Privacypol
 import "./Hobbies.css";
 import ScrollableHobbiesList from "../../../components/ScrollableHobbiesList/ScrollableHobbiesList.js";
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 const HobbiesPage: React.FC = () => {
-  const navigate = useIonRouter();
+  const history = useHistory();
 
   // Toast
   const [toastIsShown, setToastIsShown] = useState(false);
@@ -47,7 +47,7 @@ const HobbiesPage: React.FC = () => {
             <img
               src={arrowSvg}
               alt=""
-              onClick={() => navigate.push("/signup/informations", "root", "replace")}
+              onClick={() => history.push("/signup/informations", "root")}
             />
 
             {/* Progress Bar */}
@@ -94,7 +94,7 @@ const HobbiesPage: React.FC = () => {
                 if (validateHobbies()) {
                   const selectedCategoriesCopy = [...selectedCategories]; 
                   console.log("Catégories sélectionnées :", selectedCategoriesCopy);
-                  navigate.push("/signup/goal", "root", "replace");
+                  history.push("/signup/goal", "root");
                 } else {
                   setToastIsShown(true);
                 }

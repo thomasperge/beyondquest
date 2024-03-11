@@ -1,18 +1,25 @@
-import {
-	IonContent,
-	IonPage,
-	IonSpinner,
-	useIonRouter,
-} from "@ionic/react";
+import { IonContent, IonPage, IonSpinner } from "@ionic/react";
 import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import "./Loading.css";
 import HeadingComponent from "../../../components/heading/heading.js";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router";
 
 const LoadingPage: React.FC = () => {
-	const navigate = useIonRouter();
+  const history = useHistory();
+  const [isLoading, setIsLoading] = useState(true);
 
-	return (
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setIsLoading(false);
+      history.replace("/auth", { state: { isRegistered: false } });
+    }, 5000);
+
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return (
 		<IonPage>
 			<IonContent fullscreen>
 				<div id="loadingContainer">
@@ -22,7 +29,7 @@ const LoadingPage: React.FC = () => {
 						<img
 							src={arrowSvg}
 							alt=""
-							onClick={() => navigate.push("/signup/goal", "root", "replace")}
+							onClick={() => history.push("/signup/goal", "root")}
 						/>
 
 						{/* Progress Bar */}
@@ -57,3 +64,4 @@ const LoadingPage: React.FC = () => {
 };
 
 export default LoadingPage;
+

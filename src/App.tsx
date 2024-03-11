@@ -40,7 +40,7 @@ const App: React.FC = () => (
           <Home />
         </Route>
         <Route exact path="/">
-          <Redirect to="/home" />
+          <Redirect to="/auth" />
         </Route>
         <Route exact path="/auth">
           <Auth />

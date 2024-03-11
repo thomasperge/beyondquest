@@ -1,7 +1,6 @@
 import {
   IonContent,
   IonPage,
-  useIonRouter,
 	IonToast
 } from "@ionic/react";
 import { useState } from "react";
@@ -12,9 +11,10 @@ import InputComponent from "../../../components/input/input.js";
 import ButtonComponent from "../../../components/button/button.js";
 import PrivacyPolicyComponent from "../../../components/PrivacyPolicy/Privacypolicy.js";
 import "./Information.css";
+import { useHistory } from "react-router";
 
 const InformationPage: React.FC = () => {
-	const navigate = useIonRouter();
+  const history = useHistory();
 
 	// Toast
 	const [toastIsShown, setToastIsShown] = useState(false);
@@ -44,7 +44,7 @@ const InformationPage: React.FC = () => {
 							<img
 								src={arrowSvg}
 								alt=""
-								onClick={() => navigate.push("/auth", "root", "replace")}
+								onClick={() => history.push("/auth", "root")}
 							/>
 
 							{/* Progress Bar */}
@@ -138,7 +138,7 @@ const InformationPage: React.FC = () => {
 							padding=".5rem"
 							onClick={() => {
 								if (validateInputs()) {
-									navigate.push('/signup/hobbies', 'root', 'replace')
+									history.push('/signup/hobbies', 'root')
 								} else {
 									setToastIsShown(true);
 								}

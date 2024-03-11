@@ -1,11 +1,11 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import Button from '../../components/button/button.js';
 import Heading from '../../components/heading/heading.js';
-import { useIonRouter } from '@ionic/react';
 import './AuthPage.css';
+import { useHistory } from 'react-router';
 
 const AuthPage: React.FC = () => {
-  const navigate = useIonRouter();
+  const navigate = useHistory();
 
   return (
     <IonPage>
@@ -42,7 +42,7 @@ const AuthPage: React.FC = () => {
               background="var(--ionc-gradient-400)"
               borderRadius="8px"
               padding=".5rem"
-              onClick={() => navigate.push('/signup/informations', 'root', 'replace')}
+              onClick={() => navigate.push('/signup/informations', 'root')}
             />
 
             {/* Already have an account */}
@@ -57,7 +57,7 @@ const AuthPage: React.FC = () => {
               background="transparent"
               border="2px solid var(--ion-color-500)"
               padding=".5rem"
-              onClick={() => navigate.push('/signin', 'root', 'replace')}
+              onClick={() => navigate.push('/signin', 'root')}
             />
 
           </div>
