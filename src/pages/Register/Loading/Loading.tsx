@@ -1,10 +1,10 @@
 import { IonContent, IonPage, IonSpinner } from "@ionic/react";
-import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
-import arrowSvg from "./../../../assets/svg/leftarrow.svg";
-import "./Loading.css";
-import HeadingComponent from "../../../components/heading/heading.js";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
+import arrowSvg from "./../../../assets/svg/leftarrow.svg";
+import HeadingComponent from "../../../components/heading/heading.js";
+import "./loading.css";
 
 const LoadingPage: React.FC = () => {
   const history = useHistory();
@@ -13,7 +13,7 @@ const LoadingPage: React.FC = () => {
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setIsLoading(false);
-      history.replace("/auth", { state: { isRegistered: false } });
+      history.push("/home", { state: { isRegistered: false } });
     }, 5000);
 
     return () => clearTimeout(timeoutId);

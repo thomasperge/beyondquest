@@ -1,4 +1,4 @@
-import './Privacypolicy.css';
+import './privacypolicy.css';
 
 const PrivacyPolicyComponent: React.FC = () => {
   return (

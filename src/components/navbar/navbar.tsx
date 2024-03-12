@@ -1,11 +1,31 @@
-import { IonToolbar, IonTitle } from '@ionic/react';
+import React from 'react';
+import { IonTabs, IonTabBar, IonTabButton, IonLabel, IonRouterOutlet, IonTab, IonIcon, IonContent } from '@ionic/react';
+import { homeOutline, receiptOutline, cogOutline, playOutline, peopleOutline } from 'ionicons/icons';
 
-const NavBarComponent: React.FC = () => {
+const Navbar: React.FC = () => {
   return (
-    <IonToolbar style={{ '--background': 'var(--ion-color-800)', '--min-height': '50px' }}>
-      <IonTitle style={{ textAlign: 'center', color: 'white', fontSize: '1.1rem', fontWeight: '500' }}>BeyondQuest</IonTitle>
-    </IonToolbar>
+    <IonTabBar slot="bottom">
+      <IonTabButton tab="home" href="/home" selected={window.location.pathname === '/home'}>
+        <IonIcon icon={peopleOutline} color={window.location.pathname === '/home' ? 'primary' : 'medium'} size="medium" />
+      </IonTabButton>
+
+      <IonTabButton tab="signin" href="/signin" selected={window.location.pathname === '/signin'}>
+        <IonIcon icon={receiptOutline} color={window.location.pathname === '/signin' ? 'primary' : 'medium'} size="medium" />
+      </IonTabButton>
+
+      <IonTabButton tab="home" href="/home" selected={window.location.pathname === '/home'}>
+        <IonIcon icon={homeOutline} color={window.location.pathname === '/home' ? 'primary' : 'medium'} size="medium" />
+      </IonTabButton>
+
+      <IonTabButton tab="signin" href="/signin" selected={window.location.pathname === '/signin'}>
+        <IonIcon icon={playOutline} color={window.location.pathname === '/signin' ? 'primary' : 'medium'} size="medium" />
+      </IonTabButton>
+
+      <IonTabButton tab="home" href="/home" selected={window.location.pathname === '/home'}>
+        <IonIcon icon={cogOutline} color={window.location.pathname === '/home' ? 'primary' : 'medium'} size="medium" />
+      </IonTabButton>
+    </IonTabBar>
   );
 };
 
-export default NavBarComponent;
+export default Navbar;

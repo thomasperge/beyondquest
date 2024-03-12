@@ -1,17 +1,13 @@
-import {
-  IonContent,
-  IonPage,
-  IonToast
-} from "@ionic/react";
+import { IonContent,IonPage,IonToast} from "@ionic/react";
+import { useHistory } from "react-router";
+import { useState } from "react";
 import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
 import HeadingComponent from "../../../components/heading/heading.js";
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import ButtonComponent from "../../../components/button/button.js";
-import PrivacyPolicyComponent from "../../../components/privacyPolicy/Privacypolicy.js";
-import "./Hobbies.css";
-import ScrollableHobbiesList from "../../../components/scrollableHobbiesList/ScrollableHobbiesList.js";
-import { useState } from "react";
-import { useHistory } from "react-router";
+import PrivacyPolicyComponent from "../../../components/privacyPolicy/privacypolicy.js";
+import ScrollableHobbiesList from "../../../components/scrollableHobbiesList/scrollableHobbiesList.js";
+import "./hobbies.css";
 
 const HobbiesPage: React.FC = () => {
   const history = useHistory();

@@ -1,4 +1,4 @@
-import './HobbiesCategories.css';
+import './hobbiesCategories.css';
 
 interface ContainerProps {
   text: string;

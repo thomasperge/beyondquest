@@ -1,8 +1,8 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonPage } from '@ionic/react';
+import { useHistory } from 'react-router';
 import Button from '../../components/button/button.js';
 import Heading from '../../components/heading/heading.js';
-import './AuthPage.css';
-import { useHistory } from 'react-router';
+import './authPage.css';
 
 const AuthPage: React.FC = () => {
   const navigate = useHistory();

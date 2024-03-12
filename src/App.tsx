@@ -1,13 +1,13 @@
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home/Home';
-import Auth from './pages/AuthPage/AuthPage.js';
-import Signin from './pages/Signin/signin.js';
-import Information from './pages/Register/Informations/Information.js';
-import Hobbies from './pages/Register/Hobbies/Hobbies.js';
-import SetGoal from './pages/Register/SetGoal/SetGoal.js';
-import Loading from './pages/Register/Loading/Loading.js';
+import Home from './pages/home/home';
+import Auth from './pages/authPage/authPage.js';
+import Signin from './pages/signin/signin.js';
+import Information from './pages/register/informations/information.js';
+import Hobbies from './pages/register/hobbies/hobbies.js';
+import SetGoal from './pages/register/setGoal/setGoal.js';
+import Loading from './pages/register/loading/loading.js';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';

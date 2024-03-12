@@ -1,37 +1,33 @@
-import {
-  IonContent,
-  IonPage,
-	IonToast
-} from "@ionic/react";
+import { IonContent, IonPage, IonToast } from "@ionic/react";
 import { useState } from "react";
+import { useHistory } from "react-router";
 import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
 import HeadingComponent from "../../../components/heading/heading.js";
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import InputComponent from "../../../components/input/input.js";
 import ButtonComponent from "../../../components/button/button.js";
-import PrivacyPolicyComponent from "../../../components/privacyPolicy/Privacypolicy.js";
-import "./Information.css";
-import { useHistory } from "react-router";
+import PrivacyPolicyComponent from "../../../components/privacyPolicy/privacypolicy.js";
+import "./information.css";
 
 const InformationPage: React.FC = () => {
-  const history = useHistory();
+	const history = useHistory();
 
 	// Toast
 	const [toastIsShown, setToastIsShown] = useState(false);
 
-  const validateInputs = () => {
-    const inputs = document.querySelectorAll(".input-field");
-    let allFilled = true;
+	const validateInputs = () => {
+		const inputs = document.querySelectorAll(".input-field");
+		let allFilled = true;
 
-    inputs.forEach((input) => {
-      const inputElement = input as HTMLInputElement;
-      if (!inputElement.value) {
-        allFilled = false;
-      }
-    });
+		inputs.forEach((input) => {
+			const inputElement = input as HTMLInputElement;
+			if (!inputElement.value) {
+				allFilled = false;
+			}
+		});
 
 		return allFilled
-  };
+	};
 
 	return (
 		<IonPage>
@@ -79,7 +75,7 @@ const InformationPage: React.FC = () => {
 								fontWeight="500"
 								padding=".8rem 1rem"
 								className="input-field"
-								></InputComponent>
+							></InputComponent>
 
 							<InputComponent
 								text="Last Name"
@@ -93,7 +89,7 @@ const InformationPage: React.FC = () => {
 								fontWeight="500"
 								padding=".8rem 1rem"
 								className="input-field"
-								></InputComponent>
+							></InputComponent>
 
 							<InputComponent
 								text="Age"
@@ -107,7 +103,7 @@ const InformationPage: React.FC = () => {
 								fontWeight="500"
 								padding=".8rem 1rem"
 								className="input-field"
-								></InputComponent>
+							></InputComponent>
 
 							<InputComponent
 								text="Country"
@@ -146,13 +142,13 @@ const InformationPage: React.FC = () => {
 						/>
 
 						<IonToast
-              isOpen={toastIsShown}
-              onDidDismiss={() => setToastIsShown(false)}
-              message="Veuillez remplir tout les champs"
-              duration={2500}
-              position="top"
-              className="redtoaststyle"
-            />
+							isOpen={toastIsShown}
+							onDidDismiss={() => setToastIsShown(false)}
+							message="Veuillez remplir tout les champs"
+							duration={2500}
+							position="top"
+							className="redtoaststyle"
+						/>
 
 						<PrivacyPolicyComponent></PrivacyPolicyComponent>
 					</div>

@@ -1,14 +1,13 @@
 import { IonContent, IonPage } from "@ionic/react";
+import { useHistory } from "react-router";
 import HeadingComponent from "../../../components/heading/heading.js";
 import ButtonComponent from "../../../components/button/button.js";
 import targetSvg from "./../../../assets/svg/target.svg";
 import rocketSvg from "./../../../assets/svg/rocket.svg";
 import smsSvg from "./../../../assets/svg/sms.svg";
 import statsSvg from "./../../../assets/svg/stats.svg";
-
-import "./SetGoal.css";
 import GoalitemsComponent from "../../../components/goalItems/goalItems.js";
-import { useHistory } from "react-router";
+import "./setGoal.css";
 
 const SetGoalPage: React.FC = () => {
   const history = useHistory();

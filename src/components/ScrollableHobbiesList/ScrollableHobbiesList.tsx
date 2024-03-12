@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import HobbiesCategoriesComponent from "../hobbiesCategories/HobbiesCategories.js";
-import "./ScrollableHobbiesList.css";
+import HobbiesCategoriesComponent from "../hobbiesCategories/hobbiesCategories.js";
+import "./scrollableHobbiesList.css";
 
 interface ScrollableHobbiesListProps {
   categories: string[];
