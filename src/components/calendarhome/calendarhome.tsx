@@ -25,7 +25,7 @@ const CalendarHomeComponent: React.FC<ContainerProps> = ({ ...props }) => {
   };
   
   return (
-    <div className="calendar-container">
+    <div className="calendar-container ion-margin-bottom">
       <div className="calendar-header">Last 14 days</div>
       <div className="calendar-grid">
         {last14Days.reverse().map((day, index) => (
