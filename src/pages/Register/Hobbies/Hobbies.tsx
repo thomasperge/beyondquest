@@ -9,7 +9,7 @@ import PrivacyPolicyComponent from "../../../components/privacyPolicy/privacypol
 import ScrollableHobbiesList from "../../../components/scrollableHobbiesList/scrollableHobbiesList.js";
 import "./hobbies.css";
 
-const HobbiesPage: React.FC = () => {
+const Hobbies: React.FC = () => {
   const history = useHistory();
 
   // Toast
@@ -114,4 +114,4 @@ const HobbiesPage: React.FC = () => {
   );
 };
 
-export default HobbiesPage;
+export default Hobbies;

@@ -2,9 +2,9 @@ import { IonContent, IonPage } from '@ionic/react';
 import { useHistory } from 'react-router';
 import Button from '../../components/button/button.js';
 import Heading from '../../components/heading/heading.js';
-import './authPage.css';
+import './auth.css';
 
-const AuthPage: React.FC = () => {
+const Auth: React.FC = () => {
   const navigate = useHistory();
 
   return (
@@ -67,4 +67,4 @@ const AuthPage: React.FC = () => {
   );
 };
 
-export default AuthPage;
+export default Auth;
