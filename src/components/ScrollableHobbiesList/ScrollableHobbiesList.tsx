@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import HobbiesCategoriesComponent from "../HobbiesCategories/HobbiesCategories.js";
+import HobbiesCategoriesComponent from "../hobbiesCategories/HobbiesCategories.js";
 import "./ScrollableHobbiesList.css";
 
 interface ScrollableHobbiesListProps {

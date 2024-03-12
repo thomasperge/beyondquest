@@ -9,7 +9,7 @@ import HeadingComponent from "../../../components/heading/heading.js";
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import InputComponent from "../../../components/input/input.js";
 import ButtonComponent from "../../../components/button/button.js";
-import PrivacyPolicyComponent from "../../../components/PrivacyPolicy/Privacypolicy.js";
+import PrivacyPolicyComponent from "../../../components/privacyPolicy/Privacypolicy.js";
 import "./Information.css";
 import { useHistory } from "react-router";
 
@@ -151,7 +151,7 @@ const InformationPage: React.FC = () => {
               message="Veuillez remplir tout les champs"
               duration={2500}
               position="top"
-              className="test"
+              className="redtoaststyle"
             />
 
 						<PrivacyPolicyComponent></PrivacyPolicyComponent>

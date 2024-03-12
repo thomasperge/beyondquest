@@ -18,3 +18,15 @@
   display: flex;
   flex-direction: column;
 }
+
+.redtoaststyle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: red;
+}
+
+.greentoaststyle {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ion-color-500);
+}

@@ -7,9 +7,9 @@ import ProgressBarComponent from "../../../components/progressbar/progressbar.js
 import HeadingComponent from "../../../components/heading/heading.js";
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import ButtonComponent from "../../../components/button/button.js";
-import PrivacyPolicyComponent from "../../../components/PrivacyPolicy/Privacypolicy.js";
+import PrivacyPolicyComponent from "../../../components/privacyPolicy/Privacypolicy.js";
 import "./Hobbies.css";
-import ScrollableHobbiesList from "../../../components/ScrollableHobbiesList/ScrollableHobbiesList.js";
+import ScrollableHobbiesList from "../../../components/scrollableHobbiesList/ScrollableHobbiesList.js";
 import { useState } from "react";
 import { useHistory } from "react-router";
 
@@ -107,7 +107,7 @@ const HobbiesPage: React.FC = () => {
               message="Veuillez sélectionner au moins 2 catégories"
               duration={2500}
               position="top"
-              className="toast-hobbies"
+              className="redtoaststyle"
             />
 
             <PrivacyPolicyComponent></PrivacyPolicyComponent>
