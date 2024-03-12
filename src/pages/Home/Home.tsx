@@ -44,7 +44,7 @@ const Home: React.FC = () => {
         <CalendarHomeComponent
           lastnbDays={14}
           daywithStreak={["1", "2"]}
-          redirection="/auth"
+          redirection="/challenge"
         />
 
         {/* Latest Challenge */}
