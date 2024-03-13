@@ -11,6 +11,36 @@ import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js
 import Navbar from "../../components/navbar/navbar.js";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
 
+const challenges = [
+  {
+    id: 1,
+    days: "Mondays",
+    hours: "21h25",
+    categories: "Cuisine",
+    challenge: "Faire des cookies originaux",
+    difficulty: DifficultyDto.Easy,
+    iconsvgurl: rocketSvg,
+  },
+  {
+    id: 2,
+    days: "Yesterday",
+    hours: "06h15",
+    categories: "Sport",
+    challenge: "Faire 20 pompes et des 40 squats",
+    difficulty: DifficultyDto.Medium,
+    iconsvgurl: targetSvg,
+  },
+  {
+    id: 3,
+    days: "Friday",
+    hours: "12h35",
+    categories: "Lecture",
+    challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
+    difficulty: DifficultyDto.Hard,
+    iconsvgurl: statsSvg,
+  },
+];
+
 const Home: React.FC = () => {
   return (
     <IonPage>
@@ -43,7 +73,7 @@ const Home: React.FC = () => {
 
         <CalendarHomeComponent
           lastnbDays={14}
-          daywithStreak={["1", "2"]}
+          daywithStreak={["1", "2", "3"]}
           redirection="/challenge"
         />
 
@@ -57,33 +87,17 @@ const Home: React.FC = () => {
         />
 
         <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+        {challenges.map(({id, days, hours, categories, challenge, difficulty, iconsvgurl }) => (
           <ChallengeItemsComponent
-            days="Monday"
-            hours="21h25"
-            categorie="Cuisine"
-            challenge="Faire des cookies originaux."
-            difficulty={DifficultyDto.Easy}
-            iconsvgurl={rocketSvg}
-          ></ChallengeItemsComponent>
-
-          <ChallengeItemsComponent
-            days="Wednesday"
-            hours="19h00"
-            categorie="Sport"
-            challenge="Faire une séance d'exercice de 30 minutes."
-            difficulty={DifficultyDto.Medium}
-            iconsvgurl={targetSvg}
-          ></ChallengeItemsComponent>
-
-          <ChallengeItemsComponent
-            days="Friday"
-            hours="18h30"
-            categorie="Musique"
-            challenge="Apprendre une nouvelle chanson à la guitare."
-            difficulty={DifficultyDto.Hard}
-            iconsvgurl={statsSvg}
-          ></ChallengeItemsComponent>
-
+            key={id}
+            days={days}
+            hours={hours}
+            categorie={categories}
+            challenge={challenge}
+            difficulty={difficulty}
+            iconsvgurl={iconsvgurl}
+          />
+        ))}
         </div>
       </IonContent>
       <IonFooter>
