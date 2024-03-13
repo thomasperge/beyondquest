@@ -1,0 +1,32 @@
+.goalitems-items {
+  width: 100%;
+  gap: 1rem;
+  padding: 1rem 1rem;
+}
+
+.goalitems-items-logo {
+  display: flex;
+  justify-content: center;
+  width: 20%;
+  height: 100%;
+}
+
+.goalitems-items-text {
+  width: 80%;
+  height: 100%;
+  align-items: start;
+  justify-content: center;
+  gap: .5rem;
+}
+
+.goalitems-items-title {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.goalitems-items-subtitle {
+  font-size: .90rem;
+  font-weight: 500;
+  color: gray;
+}
