@@ -1,15 +1,18 @@
 import React from "react";
-import { IonContent, IonFooter, IonPage } from "@ionic/react";
 import { DifficultyDto } from "../../enum/difficulty.js";
 import rocketSvg from "./../../assets/svg/rocket.svg";
 import targetSvg from "./../../assets/svg/target.svg";
 import statsSvg from "./../../assets/svg/stats.svg";
-import ToolBarComponent from "../../components/toolbar/toolbar.js";
 import HeadingComponent from "../../components/heading/heading.js";
 import DailyStreakStatsComponent from "../../components/dailystreakstats/dailystreakstats.js";
 import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js";
-import Navbar from "../../components/navbar/navbar.js";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    navLayout: any;
+  }
+}
 
 const challenges = [
   {
@@ -43,9 +46,7 @@ const challenges = [
 
 const Home: React.FC = () => {
   return (
-    <IonPage>
-      <ToolBarComponent />
-      <IonContent fullscreen className="ion-padding-horizontal">
+    < >
         {/* Good Morning / Afternoon */}
         <div className="flex">
           <HeadingComponent
@@ -99,11 +100,8 @@ const Home: React.FC = () => {
           />
         ))}
         </div>
-      </IonContent>
-      <IonFooter>
-        <Navbar />
-      </IonFooter>
-    </IonPage>
+    </>
+   
   );
 };
 
