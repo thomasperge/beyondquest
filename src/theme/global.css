@@ -22,11 +22,13 @@
 .redtoaststyle {
   font-size: 1.15rem;
   font-weight: 600;
-  color: red;
+  color: var(--ion-toast-red);
+  --background: var(--ion-toast-background)
 }
 
 .greentoaststyle {
   font-size: 1.15rem;
   font-weight: 600;
-  color: var(--ion-color-500);
+  color: var(--ion-toast-green);
+  --background: var(--ion-toast-background)
 }

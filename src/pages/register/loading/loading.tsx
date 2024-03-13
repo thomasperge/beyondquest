@@ -7,19 +7,20 @@ import HeadingComponent from "../../../components/heading/heading.js";
 import "./loading.css";
 
 const LoadingPage: React.FC = () => {
-  const history = useHistory();
-  const [isLoading, setIsLoading] = useState(true);
+	const history = useHistory();
+	const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      setIsLoading(false);
-      history.push("/home", { state: { isRegistered: false } });
-    }, 5000);
+	useEffect(() => {
+		const timeoutId = setTimeout(() => {
+			setIsLoading(false);
+			localStorage.setItem('isNewUser', 'true');
+			history.push('/home');
+		}, 500);
 
-    return () => clearTimeout(timeoutId);
-  }, []);
+		return () => clearTimeout(timeoutId);
+	}, []);
 
-  return (
+	return (
 		<IonPage>
 			<IonContent fullscreen>
 				<div id="loadingContainer">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
 import rocketSvg from "./../../assets/svg/rocket.svg";
 import targetSvg from "./../../assets/svg/target.svg";
@@ -7,11 +7,18 @@ import HeadingComponent from "../../components/heading/heading.js";
 import DailyStreakStatsComponent from "../../components/dailystreakstats/dailystreakstats.js";
 import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
+import { RouteComponentProps, useLocation } from "react-router-dom";
+import { IonToast } from "@ionic/react";
 
 declare namespace JSX {
   interface IntrinsicElements {
     navLayout: any;
   }
+}
+
+interface LocationState {
+  isRegistered: boolean;
+  fromLoading: boolean;
 }
 
 const challenges = [
@@ -45,50 +52,62 @@ const challenges = [
 ];
 
 const Home: React.FC = () => {
+  const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    const isNewUser = localStorage.getItem('isNewUser') === 'true';
+
+    if (isNewUser) {
+      setShowToast(true);
+      localStorage.setItem('isNewUser', 'false');
+    }
+  }, []);
+
+
   return (
     < >
-        {/* Good Morning / Afternoon */}
-        <div className="flex">
-          <HeadingComponent
-            text="Good morning, Thomas"
-            fontSize="1.5rem"
-            fontWeight="600"
-            color="var(--ion-color-950)"
-            padding="2rem 0"
-          />
-        </div>
-
-        {/* Streak Stats */}
-        <div className="ion-margin-bottom">
-          <DailyStreakStatsComponent nbStreak="16" dailyChallenge="2/3" />
-        </div>
-
-        {/* Calendar */}
+      {/* Good Morning / Afternoon */}
+      <div className="flex">
         <HeadingComponent
-          text="Calendar"
-          fontSize="1.2rem"
+          text="Good morning, Thomas"
+          fontSize="1.5rem"
           fontWeight="600"
-          color="var(--ion-color-dark)"
-          padding="0 0 .5rem 0"
+          color="var(--ion-color-950)"
+          padding="2rem 0"
         />
+      </div>
 
-        <CalendarHomeComponent
-          lastnbDays={14}
-          daywithStreak={["1", "2", "3"]}
-          redirection="/challenge"
-        />
+      {/* Streak Stats */}
+      <div className="ion-margin-bottom">
+        <DailyStreakStatsComponent nbStreak="16" dailyChallenge="2/3" />
+      </div>
 
-        {/* Latest Challenge */}
-        <HeadingComponent
-          text="Latest Challenges"
-          fontSize="1.2rem"
-          fontWeight="600"
-          color="var(--ion-color-dark)"
-          padding="0 0 .5rem 0"
-        />
+      {/* Calendar */}
+      <HeadingComponent
+        text="Calendar"
+        fontSize="1.2rem"
+        fontWeight="600"
+        color="var(--ion-color-dark)"
+        padding="0 0 .5rem 0"
+      />
 
-        <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-        {challenges.map(({id, days, hours, categories, challenge, difficulty, iconsvgurl }) => (
+      <CalendarHomeComponent
+        lastnbDays={14}
+        daywithStreak={["1", "2", "3"]}
+        redirection="/challenge"
+      />
+
+      {/* Latest Challenge */}
+      <HeadingComponent
+        text="Latest Challenges"
+        fontSize="1.2rem"
+        fontWeight="600"
+        color="var(--ion-color-dark)"
+        padding="0 0 .5rem 0"
+      />
+
+      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+        {challenges.map(({ id, days, hours, categories, challenge, difficulty, iconsvgurl }) => (
           <ChallengeItemsComponent
             key={id}
             days={days}
@@ -99,9 +118,18 @@ const Home: React.FC = () => {
             iconsvgurl={iconsvgurl}
           />
         ))}
-        </div>
+      </div>
+      
+      <IonToast
+        isOpen={showToast}
+        onDidDismiss={() => setShowToast(false)}
+        message="Welcome to BeyondQuest! Let's get started with your challenges."
+        duration={4000}
+        position="top"
+        className="greentoaststyle"
+      />
     </>
-   
+
   );
 };
 

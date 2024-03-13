@@ -129,7 +129,7 @@ const InformationPage: React.FC = () => {
 							color="var(--ion-color-light)"
 							fontSize="1.2rem"
 							fontWeight="600"
-							background="var(--ionc-gradient-400)"
+							background="var(--ion-gradient-400)"
 							borderRadius="8px"
 							padding=".5rem"
 							onClick={() => {
