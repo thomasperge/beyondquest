@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
+import { RouteComponentProps, useLocation } from "react-router-dom";
+import { IonActionSheet, IonAlert, IonButton, IonModal, IonToast } from "@ionic/react";
 import rocketSvg from "./../../assets/svg/rocket.svg";
 import targetSvg from "./../../assets/svg/target.svg";
 import statsSvg from "./../../assets/svg/stats.svg";
@@ -7,8 +9,7 @@ import HeadingComponent from "../../components/heading/heading.js";
 import DailyStreakStatsComponent from "../../components/dailystreakstats/dailystreakstats.js";
 import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
-import { RouteComponentProps, useLocation } from "react-router-dom";
-import { IonToast } from "@ionic/react";
+import './home.css'
 
 declare namespace JSX {
   interface IntrinsicElements {
@@ -52,17 +53,16 @@ const challenges = [
 ];
 
 const Home: React.FC = () => {
-  const [showToast, setShowToast] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const isNewUser = localStorage.getItem('isNewUser') === 'true';
 
     if (isNewUser) {
-      setShowToast(true);
+      setShowAlert(true);
       localStorage.setItem('isNewUser', 'false');
     }
   }, []);
-
 
   return (
     < >
@@ -119,17 +119,16 @@ const Home: React.FC = () => {
           />
         ))}
       </div>
-      
+
       <IonToast
-        isOpen={showToast}
-        onDidDismiss={() => setShowToast(false)}
-        message="Welcome to BeyondQuest! Let's get started with your challenges."
-        duration={4000}
+        isOpen={showAlert}
+        onDidDismiss={() => setShowAlert(false)}
+        message="Welcome to BeyondQuest !"
+        duration={2000} // Durée du toast en millisecondes
         position="top"
         className="greentoaststyle"
       />
     </>
-
   );
 };
 
