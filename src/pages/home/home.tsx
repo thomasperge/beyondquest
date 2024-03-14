@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
-import { RouteComponentProps, useLocation } from "react-router-dom";
-import { IonActionSheet, IonAlert, IonButton, IonModal, IonToast } from "@ionic/react";
-import rocketSvg from "./../../assets/svg/rocket.svg";
-import targetSvg from "./../../assets/svg/target.svg";
-import statsSvg from "./../../assets/svg/stats.svg";
+import { IonActionSheet, IonAlert, IonToast } from "@ionic/react";
+import { toastController } from "@ionic/core";
+import { closeCircleSharp } from "ionicons/icons";
+import gymimage from './../../assets/imagecalendar/gym.png'
+import booksimage from './../../assets/imagecalendar/books.png'
+import smoothieimage from './../../assets/imagecalendar/smoothie.png'
+import cookSvg from "./../../assets/svg/cook.svg";
+import sportSvg from "./../../assets/svg/sport.svg";
+import bookSvg from "./../../assets/svg/book.svg";
 import HeadingComponent from "../../components/heading/heading.js";
 import DailyStreakStatsComponent from "../../components/dailystreakstats/dailystreakstats.js";
 import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
-import './home.css'
+import { useHistory } from "react-router";
+import ButtonComponent from "../../components/button/button.js";
 
 declare namespace JSX {
   interface IntrinsicElements {
     navLayout: any;
   }
-}
-
-interface LocationState {
-  isRegistered: boolean;
-  fromLoading: boolean;
 }
 
 const challenges = [
@@ -30,7 +30,7 @@ const challenges = [
     categories: "Cuisine",
     challenge: "Faire des cookies originaux",
     difficulty: DifficultyDto.Easy,
-    iconsvgurl: rocketSvg,
+    iconsvgurl: cookSvg,
   },
   {
     id: 2,
@@ -39,7 +39,7 @@ const challenges = [
     categories: "Sport",
     challenge: "Faire 20 pompes et des 40 squats",
     difficulty: DifficultyDto.Medium,
-    iconsvgurl: targetSvg,
+    iconsvgurl: sportSvg,
   },
   {
     id: 3,
@@ -48,24 +48,56 @@ const challenges = [
     categories: "Lecture",
     challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
     difficulty: DifficultyDto.Hard,
-    iconsvgurl: statsSvg,
+    iconsvgurl: bookSvg,
+  },
+  {
+    id: 4,
+    days: "Sunday",
+    hours: "23h56",
+    categories: "Lecture",
+    challenge: "Lire 60 pages et achter un nouveaux livre",
+    difficulty: DifficultyDto.Medium,
+    iconsvgurl: bookSvg,
   },
 ];
 
 const Home: React.FC = () => {
+  const history = useHistory();
+
   const [showAlert, setShowAlert] = useState(false);
+  const [showActionSheet, setShowActionSheet] = useState(false);
 
   useEffect(() => {
-    const isNewUser = localStorage.getItem('isNewUser') === 'true';
+    const isNewUser = localStorage.getItem("isNewUser") === "true";
 
     if (isNewUser) {
       setShowAlert(true);
-      localStorage.setItem('isNewUser', 'false');
+      localStorage.setItem("isNewUser", "false");
     }
   }, []);
 
+  const showToast = async (message: string) => {
+    const toast = await toastController.create({
+      message: message,
+      duration: 6000,
+      position: "top",
+      buttons: [
+        {
+          side: 'end',
+          icon: closeCircleSharp,
+          role: "cancel",
+          handler: () => {
+            toast.dismiss();
+          },
+        },
+      ],
+      cssClass: "newchallengetoast",
+    });
+    toast.present();
+  };
+
   return (
-    < >
+    <>
       {/* Good Morning / Afternoon */}
       <div className="flex">
         <HeadingComponent
@@ -82,7 +114,7 @@ const Home: React.FC = () => {
         <DailyStreakStatsComponent nbStreak="16" dailyChallenge="2/3" />
       </div>
 
-      {/* Calendar */}
+      {/* Calendar Title */}
       <HeadingComponent
         text="Calendar"
         fontSize="1.2rem"
@@ -91,9 +123,10 @@ const Home: React.FC = () => {
         padding="0 0 .5rem 0"
       />
 
+      {/* Calendar */}
       <CalendarHomeComponent
         lastnbDays={14}
-        daywithStreak={["1", "2", "3"]}
+        daywithStreak={[["3", gymimage], ["8", smoothieimage], ["13", booksimage]]}
         redirection="/challenge"
       />
 
@@ -106,42 +139,85 @@ const Home: React.FC = () => {
         padding="0 0 .5rem 0"
       />
 
+      {/* All Challenge */}
       <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-        {challenges.map(({ id, days, hours, categories, challenge, difficulty, iconsvgurl }) => (
-          <ChallengeItemsComponent
-            key={id}
-            days={days}
-            hours={hours}
-            categorie={categories}
-            challenge={challenge}
-            difficulty={difficulty}
-            iconsvgurl={iconsvgurl}
-          />
-        ))}
+        {challenges.slice(0, 3).map(
+          ({ id, days, hours, categories, challenge, difficulty, iconsvgurl }) => (
+            <ChallengeItemsComponent
+              key={id}
+              days={days}
+              hours={hours}
+              categorie={categories}
+              challenge={challenge}
+              difficulty={difficulty}
+              iconsvgurl={iconsvgurl}
+            />
+          )
+        )}
+
+        {challenges.length > 3 && (
+            <ButtonComponent
+              text='View all'
+              padding='.3rem 1.5rem .8rem 1.5rem'
+              background='transparent'
+              color='#686868'
+              fontSize='.9rem'
+              fontWeight='500'
+              onClick={() => history.replace('/challenge', 'root')}
+            ></ButtonComponent>
+        )}
       </div>
 
+
+      {/* IonAlert */}
       <IonAlert
         isOpen={showAlert}
         onDidDismiss={() => setShowAlert(false)}
-        header={'Prêt à relever un défi ?'}
-        message={'Sélectionnez votre choix ci-dessous.'}
+        header={"Prêt à relever un défi ?"}
+        message={"Sélectionnez votre choix ci-dessous."}
         buttons={[
           {
-            text: 'Pas maintenant',
-            role: 'cancel',
-            cssClass: 'secondary',
-            handler: () => {
-              console.log('Non clicked');
-            }
+            text: "Pas maintenant",
+            role: "cancel",
+            cssClass: "secondary",
           },
           {
-            text: 'Je suis prêt !',
-            cssClass: 'success',
+            text: "Je suis prêt !",
+            cssClass: "success",
             handler: () => {
-              console.log('Oui clicked');
-              // Mettez ici la logique pour démarrer un challenge
-            }
-          }
+              setShowActionSheet(true);
+            },
+          },
+        ]}
+      />
+
+      {/* IonActionSheet */}
+      <IonActionSheet
+        isOpen={showActionSheet}
+        onDidDismiss={() => setShowActionSheet(false)}
+        buttons={[
+          {
+            text: "Cuisine",
+            handler: () => {
+              showToast("Nouveau défi !\nFaire 10 cookies");
+            },
+          },
+          {
+            text: "Musculation",
+            handler: () => {
+              showToast("Nouveau défi !\nFaire 250 pompes");
+            },
+          },
+          {
+            text: "Lecture",
+            handler: () => {
+              showToast("Nouveau défi !\nLire 25 pages");
+            },
+          },
+          {
+            text: "Annuler",
+            role: "cancel",
+          },
         ]}
       />
     </>

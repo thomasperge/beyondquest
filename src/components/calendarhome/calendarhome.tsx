@@ -1,11 +1,12 @@
 import { useHistory } from 'react-router';
+import { StreakDto } from '../../enum/streak.js';
 import moment from 'moment';
 import ButtonComponent from '../button/button.js';
 import './calendarhome.css';
 
 interface ContainerProps {
   lastnbDays: number;
-  daywithStreak: string[];
+  daywithStreak: StreakDto;
   redirection: string
 }
 
@@ -23,21 +24,27 @@ const CalendarHomeComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const viewAllMemories = () => {
     history.push(props.redirection);
   };
-  
+
   return (
     <div className="calendar-container ion-margin-bottom">
       <div className="calendar-header">Last 14 days</div>
+
       <div className="calendar-grid">
-        {last14Days.reverse().map((day, index) => (
-          <div key={index} className={`calendar-day ${specialDays.includes(day) ? 'special-day' : ''} flex`}>
-            {day}
-          </div>
-        ))}
+        {last14Days.reverse().map((day, index) => {
+          const matchingPair = props.daywithStreak.find(([dayValue, _]) => dayValue === day);
+          const backgroundImage = matchingPair ? `url(${matchingPair[1]})` : 'none';
+
+          return (
+            <div key={index} className={`calendar-day ${matchingPair ? 'special-day' : ''} flex`} style={{ background: backgroundImage !== 'none' ? `rgba(255, 255, 255, 0.5) ${backgroundImage} no-repeat center center / cover` : 'none', }}>
+              {day}
+            </div>
+          );
+        })}
       </div>
 
       <div className="flex">
         <ButtonComponent
-          text='View all memories'
+          text='View all challenges'
           padding='.8rem 1.5rem'
           background='transparent'
           color='#ffffff'

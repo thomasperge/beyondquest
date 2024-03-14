@@ -29,10 +29,10 @@
 }
 
 .special-day {
-  background-color: rgb(91, 91, 255);
   border-radius: 8px;
   padding: 20px;
   margin-bottom: 10px;
   text-align: center;
-  color: white;
+  color: black;
+  background-color: white;
 }
