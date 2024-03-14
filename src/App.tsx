@@ -12,6 +12,7 @@ import Challenge from "./pages/challenge/challenge.js";
 import Discover from "./pages/discover/discover.js";
 import Friends from "./pages/friends/friends.js";
 import Settings from "./pages/settings/settings.js";
+import MainLoadingPage from "./pages/mainloading/mainloading.js";
 
 import LayoutWithNav from "./components/layout/layoutWithNav";
 
@@ -48,7 +49,7 @@ const App: React.FC = () => (
           ></LayoutWithNav>
         </Route>
         <Route exact path="/">
-          <Redirect to="/auth" />
+          <MainLoadingPage />
         </Route>
         <Route exact path="/auth">
           <Auth />

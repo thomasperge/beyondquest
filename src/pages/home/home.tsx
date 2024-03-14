@@ -120,13 +120,29 @@ const Home: React.FC = () => {
         ))}
       </div>
 
-      <IonToast
+      <IonAlert
         isOpen={showAlert}
         onDidDismiss={() => setShowAlert(false)}
-        message="Welcome to BeyondQuest !"
-        duration={2000} // Durée du toast en millisecondes
-        position="top"
-        className="greentoaststyle"
+        header={'Prêt à relever un défi ?'}
+        message={'Sélectionnez votre choix ci-dessous.'}
+        buttons={[
+          {
+            text: 'Pas maintenant',
+            role: 'cancel',
+            cssClass: 'secondary',
+            handler: () => {
+              console.log('Non clicked');
+            }
+          },
+          {
+            text: 'Je suis prêt !',
+            cssClass: 'success',
+            handler: () => {
+              console.log('Oui clicked');
+              // Mettez ici la logique pour démarrer un challenge
+            }
+          }
+        ]}
       />
     </>
   );

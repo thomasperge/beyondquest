@@ -14,8 +14,9 @@ const LoadingPage: React.FC = () => {
 		const timeoutId = setTimeout(() => {
 			setIsLoading(false);
 			localStorage.setItem('isNewUser', 'true');
+			localStorage.setItem('isRegistred', 'true')
 			history.push('/home');
-		}, 500);
+		}, 3500);
 
 		return () => clearTimeout(timeoutId);
 	}, []);
