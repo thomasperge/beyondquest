@@ -1,4 +1,4 @@
-import { IonContent,IonPage,IonToast} from "@ionic/react";
+import { IonContent, IonPage, IonToast } from "@ionic/react";
 import { useHistory } from "react-router";
 import { useState } from "react";
 import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
@@ -10,11 +10,11 @@ import ScrollableHobbiesList from "../../../components/scrollableHobbiesList/scr
 import "./hobbies.css";
 
 const Hobbies: React.FC = () => {
-  const history = useHistory();
+  const history = useHistory()
 
   // Toast
   const [toastIsShown, setToastIsShown] = useState(false);
-  
+
   // Categorie
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const categories = ["Sport", "Cuisine", "Finance", "Informatique", "Relation Sociale", "Lecture", "Langue", "Autre(s)"]
@@ -68,10 +68,10 @@ const Hobbies: React.FC = () => {
 
             {/* Hobbies Categorie */}
             <div className="hobbies-area">
-              <ScrollableHobbiesList 
+              <ScrollableHobbiesList
                 categories={categories}
                 selectedCategories={selectedCategories}
-                onCategoryClick={handleCategoryClick}/>
+                onCategoryClick={handleCategoryClick} />
             </div>
           </div>
 
@@ -88,7 +88,7 @@ const Hobbies: React.FC = () => {
               padding=".5rem"
               onClick={() => {
                 if (validateHobbies()) {
-                  const selectedCategoriesCopy = [...selectedCategories]; 
+                  const selectedCategoriesCopy = [...selectedCategories];
                   console.log("Catégories sélectionnées :", selectedCategoriesCopy);
                   history.push("/signup/goal", "root");
                 } else {

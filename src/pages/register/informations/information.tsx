@@ -1,6 +1,7 @@
 import { IonContent, IonPage, IonToast } from "@ionic/react";
 import { useState } from "react";
 import { useHistory } from "react-router";
+import { UserInformationsDto } from "../../../enum/userInformation.js";
 import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
 import HeadingComponent from "../../../components/heading/heading.js";
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
@@ -15,6 +16,22 @@ const InformationPage: React.FC = () => {
 	// Toast
 	const [toastIsShown, setToastIsShown] = useState(false);
 
+	// Form
+	const [formData, setFormData] = useState<UserInformationsDto>({
+		name: '',
+		lastname: '',
+		age: '',
+		country: ''
+	});
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof UserInformationsDto) => {
+		const value = e.target.value;
+		setFormData(prevData => ({
+			...prevData,
+			[fieldName]: value
+		}));
+	};
+
 	const validateInputs = () => {
 		const inputs = document.querySelectorAll(".input-field");
 		let allFilled = true;
@@ -27,6 +44,16 @@ const InformationPage: React.FC = () => {
 		});
 
 		return allFilled
+	};
+
+	const handleSubmit = () => {
+		if (validateInputs()) {
+			// Redirect to the next page and pass form data
+			history.push('/signup/hobbies', formData);
+		} else {
+			// Show toast message if form validation fails
+			setToastIsShown(true);
+		}
 	};
 
 	return (
@@ -75,6 +102,7 @@ const InformationPage: React.FC = () => {
 								fontWeight="500"
 								padding=".8rem 1rem"
 								className="input-field"
+								onChange={(e) => handleInputChange(e, 'name')}
 							></InputComponent>
 
 							<InputComponent
@@ -134,7 +162,9 @@ const InformationPage: React.FC = () => {
 							padding=".5rem"
 							onClick={() => {
 								if (validateInputs()) {
-									history.push('/signup/hobbies', 'root')
+									history.push('/signup/hobbies', {
+										name: "John Doe"
+									})
 								} else {
 									setToastIsShown(true);
 								}

@@ -1,0 +1,5 @@
+.custom-input {
+  --background: var(--ion-color-50);
+  --border-color: black;
+  --border-radius: 0.5rem;
+}

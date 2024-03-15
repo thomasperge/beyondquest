@@ -10,6 +10,7 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-600: #00A286;
   --ion-color-800: #00544B;
   --ion-color-950: #00302B;
+  --ion-color-950-low: #00302bb4;
 
   --ion-gradient-400: linear-gradient(0deg, rgba(0,162,134,1) 0%, rgba(2,199,170,1) 100%);
 

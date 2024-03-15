@@ -13,11 +13,12 @@ interface ContainerProps {
   fontWeight?: string;
   padding?: string;
   className?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const InputComponent: React.FC<ContainerProps> = ({ ...styles }) => {
+const InputComponent: React.FC<ContainerProps> = ({ onChange, ...styles }) => {
   return (
-    <input className={styles.className} type={styles.type} placeholder={styles.text} style={styles} />
+    <input onChange={onChange} className={styles.className} type={styles.type} placeholder={styles.text} style={styles} />
   );
 };
 
