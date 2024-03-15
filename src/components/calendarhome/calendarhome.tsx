@@ -44,7 +44,7 @@ const CalendarHomeComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
       <div className="flex">
         <ButtonComponent
-          text='View all challenges'
+          text='View all my challenges'
           padding='.8rem 1.5rem'
           background='transparent'
           color='#ffffff'

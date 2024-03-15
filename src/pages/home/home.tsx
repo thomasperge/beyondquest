@@ -9,18 +9,15 @@ import smoothieimage from './../../assets/imagecalendar/smoothie.png'
 import cookSvg from "./../../assets/svg/cook.svg";
 import sportSvg from "./../../assets/svg/sport.svg";
 import bookSvg from "./../../assets/svg/book.svg";
+import meditationSvg from "./../../assets/svg/meditation.svg";
+import notepadSvg from "./../../assets/svg/notepad.svg";
 import HeadingComponent from "../../components/heading/heading.js";
 import DailyStreakStatsComponent from "../../components/dailystreakstats/dailystreakstats.js";
 import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
 import { useHistory } from "react-router";
 import ButtonComponent from "../../components/button/button.js";
-
-declare namespace JSX {
-  interface IntrinsicElements {
-    navLayout: any;
-  }
-}
+import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/trendchallengeitems.js";
 
 const challenges = [
   {
@@ -105,7 +102,7 @@ const Home: React.FC = () => {
           fontSize="1.5rem"
           fontWeight="600"
           color="var(--ion-color-950)"
-          padding="2rem 0"
+          padding="2rem 0 1.5rem 0"
         />
       </div>
 
@@ -156,18 +153,47 @@ const Home: React.FC = () => {
         )}
 
         {challenges.length > 3 && (
-            <ButtonComponent
-              text='View all'
-              padding='.3rem 1.5rem .8rem 1.5rem'
-              background='transparent'
-              color='#686868'
-              fontSize='.9rem'
-              fontWeight='500'
-              onClick={() => history.replace('/challenge', 'root')}
-            ></ButtonComponent>
+          <ButtonComponent
+            text='View all'
+            padding='.3rem 1.5rem .8rem 1.5rem'
+            background='transparent'
+            color='#686868'
+            fontSize='.9rem'
+            fontWeight='500'
+            onClick={() => history.replace('/challenge', 'root')}
+          ></ButtonComponent>
         )}
       </div>
 
+      {/* Trends Challenge */}
+      <HeadingComponent
+        text="Trending Challenges"
+        fontSize="1.2rem"
+        fontWeight="600"
+        color="var(--ion-color-dark)"
+        padding="0 0 .5rem 0"
+      />
+
+      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+        <TrendsChallengeItemsComponent
+          challenge="Faire 850 tractions en 1 semaine"
+          difficulty={DifficultyDto.Medium}
+          iconsvgurl={sportSvg}
+          nbOfParticipants={1254}
+        />
+        <TrendsChallengeItemsComponent
+          challenge="Méditer pendant 10 minutes/jour"
+          difficulty={DifficultyDto.Easy}
+          iconsvgurl={meditationSvg}
+          nbOfParticipants={789}
+        />
+        <TrendsChallengeItemsComponent
+          challenge="Planifier demain en 5 minutes"
+          difficulty={DifficultyDto.Hard}
+          iconsvgurl={notepadSvg}
+          nbOfParticipants={11589}
+        />
+      </div>
 
       {/* IonAlert */}
       <IonAlert
