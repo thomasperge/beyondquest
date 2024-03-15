@@ -8,6 +8,7 @@ import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import InputComponent from "../../../components/input/input.js";
 import ButtonComponent from "../../../components/button/button.js";
 import PrivacyPolicyComponent from "../../../components/privacyPolicy/privacypolicy.js";
+import UserService from './../../../services/userservice.js'
 import "./information.css";
 
 const InformationPage: React.FC = () => {
@@ -16,15 +17,16 @@ const InformationPage: React.FC = () => {
 	// Toast
 	const [toastIsShown, setToastIsShown] = useState(false);
 
-	// Form
+	// User data
 	const [formData, setFormData] = useState<UserInformationsDto>({
 		name: '',
 		lastname: '',
-		age: '',
-		country: ''
+		age: 0,
+		country: '',
+		usercategorie: []
 	});
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof UserInformationsDto) => {
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof typeof formData) => {
 		const value = e.target.value;
 		setFormData(prevData => ({
 			...prevData,
@@ -44,16 +46,6 @@ const InformationPage: React.FC = () => {
 		});
 
 		return allFilled
-	};
-
-	const handleSubmit = () => {
-		if (validateInputs()) {
-			// Redirect to the next page and pass form data
-			history.push('/signup/hobbies', formData);
-		} else {
-			// Show toast message if form validation fails
-			setToastIsShown(true);
-		}
 	};
 
 	return (
@@ -117,6 +109,7 @@ const InformationPage: React.FC = () => {
 								fontWeight="500"
 								padding=".8rem 1rem"
 								className="input-field"
+								onChange={(e) => handleInputChange(e, 'lastname')}
 							></InputComponent>
 
 							<InputComponent
@@ -131,6 +124,7 @@ const InformationPage: React.FC = () => {
 								fontWeight="500"
 								padding=".8rem 1rem"
 								className="input-field"
+								onChange={(e) => handleInputChange(e, 'age')}
 							></InputComponent>
 
 							<InputComponent
@@ -145,6 +139,7 @@ const InformationPage: React.FC = () => {
 								fontWeight="500"
 								padding=".8rem 1rem"
 								className="input-field"
+								onChange={(e) => handleInputChange(e, 'country')}
 							></InputComponent>
 						</div>
 					</div>
@@ -162,9 +157,8 @@ const InformationPage: React.FC = () => {
 							padding=".5rem"
 							onClick={() => {
 								if (validateInputs()) {
-									history.push('/signup/hobbies', {
-										name: "John Doe"
-									})
+									UserService.saveUserInfo(formData);
+									history.push('/signup/hobbies')
 								} else {
 									setToastIsShown(true);
 								}

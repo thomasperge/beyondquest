@@ -1,11 +1,7 @@
 export interface UserInformationsDto {
   name: string;
   lastname: string;
-  age: string;
+  age: number;
   country: string;
-}
-
-export interface UserDataDto {
-  userdata: UserInformationsDto
-	usercategorie: string[]
+  usercategorie: string[]
 }

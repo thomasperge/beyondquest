@@ -7,6 +7,7 @@ import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import ButtonComponent from "../../../components/button/button.js";
 import PrivacyPolicyComponent from "../../../components/privacyPolicy/privacypolicy.js";
 import ScrollableHobbiesList from "../../../components/scrollableHobbiesList/scrollableHobbiesList.js";
+import UserService from './../../../services/userservice.js'
 import "./hobbies.css";
 
 const Hobbies: React.FC = () => {
@@ -89,7 +90,7 @@ const Hobbies: React.FC = () => {
               onClick={() => {
                 if (validateHobbies()) {
                   const selectedCategoriesCopy = [...selectedCategories];
-                  console.log("Catégories sélectionnées :", selectedCategoriesCopy);
+                  UserService.saveHobbies(selectedCategoriesCopy);
                   history.push("/signup/goal", "root");
                 } else {
                   setToastIsShown(true);

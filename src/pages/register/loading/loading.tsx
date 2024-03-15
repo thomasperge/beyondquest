@@ -4,11 +4,13 @@ import { useHistory } from "react-router";
 import ProgressBarComponent from "../../../components/progressbar/progressbar.js";
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import HeadingComponent from "../../../components/heading/heading.js";
+import UserService from './../../../services/userservice.js'
 import "./loading.css";
 
 const LoadingPage: React.FC = () => {
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
+	console.log(UserService.getUserData())
 
 	useEffect(() => {
 		const timeoutId = setTimeout(() => {
