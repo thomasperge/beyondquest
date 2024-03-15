@@ -17,6 +17,10 @@ http://ionicframework.com/docs/theming/ */
   --ion-toast-green: #00c194;
   --ion-toast-red: red;
 
+  --easy-item-color: rgba(0, 255, 8, 0.402);
+  --medium-item-color: rgba(255, 174, 0, 0.479);
+  --hard-item-color: rgba(255, 0, 0, 0.342);
+  
   /** success **/
   --ion-color-success: #2dd36f;
   --ion-color-success-rgb: 45, 211, 111;

@@ -39,3 +39,15 @@
   color: var(--ion-color-800);
   --background: var(--ion-toast-background)
 }
+
+.easy {
+  background-color: var(--easy-item-color)
+}
+
+.medium {
+  background-color: var(--medium-item-color);
+}
+
+.hard {
+  background-color: var(--hard-item-color);
+}

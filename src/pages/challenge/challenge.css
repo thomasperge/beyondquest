@@ -1,0 +1,22 @@
+.challengeContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  z-index: 1000; 
+  padding: .5rem 1rem 1rem 1rem;
+  gap: 6px;
+}
+
+.selected {
+  background: var(--ion-gradient-400) !important;
+  color: white !important;
+  border-radius: 9px;
+}
+
+.not-selected {
+  background-color: transparent !important;
+  border: 3.15px solid var(--ion-color-600);
+  color: black !important;
+  border-radius: 9px;
+}

@@ -176,22 +176,22 @@ const Home: React.FC = () => {
 
       <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
         <TrendsChallengeItemsComponent
+          challenge="Planifier demain en 5 minutes"
+          difficulty={DifficultyDto.Easy}
+          iconsvgurl={notepadSvg}
+          nbOfParticipants={11589}
+        />
+        <TrendsChallengeItemsComponent
           challenge="Faire 850 tractions en 1 semaine"
-          difficulty={DifficultyDto.Medium}
+          difficulty={DifficultyDto.Hard}
           iconsvgurl={sportSvg}
           nbOfParticipants={1254}
         />
         <TrendsChallengeItemsComponent
           challenge="Méditer pendant 10 minutes/jour"
-          difficulty={DifficultyDto.Easy}
+          difficulty={DifficultyDto.Medium}
           iconsvgurl={meditationSvg}
           nbOfParticipants={789}
-        />
-        <TrendsChallengeItemsComponent
-          challenge="Planifier demain en 5 minutes"
-          difficulty={DifficultyDto.Hard}
-          iconsvgurl={notepadSvg}
-          nbOfParticipants={11589}
         />
       </div>
 
