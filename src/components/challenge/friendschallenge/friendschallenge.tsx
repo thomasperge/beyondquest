@@ -1,4 +1,5 @@
-import './goalItems.css';
+import HeadingComponent from "../../heading/heading.js";
+import './friendschallenge.css'
 
 interface ContainerProps {
   title: string;
@@ -6,21 +7,32 @@ interface ContainerProps {
   svg: string;
 }
 
-const FriendsChallengeComponent: React.FC<ContainerProps> = ({ title, subtitle, svg }) => {
+const FriendsChallengeComponent: React.FC = () => {
   return (
-    <div className="goalitems-items flex">
-      {/* Logo */}
-      <div className="goalitems-items-logo">
-        <img src={svg} alt="" style={{width: "35px", height: "70%"}} />
-      </div>
-      {/* Text */}
-      <div className="goalitems-items-text column">
-        <div className="goalitems-items-title">
-          {title}
-        </div>
-        <div className="goalitems-items-subtitle">
-          {subtitle}
-        </div>
+    <div className='ion-padding-vertical'>
+      <HeadingComponent
+        text="Friends Challenges"
+        fontSize="1.2rem"
+        fontWeight="600"
+        color="var(--ion-color-dark)"
+        padding="0 0 .5rem 0"
+      />
+
+      <div className="friends-challenge-container flex column">
+        <HeadingComponent
+          text="Your friends haven't posted yet"
+          fontSize="1rem"
+          fontWeight="600"
+          color="var(--ion-color-800)"
+        />
+
+        <HeadingComponent
+          text="Wait for their post and discuss among yourselves"
+          fontSize=".75rem"
+          fontWeight="400"
+          padding="0 1.6rem"
+          color="var(--ion-color-800)"
+        />
       </div>
     </div>
   );

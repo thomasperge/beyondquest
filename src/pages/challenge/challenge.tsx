@@ -1,9 +1,8 @@
-import { IonContent, IonFooter, IonPage } from '@ionic/react';
 import { useState } from 'react';
-import Navbar from '../../components/navbar/navbar.js';
-import ToolBarComponent from '../../components/toolbar/toolbar.js';
-import './challenge.css'
+import MyChallengeComponent from '../../components/challenge/mychallenge/mychallenge.js';
 import ButtonComponent from '../../components/button/button.js';
+import FriendsChallengeComponent from '../../components/challenge/friendschallenge/friendschallenge.js';
+import './challenge.css'
 
 const Challenge: React.FC = () => {
   const [displayedComponent, setDisplayedComponent] = useState<string | null>('myChallenge');
@@ -12,55 +11,34 @@ const Challenge: React.FC = () => {
     setDisplayedComponent(componentName);
   };
 
-  const MyChallengeComponent: React.FC = () => {
-    return (
-      <div className="myChallengeContent">
-        <h1>My Challenge</h1>
-      </div>
-    );
-  };
-
-  const FriendsChallengeComponent: React.FC = () => {
-    return (
-      <div>
-        <h1>Friend's Challenge</h1>
-      </div>
-    );
-  };
-
   return (
-    <IonPage>
-      <ToolBarComponent />
-
-      <IonContent>
+    <div className="challenge-container">
+      <div className='ion-padding-vertical challenge-component-container'>
         {displayedComponent === 'myChallenge' && <MyChallengeComponent />}
         {displayedComponent === 'friendsChallenge' && <FriendsChallengeComponent />}
-      </IonContent>
+      </div>
 
-      <IonFooter>
-        <div className='challengeContainer'>
-          <ButtonComponent 
-            text='My Challenge'
-            width='50%'
-            fontSize='1rem'
-            fontWeight='600'
-            padding='.6rem .15rem'
-            className={displayedComponent === 'myChallenge' ? 'selected' : 'not-selected'}
-            onClick={() => showComponent('myChallenge')}
-          />
-          <ButtonComponent 
-            text="Friend's Challenge"
-            width='50%'
-            fontSize='1rem'
-            fontWeight='600'
-            padding='.6rem .15rem'
-            className={displayedComponent === 'friendsChallenge' ? 'selected' : 'not-selected'}
-            onClick={() => showComponent('friendsChallenge')}
-          />
-        </div>
-        <Navbar />
-      </IonFooter>
-    </IonPage>
+      <div className='challenge-button-container'>
+        <ButtonComponent
+          text='My Challenge'
+          width='50%'
+          fontSize='.95rem'
+          fontWeight='600'
+          padding='.6rem .15rem'
+          className={displayedComponent === 'myChallenge' ? 'selected' : 'not-selected'}
+          onClick={() => showComponent('myChallenge')}
+        />
+        <ButtonComponent
+          text="Friend's Challenge"
+          width='50%'
+          fontSize='.95rem'
+          fontWeight='600'
+          padding='.6rem .15rem'
+          className={displayedComponent === 'friendsChallenge' ? 'selected' : 'not-selected'}
+          onClick={() => showComponent('friendsChallenge')}
+        />
+      </div>
+    </div>
   );
 };
 

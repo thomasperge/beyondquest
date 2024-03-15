@@ -70,25 +70,25 @@ const App: React.FC = () => (
           <Loading />
         </Route>
         <Route exact path="/discover">
-        <LayoutWithNav
+          <LayoutWithNav
             classname="ion-padding-horizontal"
             children={<Discover />}
           ></LayoutWithNav>
         </Route>
         <Route exact path="/friends">
-        <LayoutWithNav
+          <LayoutWithNav
             classname="ion-padding-horizontal"
             children={<Friends />}
           ></LayoutWithNav>
         </Route>
         <Route exact path="/challenge">
-        <LayoutWithNav
+          <LayoutWithNav
             classname="ion-padding-horizontal"
             children={<Challenge />}
           ></LayoutWithNav>
         </Route>
         <Route exact path="/settings">
-        <LayoutWithNav
+          <LayoutWithNav
             classname="ion-padding-horizontal"
             children={<Settings />}
           ></LayoutWithNav>

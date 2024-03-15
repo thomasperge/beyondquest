@@ -5,19 +5,19 @@ import Navbar from '../navbar/navbar';
 
 
 interface ContainerProps {
-    children: any,
-    classname?: string,
-  }
+  children: any,
+  classname?: string,
+}
 
 const LayoutWithNav: React.FC<ContainerProps> = ({ children, classname }) => {
   return (
     <IonPage>
-            <ToolBarComponent />
-        <IonContent fullscreen className={classname}>
-            {children}
-        </IonContent >
-        <IonFooter>
-            <Navbar />
+      <ToolBarComponent />
+      <IonContent fullscreen className={classname}>
+        {children}
+      </IonContent >
+      <IonFooter>
+        <Navbar />
       </IonFooter>
     </IonPage>
   );

@@ -1,11 +1,22 @@
-.challengeContainer {
+.challenge-container {
+  height: 100%;
+}
+
+.challenge-component-container {
+  min-height: 100%;
+  height: max-content;
+}
+
+.challenge-button-container {
+  position: sticky;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  background-color: white;
   z-index: 1000; 
-  padding: .5rem 1rem 1rem 1rem;
+  padding: .5rem 0 1rem 0;
   gap: 6px;
+  bottom: 0;
+  background-color: white;
 }
 
 .selected {
