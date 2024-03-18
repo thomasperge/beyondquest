@@ -4,12 +4,16 @@ import { useHistory } from 'react-router';
 import { DifficultyDto } from '../../enum/difficulty.js';
 import peopleSvg from './../../assets/svg/people.svg'
 import './trendchallengeitems.css';
+import ButtonComponent from '../button/button.js';
+import HeadingComponent from '../heading/heading.js';
 
 interface ContainerProps {
+  categorie: string
   challenge: string
   difficulty: DifficultyDto
-  iconsvgurl: string
   nbOfParticipants: number
+  image: string
+  generateBy: string
 }
 
 const TrendsChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
@@ -27,21 +31,37 @@ const TrendsChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) =
       </div>
 
       {/* Logo */}
-      <div className={`trends-challenge-items-logo-area flex ${props.difficulty}`}>
-        <img src={props.iconsvgurl} alt="" className="trends-challenge-items-logo" />
-      </div>
+      <div className={`trends-challenge-items-logo-area flex`} style={{ backgroundImage: `url(${props.image})` }}></div>
 
       {/* Title / Description */}
       <div className="trends-challenge-items-text column">
+        {/* Generate */}
+        <div className="trends-challenge-generate-by-area">
+          Generate by <span onClick={redirectToAuthPage} className='trends-challenge-generate-by'>{props.generateBy}</span>
+        </div>
+
         {/* Description */}
-        <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
+        <div className='trends-challenge-challenge' style={{ overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
           {props.challenge}
         </div>
 
-        {/* Number of participants */}
-        <div style={{display: "flex", alignItems: "center", gap: ".5rem"}}>
-          <img src={peopleSvg} alt="" style={{width: "16px", height: "16px"}} className='flex' />
-          <div className="span">{props.nbOfParticipants}</div>
+        <div className="trend-challenge-join-area">
+          {/* Button Join */}
+          <ButtonComponent
+            text="Join"
+            background='var(--ion-gradient-400)'
+            padding='.4rem 2rem'
+            color='white'
+            fontSize='1rem'
+            fontWeight='500'
+            borderRadius='8px'
+          ></ButtonComponent>
+
+          {/* Number of participants */}
+          <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
+            <img src={peopleSvg} alt="" style={{ width: "16px", height: "16px" }} className='flex' />
+            <div className="span">{props.nbOfParticipants}</div>
+          </div>
         </div>
       </div>
     </div>

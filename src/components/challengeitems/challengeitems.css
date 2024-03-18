@@ -10,16 +10,12 @@
 }
 
 .challenge-items-logo-area {
-  min-width: 60px;
-  min-height: 60px;
+  min-width: 70px;
+  min-height: 90px;
   padding: 1rem;
   padding: .5rem;
   border-radius: 8px;
-}
-
-.challenge-items-logo {
-  width: 35px;
-  height: 35px;
+  background-size: cover;
 }
 
 .challenge-items-text {

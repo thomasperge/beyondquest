@@ -6,9 +6,6 @@ import { closeCircleSharp } from "ionicons/icons";
 import gymimage from './../../assets/imagecalendar/gym.png'
 import booksimage from './../../assets/imagecalendar/books.png'
 import smoothieimage from './../../assets/imagecalendar/smoothie.png'
-import cookSvg from "./../../assets/svg/cook.svg";
-import sportSvg from "./../../assets/svg/sport.svg";
-import bookSvg from "./../../assets/svg/book.svg";
 import meditationSvg from "./../../assets/svg/meditation.svg";
 import notepadSvg from "./../../assets/svg/notepad.svg";
 import HeadingComponent from "../../components/heading/heading.js";
@@ -27,7 +24,7 @@ const challenges = [
     categories: "Cuisine",
     challenge: "Faire des cookies originaux",
     difficulty: DifficultyDto.Easy,
-    iconsvgurl: cookSvg,
+    image: gymimage,
   },
   {
     id: 2,
@@ -36,7 +33,7 @@ const challenges = [
     categories: "Sport",
     challenge: "Faire 20 pompes et des 40 squats",
     difficulty: DifficultyDto.Medium,
-    iconsvgurl: sportSvg,
+    image: smoothieimage,
   },
   {
     id: 3,
@@ -45,7 +42,7 @@ const challenges = [
     categories: "Lecture",
     challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
     difficulty: DifficultyDto.Hard,
-    iconsvgurl: bookSvg,
+    image: booksimage,
   },
   {
     id: 4,
@@ -54,7 +51,7 @@ const challenges = [
     categories: "Lecture",
     challenge: "Lire 60 pages et achter un nouveaux livre",
     difficulty: DifficultyDto.Medium,
-    iconsvgurl: bookSvg,
+    image: smoothieimage,
   },
 ];
 
@@ -123,13 +120,13 @@ const Home: React.FC = () => {
       {/* Calendar */}
       <CalendarHomeComponent
         lastnbDays={14}
-        daywithStreak={[["3", gymimage], ["8", smoothieimage], ["13", booksimage]]}
+        daywithStreak={[["8", gymimage], ["11", smoothieimage], ["16", booksimage], ["20", booksimage]]}
         redirection="/challenge"
       />
 
       {/* Latest Challenge */}
       <HeadingComponent
-        text="Latest Challenges"
+        text="My Latest Challenges"
         fontSize="1.2rem"
         fontWeight="600"
         color="var(--ion-color-dark)"
@@ -139,7 +136,7 @@ const Home: React.FC = () => {
       {/* All Challenge */}
       <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
         {challenges.slice(0, 3).map(
-          ({ id, days, hours, categories, challenge, difficulty, iconsvgurl }) => (
+          ({ id, days, hours, categories, challenge, difficulty, image }) => (
             <ChallengeItemsComponent
               key={id}
               days={days}
@@ -147,7 +144,7 @@ const Home: React.FC = () => {
               categorie={categories}
               challenge={challenge}
               difficulty={difficulty}
-              iconsvgurl={iconsvgurl}
+              image={image}
             />
           )
         )}
@@ -176,22 +173,28 @@ const Home: React.FC = () => {
 
       <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
         <TrendsChallengeItemsComponent
+          categorie="Productivité"
           challenge="Planifier demain en 5 minutes"
           difficulty={DifficultyDto.Easy}
-          iconsvgurl={notepadSvg}
+          image={booksimage}
           nbOfParticipants={11589}
+          generateBy="@eltoma"
         />
         <TrendsChallengeItemsComponent
+          categorie="Musculation"
           challenge="Faire 850 tractions en 1 semaine"
           difficulty={DifficultyDto.Hard}
-          iconsvgurl={sportSvg}
+          image={smoothieimage}
           nbOfParticipants={1254}
+          generateBy="@askralos"
         />
         <TrendsChallengeItemsComponent
+          categorie="Méditation"
           challenge="Méditer pendant 10 minutes/jour"
           difficulty={DifficultyDto.Medium}
-          iconsvgurl={meditationSvg}
+          image={gymimage}
           nbOfParticipants={789}
+          generateBy="@solarkaaaaaaaaaaaaaaaaaaaaaa"
         />
       </div>
 

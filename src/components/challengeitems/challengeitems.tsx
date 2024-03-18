@@ -10,7 +10,7 @@ interface ContainerProps {
   categorie: string;
   challenge: string;
   difficulty: DifficultyDto;
-  iconsvgurl: string
+  image: string
 }
 
 const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
@@ -28,9 +28,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
       </div>
 
       {/* Logo */}
-      <div className={`challenge-items-logo-area flex ${props.difficulty}`}>
-        <img src={props.iconsvgurl} alt="" className="challenge-items-logo" />
-      </div>
+      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div>
 
       {/* Title / Description */}
       <div className="challenge-items-text column">
