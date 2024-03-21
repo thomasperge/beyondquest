@@ -1,59 +1,10 @@
-.trends-challenge-items-container {
-  position: relative;
-  display: flex;
+.trends-challenge-items-container{
+  margin-bottom: 15px;
+}
+
+.trends-challenge-items-img{
+  border-radius: 10px;
+  height: 200px;
   width: 100%;
-  padding: 1rem;
-  background-color: white;
-  border: 2px solid rgba(0, 0, 0, 0.228);
-  border-radius: 8px;
-  gap: .7rem;
-  overflow: hidden;
-}
-
-.trends-challenge-items-logo-area {
-  min-width: 70px;
-  min-height: 90px;
-  padding: 1rem;
-  padding: .5rem;
-  border-radius: 8px;
-  background-size: cover;
-}
-
-.trends-challenge-items-text {
-  gap: .5rem;
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-}
-
-.trends-challenge-generate-by-area {
-  font-size: .9rem;
-  font-weight: 300;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  max-width: 90%;
-}
-
-.trends-challenge-generate-by {
-  font-weight: 400;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.trends-challenge-challenge {
-  font-weight: 600;
-}
-
-.trends-challenge-items-caretForwardOutline {
-  color: black;
-  width: 20px;
-  height: 20px;
-}
-
-.trend-challenge-join-area {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: .6rem;
+  background-size: contain;
 }

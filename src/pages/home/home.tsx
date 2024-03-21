@@ -3,9 +3,9 @@ import { DifficultyDto } from "../../enum/difficulty.js";
 import { IonActionSheet, IonAlert, IonToast } from "@ionic/react";
 import { toastController } from "@ionic/core";
 import { closeCircleSharp } from "ionicons/icons";
-import gymimage from './../../assets/imagecalendar/gym.png'
-import booksimage from './../../assets/imagecalendar/books.png'
-import smoothieimage from './../../assets/imagecalendar/smoothie.png'
+import gymimage from "./../../assets/imagecalendar/gym.png";
+import booksimage from "./../../assets/imagecalendar/books.png";
+import smoothieimage from "./../../assets/imagecalendar/smoothie.png";
 import meditationSvg from "./../../assets/svg/meditation.svg";
 import notepadSvg from "./../../assets/svg/notepad.svg";
 import HeadingComponent from "../../components/heading/heading.js";
@@ -55,6 +55,44 @@ const challenges = [
   },
 ];
 
+const trends = [
+  {
+    id: 1,
+    categories: "Cuisine",
+    challenge: "Faire des cookies originaux",
+    difficulty: DifficultyDto.Easy,
+    image: gymimage,
+    nbOfParticipants: 128,
+    generatedBy: "elThomas",
+  },
+  {
+    id: 2,
+    categories: "Sport",
+    challenge: "Faire 20 pompes et des 40 squats",
+    difficulty: DifficultyDto.Medium,
+    image: smoothieimage,
+    nbOfParticipants: 20665,
+    generatedBy: "tom",
+  },
+  {
+    id: 3,
+    categories: "Lecture",
+    challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
+    difficulty: DifficultyDto.Hard,
+    image: booksimage,
+    nbOfParticipants: 658156,
+    generatedBy: "kangHaerin",
+  },
+  {
+    id: 4,
+    categories: "Lecture",
+    challenge: "Lire 60 pages et achter un nouveaux livre",
+    difficulty: DifficultyDto.Medium,
+    image: smoothieimage,
+    nbOfParticipants: 6195,
+    generatedBy: "Askralos",
+  },
+];
 const Home: React.FC = () => {
   const history = useHistory();
 
@@ -77,7 +115,7 @@ const Home: React.FC = () => {
       position: "top",
       buttons: [
         {
-          side: 'end',
+          side: "end",
           icon: closeCircleSharp,
           role: "cancel",
           handler: () => {
@@ -114,88 +152,98 @@ const Home: React.FC = () => {
         fontSize="1.2rem"
         fontWeight="600"
         color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
+        padding="1rem 0 .5rem 0"
       />
 
       {/* Calendar */}
       <CalendarHomeComponent
         lastnbDays={14}
-        daywithStreak={[["8", gymimage], ["11", smoothieimage], ["16", booksimage], ["20", booksimage]]}
+        daywithStreak={[
+          ["8", gymimage],
+          ["11", smoothieimage],
+          ["16", booksimage],
+          ["20", booksimage],
+        ]}
         redirection="/challenge"
       />
 
       {/* Latest Challenge */}
-      <HeadingComponent
-        text="My Latest Challenges"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      />
+      <div className="space-between" style={{marginTop: "2rem", marginBottom: "0.5rem" }}>
+        <HeadingComponent
+          text="My Latest Challenges"
+          fontSize="1.2rem"
+          fontWeight="600"
+          color="var(--ion-color-dark)"
+        />
+        <ButtonComponent
+          text="View all"
+          background="transparent"
+          color="#686868"
+          fontSize=".9rem"
+          fontWeight="500"
+          onClick={() => history.replace("/challenge", "root")}
+        ></ButtonComponent>
+      </div>
 
       {/* All Challenge */}
+      <div
+        className="flex ion-margin-bottom"
+        style={{ gap: ".5rem", height: "140px" }}
+      >
+        {challenges
+          .slice(0, 3)
+          .map(
+            ({ id, days, hours, categories, challenge, difficulty, image }) => (
+              <ChallengeItemsComponent
+                key={id}
+                days={days}
+                hours={hours}
+                categorie={categories}
+                challenge={challenge}
+                difficulty={difficulty}
+                image={image}
+              />
+            )
+          )}
+      </div>
+
+      {/* Trends Challenge */}
+
+      <div className="space-between" style={{ marginBottom: "0.5rem", marginTop:"2rem" }}>
+        <HeadingComponent
+          text="Trending Challenges"
+          fontSize="1.2rem"
+          fontWeight="600"
+          color="var(--ion-color-dark)"
+        />
+        <ButtonComponent
+          text="View all"
+          background="transparent"
+          color="#686868"
+          fontSize=".9rem"
+          fontWeight="500"
+          onClick={() => history.replace("/challenge", "root")}
+        ></ButtonComponent>
+      </div>
+
       <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-        {challenges.slice(0, 3).map(
-          ({ id, days, hours, categories, challenge, difficulty, image }) => (
-            <ChallengeItemsComponent
+          
+      {trends
+          .slice(0, 3)
+          .map(
+            ({ id, categories, challenge, difficulty, image, generatedBy, nbOfParticipants }) => (
+              <TrendsChallengeItemsComponent
               key={id}
-              days={days}
-              hours={hours}
               categorie={categories}
               challenge={challenge}
               difficulty={difficulty}
               image={image}
+              nbOfParticipants={nbOfParticipants}
+              generateBy={generatedBy}
             />
-          )
-        )}
-
-        {challenges.length > 3 && (
-          <ButtonComponent
-            text='View all'
-            padding='.3rem 1.5rem .8rem 1.5rem'
-            background='transparent'
-            color='#686868'
-            fontSize='.9rem'
-            fontWeight='500'
-            onClick={() => history.replace('/challenge', 'root')}
-          ></ButtonComponent>
-        )}
-      </div>
-
-      {/* Trends Challenge */}
-      <HeadingComponent
-        text="Trending Challenges"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      />
-
-      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-        <TrendsChallengeItemsComponent
-          categorie="Productivité"
-          challenge="Planifier demain en 5 minutes"
-          difficulty={DifficultyDto.Easy}
-          image={booksimage}
-          nbOfParticipants={11589}
-          generateBy="@eltoma"
-        />
-        <TrendsChallengeItemsComponent
-          categorie="Musculation"
-          challenge="Faire 850 tractions en 1 semaine"
-          difficulty={DifficultyDto.Hard}
-          image={smoothieimage}
-          nbOfParticipants={1254}
-          generateBy="@askralos"
-        />
-        <TrendsChallengeItemsComponent
-          categorie="Méditation"
-          challenge="Méditer pendant 10 minutes/jour"
-          difficulty={DifficultyDto.Medium}
-          image={gymimage}
-          nbOfParticipants={789}
-          generateBy="@solarkaaaaaaaaaaaaaaaaaaaaaa"
-        />
+              
+            )
+          )}
       </div>
 
       {/* IonAlert */}

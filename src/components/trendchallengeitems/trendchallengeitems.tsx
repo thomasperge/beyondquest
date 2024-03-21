@@ -1,66 +1,87 @@
-import { IonIcon } from '@ionic/react';
-import { caretForwardOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router';
-import { DifficultyDto } from '../../enum/difficulty.js';
-import peopleSvg from './../../assets/svg/people.svg'
-import './trendchallengeitems.css';
-import ButtonComponent from '../button/button.js';
-import HeadingComponent from '../heading/heading.js';
+import { IonIcon } from "@ionic/react";
+import { caretForwardOutline } from "ionicons/icons";
+import { useHistory } from "react-router";
+import { DifficultyDto } from "../../enum/difficulty.js";
+import peopleSvg from "./../../assets/svg/people.svg";
+import "./trendchallengeitems.css";
+import ButtonComponent from "../button/button.js";
+import HeadingComponent from "../heading/heading.js";
 
 interface ContainerProps {
-  categorie: string
-  challenge: string
-  difficulty: DifficultyDto
-  nbOfParticipants: number
-  image: string
-  generateBy: string
+  categorie: string;
+  challenge: string;
+  difficulty: DifficultyDto;
+  nbOfParticipants: number;
+  image: string;
+  generateBy: string;
 }
 
-const TrendsChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
+const TrendsChallengeItemsComponent: React.FC<ContainerProps> = ({
+  ...props
+}) => {
   const history = useHistory();
 
   const redirectToAuthPage = () => {
-    history.push('/challenge');
+    history.push("/challenge");
   };
 
   return (
     <div className="trends-challenge-items-container">
-      {/* Arrow redirection */}
-      <div className="arrow-icon-container" onClick={redirectToAuthPage}>
-        <IonIcon icon={caretForwardOutline} className='trends-challenge-items-caretForwardOutline' />
-      </div>
-
-      {/* Logo */}
-      <div className={`trends-challenge-items-logo-area flex`} style={{ backgroundImage: `url(${props.image})` }}></div>
-
-      {/* Title / Description */}
-      <div className="trends-challenge-items-text column">
-        {/* Generate */}
+      <div className="flex" style={{marginBottom:"10px"}}>
         <div className="trends-challenge-generate-by-area">
-          Generate by <span onClick={redirectToAuthPage} className='trends-challenge-generate-by'>{props.generateBy}</span>
+          Generate by{" "}
+          <span onClick={redirectToAuthPage} style={{ fontWeight: "600" }}>
+            {props.generateBy}
+          </span>
         </div>
+      </div>
+      {/* Logo */}
 
-        {/* Description */}
-        <div className='trends-challenge-challenge' style={{ overflow: 'hidden', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
-          {props.challenge}
-        </div>
-
-        <div className="trend-challenge-join-area">
-          {/* Button Join */}
-          <ButtonComponent
-            text="Join"
-            background='var(--ion-gradient-400)'
-            padding='.4rem 2rem'
-            color='white'
-            fontSize='1rem'
-            fontWeight='500'
-            borderRadius='8px'
-          ></ButtonComponent>
-
-          {/* Number of participants */}
+      <div>
+        <img src={props.image} className="trends-challenge-items-img" alt="" />
+      </div>
+      <div style={{paddingInline:"1rem"}}>
+        <div className=" space-between" style={{marginTop:"10px"}}>
+          <div style={{ fontWeight: "700", fontSize: "1.25rem" }}>
+            {props.categorie}
+          </div>
           <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
-            <img src={peopleSvg} alt="" style={{ width: "16px", height: "16px" }} className='flex' />
+            <img
+              src={peopleSvg}
+              alt=""
+              style={{ width: "16px", height: "16px" }}
+              className="flex"
+            />
             <div className="span">{props.nbOfParticipants}</div>
+          </div>
+        </div>
+        {/* Title / Description */}
+        <div className="space-between" style={{marginTop:"5px"}}>
+          {/* Generate */}
+          {/* Description */}
+          <div
+            className="trends-challenge-challenge"
+            style={{
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitBoxOrient: "vertical",
+              WebkitLineClamp: 2,
+            }}
+          >
+            {props.challenge}
+          </div>
+          <div className="trend-challenge-join-area">
+            {/* Button Join */}
+            <ButtonComponent
+              text="Join"
+              background="var(--ion-gradient-400)"
+              padding=".4rem 1.5rem"
+              color="white"
+              fontSize="1rem"
+              fontWeight="500"
+              borderRadius="8px"
+            ></ButtonComponent>
+            {/* Number of participants */}
           </div>
         </div>
       </div>
@@ -68,4 +89,4 @@ const TrendsChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) =
   );
 };
 
-export default TrendsChallengeItemsComponent
+export default TrendsChallengeItemsComponent;
