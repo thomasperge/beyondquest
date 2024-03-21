@@ -67,7 +67,7 @@ const MyChallengeComponent: React.FC = () => {
       />
 
       {/* All Challenge */}
-      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+      <div className=" ion-margin-bottom" style={{ gap: ".5rem" , display: "grid", gridTemplateColumns: "repeat(3, 1fr)"}}>
         {challenges.map(
           ({ id, days, hours, categories, challenge, difficulty, image }) => (
             <ChallengeItemsComponent
