@@ -3,16 +3,15 @@ import { DifficultyDto } from "../../enum/difficulty.js";
 import { IonActionSheet, IonAlert, IonToast } from "@ionic/react";
 import { toastController } from "@ionic/core";
 import { closeCircleSharp } from "ionicons/icons";
+import { useHistory } from "react-router";
+import { PushNotifications } from '@capacitor/push-notifications';
 import gymimage from './../../assets/imagecalendar/gym.png'
 import booksimage from './../../assets/imagecalendar/books.png'
 import smoothieimage from './../../assets/imagecalendar/smoothie.png'
-import meditationSvg from "./../../assets/svg/meditation.svg";
-import notepadSvg from "./../../assets/svg/notepad.svg";
 import HeadingComponent from "../../components/heading/heading.js";
 import DailyStreakStatsComponent from "../../components/dailystreakstats/dailystreakstats.js";
 import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
-import { useHistory } from "react-router";
 import ButtonComponent from "../../components/button/button.js";
 import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/trendchallengeitems.js";
 
@@ -89,6 +88,43 @@ const Home: React.FC = () => {
     });
     toast.present();
   };
+
+  const addListeners = async () => {
+    await PushNotifications.addListener('registration', token => {
+      console.info('Registration token: ', token.value);
+    });
+
+    await PushNotifications.addListener('registrationError', err => {
+      console.error('Registration error: ', err.error);
+    });
+
+    await PushNotifications.addListener('pushNotificationReceived', notification => {
+      console.log('Push notification received: ', notification);
+    });
+
+    await PushNotifications.addListener('pushNotificationActionPerformed', notification => {
+      console.log('Push notification action performed', notification.actionId, notification.inputValue);
+    });
+  }
+
+  const registerNotifications = async () => {
+    let permStatus = await PushNotifications.checkPermissions();
+
+    if (permStatus.receive === 'prompt') {
+      permStatus = await PushNotifications.requestPermissions();
+    }
+
+    if (permStatus.receive !== 'granted') {
+      throw new Error('User denied permissions!');
+    }
+
+    await PushNotifications.register();
+  }
+
+  const getDeliveredNotifications = async () => {
+    const notificationList = await PushNotifications.getDeliveredNotifications();
+    console.log('delivered notifications', notificationList);
+  }
 
   return (
     <>
@@ -249,6 +285,17 @@ const Home: React.FC = () => {
           },
         ]}
       />
+
+      <div className="flex ion-margin-vertical">
+        <ButtonComponent
+          text="Send Notification"
+          background="var(--ion-gradient-400)"
+          padding=".5rem 1.2rem"
+          color="white"
+          borderRadius="8px"
+          onClick={getDeliveredNotifications}
+        ></ButtonComponent>
+      </div>
     </>
   );
 };
