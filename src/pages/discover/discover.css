@@ -1,0 +1,12 @@
+.discover-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  align-items: center;
+}
+
+.discover-separation {
+  width: 120%;
+  height: 1.35px;
+  background-color: rgb(199, 199, 199);
+}
