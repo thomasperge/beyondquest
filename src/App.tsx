@@ -10,7 +10,6 @@ import SetGoal from "./pages/register/setGoal/setGoal.js";
 import Loading from "./pages/register/loading/loading.js";
 import Challenge from "./pages/challenge/challenge.js";
 import Discover from "./pages/discover/discover.js";
-import Friends from "./pages/friends/friends.js";
 import Settings from "./pages/settings/settings.js";
 import MainLoadingPage from "./pages/mainloading/mainloading.js";
 
@@ -35,6 +34,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
+import ProfilePage from "./pages/profile/profile.js";
 
 setupIonicReact();
 
@@ -75,12 +75,6 @@ const App: React.FC = () => (
             children={<Discover />}
           ></LayoutWithNav>
         </Route>
-        <Route exact path="/friends">
-          <LayoutWithNav
-            classname="ion-padding-horizontal"
-            children={<Friends />}
-          ></LayoutWithNav>
-        </Route>
         <Route exact path="/challenge">
           <LayoutWithNav
             classname="ion-padding-horizontal"
@@ -91,6 +85,12 @@ const App: React.FC = () => (
           <LayoutWithNav
             classname="ion-padding-horizontal"
             children={<Settings />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/profil">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<ProfilePage />}
           ></LayoutWithNav>
         </Route>
       </IonRouterOutlet>

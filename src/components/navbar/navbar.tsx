@@ -9,16 +9,10 @@ const Navbar: React.FC = () => {
 
   return (
     <IonTabBar slot="bottom">
-      <IonTabButton tab="friends" href="/friends" selected={location.pathname === '/friends'}>
-        <IonIcon icon={peopleSharp} style={{ color: location.pathname === '/friends' ? 'var(--ion-color-600)' : '#C1C1C1' }} size="medium" />
-        <span className='icon-text' style={{ color: location.pathname === '/friends' ? 'var(--ion-color-600)' : '#C1C1C1' }}>Profile</span>
-      </IonTabButton>
-
       <IonTabButton tab="challenge" href="/challenge" selected={location.pathname === '/challenge'}>
         <IonIcon icon={receiptSharp} style={{ color: location.pathname === '/challenge' ? 'var(--ion-color-600)' : '#C1C1C1' }} size="medium" />
         <span className='icon-text' style={{ color: location.pathname === '/challenge' ? 'var(--ion-color-600)' : '#C1C1C1' }}>Challenge</span>
       </IonTabButton>
-
       <IonTabButton tab="home" href="/home" selected={location.pathname === '/home'}>
         <IonIcon icon={homeSharp} style={{ color: location.pathname === '/home' ? 'var(--ion-color-600)' : '#C1C1C1' }} size="medium" />
         <span className='icon-text' style={{ color: location.pathname === '/home' ? 'var(--ion-color-600)' : '#C1C1C1' }}>Home</span>
@@ -29,9 +23,9 @@ const Navbar: React.FC = () => {
         <span className='icon-text' style={{ color: location.pathname === '/discover' ? 'var(--ion-color-600)' : '#C1C1C1' }}>Foryou</span>
       </IonTabButton>
 
-      <IonTabButton tab="settings" href="/settings" selected={location.pathname === '/settings'}>
-        <IonIcon icon={cogSharp} style={{ color: location.pathname === '/settings' ? 'var(--ion-color-600)' : '#C1C1C1' }} size="medium" />
-        <span className='icon-text' style={{ color: location.pathname === '/settings' ? 'var(--ion-color-600)' : '#C1C1C1' }}>Settings</span>
+      <IonTabButton tab="profile" href="/profil" selected={location.pathname === '/profil'}>
+        <IonIcon icon={peopleSharp} style={{ color: location.pathname === '/profil' ? 'var(--ion-color-600)' : '#C1C1C1' }} size="medium" />
+        <span className='icon-text' style={{ color: location.pathname === '/profil' ? 'var(--ion-color-600)' : '#C1C1C1' }}>Profile</span>
       </IonTabButton>
     </IonTabBar>
   );

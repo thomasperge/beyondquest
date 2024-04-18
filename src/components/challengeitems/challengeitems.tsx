@@ -158,7 +158,6 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
                 className='challenge-modal-button-not-selected'
                 onClick={handleDeleteButtonClick}
               ></ButtonComponent>
-
             </div>
           </div>
         </IonContent>
@@ -197,7 +196,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: ".5rem" }} className='ion-padding-vertical'>
+          <div style={{ display: "flex", gap: ".7rem" }} className='ion-padding-vertical'>
             <div style={{ paddingTop: "5.5px" }}>
               <img className="challenge-items-retweet-pp" />
             </div>
@@ -211,9 +210,29 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
             ></IonTextarea>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-            <IonButton color="danger" onClick={handleCancelClick}>Cancel</IonButton>
-            <IonButton onClick={handleSubmitClick}>Submit</IonButton>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', gap: ".5rem" }}>
+            <ButtonComponent
+              text="Post"
+              width='100%'
+              background='var(--ion-gradient-400)'
+              padding='.4rem 2rem'
+              color='white'
+              fontSize='1rem'
+              fontWeight='500'
+              borderRadius='8px'
+              onClick={handleSubmitClick}
+            ></ButtonComponent>
+
+            <ButtonComponent
+              text="Cancel"
+              width='100%'
+              padding='.4rem 2rem'
+              fontSize='1rem'
+              fontWeight='500'
+              borderRadius='8px'
+              className='challenge-modal-button-not-selected'
+              onClick={handleCancelClick}
+            ></ButtonComponent>
           </div>
         </IonContent>
       </IonModal>
