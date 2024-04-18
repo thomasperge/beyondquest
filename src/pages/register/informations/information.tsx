@@ -22,7 +22,7 @@ const InformationPage: React.FC = () => {
 		name: '',
 		lastname: '',
 		age: 0,
-		country: '',
+		password: '',
 		usercategorie: []
 	});
 
@@ -128,8 +128,8 @@ const InformationPage: React.FC = () => {
 							></InputComponent>
 
 							<InputComponent
-								text="Country"
-								type="text"
+								text="Password"
+								type="password"
 								width="100%"
 								color="var(--ion-color-dark)"
 								background="var(--ion-color-50)"
@@ -139,7 +139,7 @@ const InformationPage: React.FC = () => {
 								fontWeight="500"
 								padding=".8rem 1rem"
 								className="input-field"
-								onChange={(e) => handleInputChange(e, 'country')}
+								onChange={(e) => handleInputChange(e, 'password')}
 							></InputComponent>
 						</div>
 					</div>

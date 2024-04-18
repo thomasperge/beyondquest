@@ -6,7 +6,7 @@ class UserService {
     name?: string;
     lastname?: string;
     age?: number;
-    country?: string;
+    password?: string;
     hobbies?: string[];
   } = {};
 
@@ -14,7 +14,7 @@ class UserService {
     this.userData.name = userInfo.name;
     this.userData.lastname = userInfo.lastname;
     this.userData.age = userInfo.age;
-    this.userData.country = userInfo.country;
+    this.userData.password = userInfo.password;
     this.userData.hobbies = userInfo.usercategorie;
   }
 
