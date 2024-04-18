@@ -18,11 +18,12 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
 
   const handleActionSheetSelected = async (category: string) => {
     setShowActionSheet(false);
-    setShowLoading(true); // Afficher le IonLoading
+    setShowLoading(true);
+
     setTimeout(() => {
-      setShowLoading(false); // Masquer le IonLoading après 3000 ms
-      showToastChallenge("Chargement terminé."); // Afficher le toast après le chargement
-      onDismiss(); // Fermer le composant
+      setShowLoading(false);
+      showToastChallenge("Chargement terminé.");
+      onDismiss();
     }, 3000);
   };
 
@@ -50,7 +51,7 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
             role: "cancel",
             cssClass: "secondary",
             handler: () => {
-              onDismiss(); // Fermer le composant
+              onDismiss();
             },
           },
           {
@@ -91,7 +92,7 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
       <IonLoading
         isOpen={showLoading}
         message={'Chargement... Veuillez patienter.'}
-        duration={3000} // Durée d'affichage en ms
+        duration={3000}
       />
     </>
   );
