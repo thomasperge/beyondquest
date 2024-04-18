@@ -1,4 +1,4 @@
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import Home from "./pages/home/home";
@@ -12,7 +12,7 @@ import Challenge from "./pages/challenge/challenge.js";
 import Discover from "./pages/discover/discover.js";
 import Settings from "./pages/settings/settings.js";
 import MainLoadingPage from "./pages/mainloading/mainloading.js";
-
+import ProfilePage from "./pages/profile/profile.js";
 import LayoutWithNav from "./components/layout/layoutWithNav";
 
 /* Core CSS required for Ionic components to work properly */
@@ -34,7 +34,6 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
-import ProfilePage from "./pages/profile/profile.js";
 
 setupIonicReact();
 

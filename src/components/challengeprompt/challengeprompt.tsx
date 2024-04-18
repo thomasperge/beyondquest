@@ -1,27 +1,29 @@
 import React, { useState } from 'react';
-import { IonAlert, IonActionSheet } from '@ionic/react';
+import { IonAlert, IonActionSheet, IonLoading } from '@ionic/react';
 import { toastController } from '@ionic/core';
-import { closeCircleSharp } from 'ionicons/icons';
 
 interface ChallengePromptProps {
-  showToast: (message: string) => Promise<void>;
   onDismiss: () => void;
 }
 
-const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ showToast, onDismiss }) => {
+const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss }) => {
   const [showAlert, setShowAlert] = useState(true);
   const [showActionSheet, setShowActionSheet] = useState(false);
-
-  const handleActionSelected = async (category: string) => {
-    setShowActionSheet(false);
-    setShowAlert(false);
-    if (category) {
-      await showToastChallenge(`Nouveau défi !\n${category}`);
-    }
-  };
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleAlertDismiss = () => {
     setShowAlert(false);
+    setShowActionSheet(true);
+  };
+
+  const handleActionSheetSelected = async (category: string) => {
+    setShowActionSheet(false);
+    setShowLoading(true); // Afficher le IonLoading
+    setTimeout(() => {
+      setShowLoading(false); // Masquer le IonLoading après 3000 ms
+      showToastChallenge("Chargement terminé."); // Afficher le toast après le chargement
+      onDismiss(); // Fermer le composant
+    }, 3000);
   };
 
   const showToastChallenge = async (message: string) => {
@@ -29,7 +31,7 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ showToast, o
       message: message,
       duration: 5500,
       position: "top",
-      cssClass: "orangetoaststyle",
+      cssClass: "greentoaststyle",
     });
     toast.present();
   };
@@ -47,7 +49,9 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ showToast, o
             text: "Pas maintenant",
             role: "cancel",
             cssClass: "secondary",
-            handler: onDismiss,
+            handler: () => {
+              onDismiss(); // Fermer le composant
+            },
           },
           {
             text: "Je suis prêt !",
@@ -60,26 +64,34 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ showToast, o
       {/* IonActionSheet => Choose Categorie */}
       <IonActionSheet
         isOpen={showActionSheet}
-        onDidDismiss={onDismiss}
         buttons={[
           {
             text: "Cuisine",
-            handler: () => handleActionSelected("Faire 10 cookies"),
+            handler: () => handleActionSheetSelected("Faire 10 cookies"),
           },
           {
             text: "Musculation",
-            handler: () => handleActionSelected("Faire 250 pompes"),
+            handler: () => handleActionSheetSelected("Faire 250 pompes"),
           },
           {
             text: "Lecture",
-            handler: () => handleActionSelected("Lire 25 pages"),
+            handler: () => handleActionSheetSelected("Lire 25 pages"),
           },
           {
             text: "Annuler",
             role: "cancel",
-            handler: onDismiss,
+            handler: () => {
+              onDismiss();
+            },
           },
         ]}
+      />
+
+      {/* IonLoading */}
+      <IonLoading
+        isOpen={showLoading}
+        message={'Chargement... Veuillez patienter.'}
+        duration={3000} // Durée d'affichage en ms
       />
     </>
   );
