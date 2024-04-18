@@ -1,10 +1,11 @@
-import { IonIcon } from '@ionic/react';
+import { IonIcon, IonToast } from '@ionic/react';
 import { caretForwardOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { DifficultyDto } from '../../enum/difficulty.js';
 import peopleSvg from './../../assets/svg/bust.svg'
 import './trendchallengeitems.css';
 import ButtonComponent from '../button/button.js';
+import { useState } from 'react';
 
 interface ContainerProps {
   categorie: string
@@ -20,6 +21,12 @@ const TrendsChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) =
 
   const redirectToAuthPage = () => {
     history.push('/challenge');
+  };
+
+  const [showToast, setShowToast] = useState(false);
+
+  const handleButtonClick = () => {
+    setShowToast(true);
   };
 
   return (
@@ -54,7 +61,17 @@ const TrendsChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) =
             fontSize='1rem'
             fontWeight='500'
             borderRadius='8px'
+            onClick={handleButtonClick}
           ></ButtonComponent>
+
+          <IonToast
+            isOpen={showToast}
+            onDidDismiss={() => setShowToast(false)}
+            message="You join a new challenge !"
+            duration={5500}
+            position="top"
+            className="orangetoaststyle"
+          />
 
           {/* Number of participants */}
           <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>

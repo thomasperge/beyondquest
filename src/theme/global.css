@@ -33,6 +33,13 @@
   --background: var(--ion-toast-background)
 }
 
+.orangetoaststyle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: rgb(255, 115, 0);
+  --background: var(--ion-toast-background)
+}
+
 .newchallengetoast {
   font-size: 1.21rem;
   font-weight: 700;

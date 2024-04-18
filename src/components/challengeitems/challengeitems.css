@@ -34,6 +34,25 @@
   height: 20px;
 }
 
+.challenge-items-retweet {
+  width: fit-content;
+  background: var(--ion-gradient-400);
+  padding: .3rem .6rem;
+  color: white;
+  font-size: .9rem;
+  font-weight: 480;
+  border-radius: 8px;
+  gap: .5rem;
+}
+
+.challenge-items-retweet-pp {
+  width: 32px;
+  height: 32px;
+  background-color: red;
+  border-radius: 150px;
+  object-fit: contain;
+}
+
 .challenge-modal-container {
   height: 100%;
   display: flex;
