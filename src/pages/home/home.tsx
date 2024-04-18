@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
-import { IonActionSheet, IonAlert, IonToast } from "@ionic/react";
-import { toastController } from "@ionic/core";
-import { closeCircleSharp } from "ionicons/icons";
 import { useHistory } from "react-router";
 import gymimage from './../../assets/imagecalendar/gym.png'
 import booksimage from './../../assets/imagecalendar/books.png'
@@ -13,6 +10,7 @@ import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
 import ButtonComponent from "../../components/button/button.js";
 import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/trendchallengeitems.js";
+import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
 
 const challenges = [
   {
@@ -56,36 +54,17 @@ const challenges = [
 const Home: React.FC = () => {
   const history = useHistory();
 
-  const [showAlert, setShowAlert] = useState(false);
-  const [showActionSheet, setShowActionSheet] = useState(false);
-
-  useEffect(() => {
-    const isNewUser = localStorage.getItem("isNewUser") === "true";
-
-    if (isNewUser) {
-      setShowAlert(true);
-      localStorage.setItem("isNewUser", "false");
-    }
-  }, []);
+  const isNewUser = localStorage.getItem("isNewUser") === "true";
+  const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
 
   const showToast = async (message: string) => {
-    const toast = await toastController.create({
-      message: message,
-      duration: 6000,
-      position: "top",
-      buttons: [
-        {
-          side: 'end',
-          icon: closeCircleSharp,
-          role: "cancel",
-          handler: () => {
-            toast.dismiss();
-          },
-        },
-      ],
-      cssClass: "newchallengetoast",
-    });
-    toast.present();
+    console.log(message);
+  };
+
+  const handleChallengePromptDismiss = () => {
+    setShowChallengePrompt(false);
+    console.log("DISMISSSS");
+    localStorage.setItem("isNewUser", "false");
   };
 
   return (
@@ -196,57 +175,9 @@ const Home: React.FC = () => {
         />
       </div>
 
-      {/* IonAlert */}
-      <IonAlert
-        isOpen={showAlert}
-        onDidDismiss={() => setShowAlert(false)}
-        header={"Prêt à relever un défi ?"}
-        message={"Sélectionnez votre choix ci-dessous."}
-        buttons={[
-          {
-            text: "Pas maintenant",
-            role: "cancel",
-            cssClass: "secondary",
-          },
-          {
-            text: "Je suis prêt !",
-            cssClass: "success",
-            handler: () => {
-              setShowActionSheet(true);
-            },
-          },
-        ]}
-      />
-
-      {/* IonActionSheet */}
-      <IonActionSheet
-        isOpen={showActionSheet}
-        onDidDismiss={() => setShowActionSheet(false)}
-        buttons={[
-          {
-            text: "Cuisine",
-            handler: () => {
-              showToast("Nouveau défi !\nFaire 10 cookies");
-            },
-          },
-          {
-            text: "Musculation",
-            handler: () => {
-              showToast("Nouveau défi !\nFaire 250 pompes");
-            },
-          },
-          {
-            text: "Lecture",
-            handler: () => {
-              showToast("Nouveau défi !\nLire 25 pages");
-            },
-          },
-          {
-            text: "Annuler",
-            role: "cancel",
-          },
-        ]}
-      />
+      {showChallengePrompt && (
+        <ChallengePromptComponent showToast={showToast} onDismiss={handleChallengePromptDismiss} />
+      )}
     </>
   );
 };

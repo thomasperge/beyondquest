@@ -2,3 +2,14 @@
   font-size: 11px;
   font-weight: 600;
 }
+
+.gradient-bg {
+  background: var(--ion-gradient-400);
+  width: 38px;
+  height: 38px;
+  border-radius: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .4rem;
+}
