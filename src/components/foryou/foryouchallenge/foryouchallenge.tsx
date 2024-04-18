@@ -29,7 +29,7 @@ const ForYouChallengeTweetComponent: React.FC<ContainerProps> = ({ ...props }) =
           <span style={{ fontWeight: "400", color: "gray" }}>@{props.username} • {props.waspostedtime}</span>
         </div>
 
-        <div style={{ fontWeight: "500" }}>{props.sentence}</div>
+        <div style={{ fontWeight: "500", marginTop: "-5px" }}>{props.sentence}</div>
 
         {/* Container challenge join */}
         <ForYouChallengeGenerateByComponent

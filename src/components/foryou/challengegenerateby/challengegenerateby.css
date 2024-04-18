@@ -9,7 +9,9 @@
 }
 
 .challenge-generate-for-text {
-  text-wrap: wrap;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .challenge-generate-for {

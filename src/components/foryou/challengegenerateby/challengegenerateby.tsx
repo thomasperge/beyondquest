@@ -16,9 +16,9 @@ const ForYouChallengeGenerateByComponent: React.FC<ContainerProps> = ({ ...props
       <div className="challenge-generate-by-container">
         <div className="challenge-generate-for">
           {props.usernamejoinedchallenge ? (
-            <div className='challenge-generate-for-text'>Challenge generated for <span style={{textDecoration: "underline"}}>@{props.usernamejoinedchallenge}</span> by <span style={{textDecoration: "underline"}}>@{props.usernamehasgeneratechallenge}</span></div>
+            <div className='challenge-generate-for-text'>Generate for <span style={{textDecoration: "underline"}}>@{props.usernamejoinedchallenge}</span> by <span style={{textDecoration: "underline"}}>@{props.usernamehasgeneratechallenge}</span></div>
           ) : (
-            <div className='challenge-generate-for-text'>Challenge generated for <span style={{textDecoration: "underline"}}>@{props.usernamehasgeneratechallenge}</span></div>
+            <div className='challenge-generate-for-text'>Generate for <span style={{textDecoration: "underline"}}>@{props.usernamehasgeneratechallenge}</span></div>
           )}
         </div>
 
@@ -29,7 +29,7 @@ const ForYouChallengeGenerateByComponent: React.FC<ContainerProps> = ({ ...props
             <div className="challenge-generate-by-title">{props.challengetitle}</div>
             <div className="challenge-generate-by-people">
               <img src={bustimage} alt="" className="challenge-generate-by-people-logo flex" />
-              <div className="flex">{props.numberpeoplejoined} joined this challenge</div>
+              <div className="flex">{props.numberpeoplejoined} joined</div>
             </div>
             <ButtonComponent
               text="Join"

@@ -2,10 +2,9 @@ import { IonIcon } from '@ionic/react';
 import { caretForwardOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router';
 import { DifficultyDto } from '../../enum/difficulty.js';
-import peopleSvg from './../../assets/svg/people.svg'
+import peopleSvg from './../../assets/svg/bust.svg'
 import './trendchallengeitems.css';
 import ButtonComponent from '../button/button.js';
-import HeadingComponent from '../heading/heading.js';
 
 interface ContainerProps {
   categorie: string
