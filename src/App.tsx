@@ -34,6 +34,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
+import FriendsPage from "./pages/friends/friends";
 
 setupIonicReact();
 
@@ -90,6 +91,12 @@ const App: React.FC = () => (
           <LayoutWithNav
             classname="ion-padding-horizontal"
             children={<ProfilePage />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/friends">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<FriendsPage />}
           ></LayoutWithNav>
         </Route>
       </IonRouterOutlet>
