@@ -1,6 +1,6 @@
 import { IonAvatar, IonButton, IonButtons, IonCol, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonModal, IonTextarea, IonTitle, IonToast, IonToolbar } from '@ionic/react';
 import { caretBack, caretForwardOutline, personCircleOutline } from 'ionicons/icons';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DifficultyDto } from '../../enum/difficulty.js';
 import ButtonComponent from '../button/button.js';
 import HeadingComponent from '../heading/heading.js';
@@ -207,6 +207,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
               rows={5}
               placeholder="What is happening?!"
               style={{ width: 'auto' }}
+              autofocus
             ></IonTextarea>
           </div>
 
