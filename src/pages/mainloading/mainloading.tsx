@@ -8,36 +8,53 @@ const MainLoadingPage: React.FC = () => {
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
 
+	// ==> Fetch Data
+	// useEffect(() => {
+	// 	const checkUserRegistration = async () => {
+	// 		const isRegistred = localStorage.getItem('isRegistred') == 'true' || localStorage.getItem('isRegistred') == 'True';
+	// 		const userId = localStorage.getItem('user_id');
+
+	// 		if (isRegistred && userId) {
+	// 			try {
+	// 				const response = await fetch(`http://localhost:3000/users/data/${userId}`);
+	// 				if (response.status === 200) {
+	// 					const userData = await response.json();
+	// 					console.log('User data:', userData);
+	// 					history.push('/home');
+	// 				} else {
+	// 					const userData = await response.json();
+	// 					console.log('User not found', userData);
+	// 					history.push('/auth');
+	// 				}
+	// 			} catch (error) {
+	// 				console.error('Error fetching user data:', error);
+	// 				history.push('/auth');
+	// 			}
+	// 		} else {
+	// 			console.log("local storage error");
+	// 			history.push('/auth');
+	// 		}
+	// 	};
+
+	// 	checkUserRegistration();
+	// }, []);
+
 	useEffect(() => {
-		const checkUserRegistration = async () => {
-			const isRegistred = localStorage.getItem('isRegistred') == 'true' || localStorage.getItem('isRegistred') == 'True';
-			const userId = localStorage.getItem('user_id');
+		const timeoutId = setTimeout(() => {
+		setIsLoading(false);
 
-			if (isRegistred && userId) {
-				try {
-					const response = await fetch(`http://localhost:3000/users/data/${userId}`);
-					if (response.status === 200) {
-						const userData = await response.json();
-						console.log('User data:', userData);
-						history.push('/home');
-					} else {
-						const userData = await response.json();
-						console.log('User not found', userData);
-						history.push('/auth');
-					}
-				} catch (error) {
-					console.error('Error fetching user data:', error);
-					history.push('/auth');
-				}
-			} else {
-				console.log("local storage error");
-				history.push('/auth');
-			}
-		};
+		const isRegistred = localStorage.getItem('isRegistred') == 'true' || localStorage.getItem('isRegistred') == 'True';
 
-		checkUserRegistration();
+		  if (isRegistred) {
+		    history.push('/home');
+		  } else {
+		    history.push('/auth');
+		  }
+		}, 2500);
+
+		return () => clearTimeout(timeoutId);
 	}, []);
-
+	
 	return (
 		<IonPage>
 			<IonContent fullscreen>
