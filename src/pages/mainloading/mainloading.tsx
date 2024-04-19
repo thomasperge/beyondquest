@@ -9,19 +9,33 @@ const MainLoadingPage: React.FC = () => {
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
-		const timeoutId = setTimeout(() => {
-		setIsLoading(false);
+		const checkUserRegistration = async () => {
+			const isRegistred = localStorage.getItem('isRegistred') == 'true' || localStorage.getItem('isRegistred') == 'True';
+			const userId = localStorage.getItem('user_id');
 
-		const isRegistred = localStorage.getItem('isRegistred') == 'true' || localStorage.getItem('isRegistred') == 'True';
+			if (isRegistred && userId) {
+				try {
+					const response = await fetch(`http://localhost:3000/users/data/${userId}`);
+					if (response.status === 200) {
+						const userData = await response.json();
+						console.log('User data:', userData);
+						history.push('/home');
+					} else {
+						const userData = await response.json();
+						console.log('User not found', userData);
+						history.push('/auth');
+					}
+				} catch (error) {
+					console.error('Error fetching user data:', error);
+					history.push('/auth');
+				}
+			} else {
+				console.log("local storage error");
+				history.push('/auth');
+			}
+		};
 
-		  if (isRegistred) {
-		    history.push('/home');
-		  } else {
-		    history.push('/auth');
-		  }
-		}, 2500);
-
-		return () => clearTimeout(timeoutId);
+		checkUserRegistration();
 	}, []);
 
 	return (
