@@ -10,17 +10,38 @@ import "./loading.css";
 const LoadingPage: React.FC = () => {
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
-	console.log(UserService.getUserData())
 
 	useEffect(() => {
-		const timeoutId = setTimeout(() => {
-			setIsLoading(false);
-			localStorage.setItem('isNewUser', 'true');
-			localStorage.setItem('isRegistred', 'true')
-			history.push('/home');
-		}, 3500);
+		const fetchData = async () => {
+			try {
+				const response = await fetch('http://localhost:3000/users/signup', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(UserService.getUserData())
+				});
 
-		return () => clearTimeout(timeoutId);
+				// Vérifier si la requête a réussi
+				if (response.ok) {
+					const data = await response.json();
+					console.log("FETCH SUCESSSS MY FUCK");
+					console.log(data);
+
+					// Arrêter le chargement
+					setIsLoading(false);
+					localStorage.setItem('isNewUser', 'true');
+					localStorage.setItem('isRegistred', 'true');
+					history.push('/home');
+				} else {
+					throw new Error('Failed to fetch');
+				}
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		};
+
+		fetchData();
 	}, []);
 
 	return (
@@ -68,4 +89,3 @@ const LoadingPage: React.FC = () => {
 };
 
 export default LoadingPage;
-

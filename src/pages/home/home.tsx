@@ -54,16 +54,13 @@ const challenges = [
 const Home: React.FC = () => {
   const history = useHistory();
 
+  console.log('Test'); // ---> Executed twice
+
   const isNewUser = localStorage.getItem("isNewUser") === "true";
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
 
-  const showToast = async (message: string) => {
-    console.log(message);
-  };
-
   const handleChallengePromptDismiss = () => {
     setShowChallengePrompt(false);
-    console.log("DISMISSSS");
     localStorage.setItem("isNewUser", "false");
   };
 
@@ -176,7 +173,7 @@ const Home: React.FC = () => {
       </div>
 
       {showChallengePrompt && (
-        <ChallengePromptComponent showToast={showToast} onDismiss={handleChallengePromptDismiss} />
+        <ChallengePromptComponent onDismiss={handleChallengePromptDismiss} />
       )}
     </>
   );
