@@ -11,39 +11,51 @@ const LoadingPage: React.FC = () => {
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
 
+	// ==> Fetch Data
+	// useEffect(() => {
+	// 	const fetchData = async () => {
+	// 		try {
+	// 			const response = await fetch('http://localhost:3000/users/signup', {
+	// 				method: 'POST',
+	// 				headers: {
+	// 					'Content-Type': 'application/json'
+	// 				},
+	// 				body: JSON.stringify(UserService.getUserData())
+	// 			});
+
+	// 			// Vérifier si la requête a réussi
+	// 			if (response.ok) {
+	// 				const data = await response.json();
+	// 				console.log(data);
+
+	// 				// Arrêter le chargement
+	// 				setIsLoading(false);
+	// 				localStorage.setItem('isNewUser', 'true');
+	// 				localStorage.setItem('isRegistred', 'true');
+	// 				localStorage.setItem('user_id', data._id);
+	// 				history.push('/home');
+	// 			} else {
+	// 				throw new Error('Failed to fetch');
+	// 			}
+	// 		} catch (error) {
+	// 			console.error('Error:', error);
+	// 		}
+	// 	};
+
+	// 	fetchData();
+	// }, []);
+
 	useEffect(() => {
-		const fetchData = async () => {
-			try {
-				const response = await fetch('http://localhost:3000/users/signup', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json'
-					},
-					body: JSON.stringify(UserService.getUserData())
-				});
+		const timeoutId = setTimeout(() => {
+			setIsLoading(false);
+			localStorage.setItem('isNewUser', 'true');
+			localStorage.setItem('isRegistred', 'true')
+			history.push('/home');
+		}, 3500);
 
-				// Vérifier si la requête a réussi
-				if (response.ok) {
-					const data = await response.json();
-					console.log(data);
-
-					// Arrêter le chargement
-					setIsLoading(false);
-					localStorage.setItem('isNewUser', 'true');
-					localStorage.setItem('isRegistred', 'true');
-					localStorage.setItem('user_id', data._id);
-					history.push('/home');
-				} else {
-					throw new Error('Failed to fetch');
-				}
-			} catch (error) {
-				console.error('Error:', error);
-			}
-		};
-
-		fetchData();
+		return () => clearTimeout(timeoutId);
 	}, []);
-
+	
 	return (
 		<IonPage>
 			<IonContent fullscreen>
