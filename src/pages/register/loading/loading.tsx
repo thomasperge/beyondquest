@@ -25,13 +25,13 @@ const LoadingPage: React.FC = () => {
 				// Vérifier si la requête a réussi
 				if (response.ok) {
 					const data = await response.json();
-					console.log("FETCH SUCESSSS MY FUCK");
 					console.log(data);
 
 					// Arrêter le chargement
 					setIsLoading(false);
 					localStorage.setItem('isNewUser', 'true');
 					localStorage.setItem('isRegistred', 'true');
+					localStorage.setItem('user_id', data._id);
 					history.push('/home');
 				} else {
 					throw new Error('Failed to fetch');
