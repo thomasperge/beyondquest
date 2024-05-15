@@ -1,0 +1,100 @@
+.challenge-items-progress-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  padding: 1rem;
+  background-color: white;
+  border: 2px solid rgba(0, 0, 0, 0.228);
+  border-radius: 8px;
+  gap: .7rem;
+}
+
+.challenge-items-progress-text {
+  gap: .5rem;
+}
+
+.arrow-icon-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.challenge-items-progress-caretForwardOutline {
+  color: black;
+  width: 20px;
+  height: 20px;
+}
+
+.challenge-items-progress-finish {
+  width: fit-content;
+  background: var(--ion-gradient-400);
+  padding: .3rem .6rem;
+  color: white;
+  font-size: .9rem;
+  font-weight: 480;
+  border-radius: 8px;
+  gap: .5rem;
+}
+
+.challenge-items-progress-retweet-pp {
+  width: 32px;
+  height: 32px;
+  background-color: red;
+  border-radius: 150px;
+  object-fit: contain;
+}
+
+.challenge-modal-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.challenge-modal-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.challenge-modal-infos-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.challenge-modal-image {
+  width: 120px;
+  height: 170px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.challenge-modal-infos {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.challenge-modal-people-container {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+}
+
+.challenge-modal-button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+}
+
+.challenge-modal-button-not-selected {
+  background-color: transparent !important;
+  border: 3.15px solid var(--ion-color-600);
+  color: black !important;
+  border-radius: 9px;
+}

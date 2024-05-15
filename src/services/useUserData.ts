@@ -10,6 +10,7 @@ const useUserData = () => {
       const userData = userservice.getUserData();
       if (userData == undefined || Object.keys(userData).length === 0) {
         history.push('/');
+        return;
       }
     };
 

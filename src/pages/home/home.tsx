@@ -71,7 +71,6 @@ const Home: React.FC = () => {
     }
   })
 
-
   return (
     <>
       {/* Good Morning / Afternoon */}

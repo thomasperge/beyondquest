@@ -6,7 +6,7 @@ import HeadingComponent from '../heading/heading.js';
 import bustsvg from './../../assets/svg/bust.svg'
 import blackflagsvg from './../../assets/svg/blackflag.svg'
 import retweetsvg from './../../assets/svg/retweet.svg'
-import './challengeitems.css';
+import './challengeitemsinprogress.css';
 
 interface ContainerProps {
   createdAt?: string;
@@ -16,9 +16,7 @@ interface ContainerProps {
   image?: string;
 }
 
-const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
-  console.log(props.completed);
-  
+const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const [showModal, setShowModal] = useState(false);
   const [showToastRedo, setShowToastRedo] = useState(false);
   const [showToastDelete, setShowToastDelete] = useState(false);
@@ -74,16 +72,13 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   };
 
   return (
-    <div className="challenge-items-container">
+    <div className="challenge-items-progress-container">
       {/* Arrow redirection */}
       <div className="arrow-icon-container" onClick={openModal}>
-        <IonIcon icon={caretForwardOutline} className='challenge-items-caretForwardOutline' />
+        <IonIcon icon={caretForwardOutline} className='challenge-items-progress-caretForwardOutline' />
       </div>
 
-      {/* Logo */}
-      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div>
-
-      <div className="challenge-items-text column" style={{ justifyContent: "space-between" }}>
+      <div className="challenge-items-progress-text column" style={{ justifyContent: "space-between" }}>
         <>
           <div>
             <span style={{ fontWeight: "600" }}>{ }</span>{props.categorie} - il y a {timeRepresentation}
@@ -94,7 +89,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
           </div>
         </>
 
-        <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
+        <div className="challenge-items-progress-finish flex" onClick={handleRetweetClick}>
           <img src={retweetsvg} className="flex" style={{ width: "20px", height: "20px" }} />
           Retweet
         </div>
@@ -195,16 +190,16 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
         </IonHeader>
 
         <IonContent className='ion-padding'>
-          <div className="challenge-items-container">
+          <div className="challenge-items-progress-container">
             {/* Arrow redirection */}
             <div className="arrow-icon-container" onClick={openModal}>
-              <IonIcon icon={caretForwardOutline} className='challenge-items-caretForwardOutline' />
+              <IonIcon icon={caretForwardOutline} className='challenge-items-progress-caretForwardOutline' />
             </div>
 
             {/* Logo */}
-            <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div>
+            <div className="challenge-items-progress-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div>
 
-            <div className="challenge-items-text column">
+            <div className="challenge-items-progress-text column">
               <div>
                 <span style={{ fontWeight: "600" }}>{timeRepresentation}</span>
               </div>
@@ -217,7 +212,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
           <div style={{ display: "flex", gap: ".7rem" }} className='ion-padding-vertical'>
             <div style={{ paddingTop: "5.5px" }}>
-              <img className="challenge-items-retweet-pp" />
+              <img className="challenge-items-progress-retweet-pp" />
             </div>
 
             <IonTextarea
@@ -278,4 +273,4 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   );
 };
 
-export default ChallengeItemsComponent;
+export default ChallengeItemsInProgressComponent;
