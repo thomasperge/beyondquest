@@ -14,6 +14,7 @@ import Settings from "./pages/settings/settings.js";
 import MainLoadingPage from "./pages/mainloading/mainloading.js";
 import ProfilePage from "./pages/profile/profile.js";
 import LayoutWithNav from "./components/layout/layoutWithNav";
+import UserDataUpdaterLayout from "./components/userdataupdater/userdataupdater";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -34,67 +35,72 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
+import React from "react";
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <LayoutWithNav
-            classname="ion-padding-horizontal"
-            children={<Home />}
-          ></LayoutWithNav>
-        </Route>
-        <Route exact path="/">
-          <MainLoadingPage />
-        </Route>
-        <Route exact path="/auth">
-          <Auth />
-        </Route>
-        <Route exact path="/signin">
-          <Signin />
-        </Route>
-        <Route exact path="/signup/informations">
-          <Information />
-        </Route>
-        <Route exact path="/signup/hobbies">
-          <Hobbies />
-        </Route>
-        <Route exact path="/signup/goal">
-          <SetGoal />
-        </Route>
-        <Route exact path="/signup/loading">
-          <Loading />
-        </Route>
-        <Route exact path="/discover">
-          <LayoutWithNav
-            classname="ion-padding-horizontal"
-            children={<Discover />}
-          ></LayoutWithNav>
-        </Route>
-        <Route exact path="/challenge">
-          <LayoutWithNav
-            classname="ion-padding-horizontal"
-            children={<Challenge />}
-          ></LayoutWithNav>
-        </Route>
-        <Route exact path="/settings">
-          <LayoutWithNav
-            classname="ion-padding-horizontal"
-            children={<Settings />}
-          ></LayoutWithNav>
-        </Route>
-        <Route exact path="/profil">
-          <LayoutWithNav
-            classname="ion-padding-horizontal"
-            children={<ProfilePage />}
-          ></LayoutWithNav>
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+const App: React.FC = () => {
+  return (
+    <IonApp>
+      <IonReactRouter>
+        {/* <UserDataUpdaterLayout> */}
+        <IonRouterOutlet>
+          <Route exact path="/">
+            <MainLoadingPage />
+          </Route>
+          <Route exact path="/home">
+            <LayoutWithNav
+              classname="ion-padding-horizontal"
+              children={<Home />}
+            ></LayoutWithNav>
+          </Route>
+          <Route exact path="/auth">
+            <Auth />
+          </Route>
+          <Route exact path="/signin">
+            <Signin />
+          </Route>
+          <Route exact path="/signup/informations">
+            <Information />
+          </Route>
+          <Route exact path="/signup/hobbies">
+            <Hobbies />
+          </Route>
+          <Route exact path="/signup/goal">
+            <SetGoal />
+          </Route>
+          <Route exact path="/signup/loading">
+            <Loading />
+          </Route>
+          <Route exact path="/discover">
+            <LayoutWithNav
+              classname="ion-padding-horizontal"
+              children={<Discover />}
+            ></LayoutWithNav>
+          </Route>
+          <Route exact path="/challenge">
+            <LayoutWithNav
+              classname="ion-padding-horizontal"
+              children={<Challenge />}
+            ></LayoutWithNav>
+          </Route>
+          <Route exact path="/settings">
+            <LayoutWithNav
+              classname="ion-padding-horizontal"
+              children={<Settings />}
+            ></LayoutWithNav>
+          </Route>
+          <Route exact path="/profil">
+            <LayoutWithNav
+              classname="ion-padding-horizontal"
+              children={<ProfilePage />}
+            ></LayoutWithNav>
+          </Route>
+        </IonRouterOutlet>
+        {/* </UserDataUpdaterLayout> */}
+      </IonReactRouter>
+    </IonApp >
+  )
+};
 
 export default App;
