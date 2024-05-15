@@ -3,6 +3,7 @@ import { UserInformationsDto } from "../enum/userInformation.js";
 // UserService.ts
 class UserService {
   private userData:  {
+    _id?: string,
     name?: string;
     lastname?: string;
     age?: number;
@@ -11,6 +12,7 @@ class UserService {
   } = {};
 
   saveUserInfo(userInfo: UserInformationsDto) {
+    this.userData._id = userInfo._id;
     this.userData.name = userInfo.name;
     this.userData.lastname = userInfo.lastname;
     this.userData.age = userInfo.age;
