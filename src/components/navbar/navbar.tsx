@@ -11,7 +11,6 @@ const Navbar: React.FC = () => {
 
   const handleChallengePromptDismiss = () => {
     setShowComponent(false);
-    console.log("DISMISSS");
     localStorage.setItem("isNewUser", "false");
   };
 

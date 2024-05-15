@@ -54,8 +54,6 @@ const challenges = [
 const Home: React.FC = () => {
   const history = useHistory();
 
-  console.log('Test'); // ---> Executed twice
-
   const isNewUser = localStorage.getItem("isNewUser") === "true";
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
 

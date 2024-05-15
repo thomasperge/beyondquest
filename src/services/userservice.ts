@@ -15,7 +15,7 @@ class UserService {
     this.userData.lastname = userInfo.lastname;
     this.userData.age = userInfo.age;
     this.userData.password = userInfo.password;
-    this.userData.hobbies = userInfo.usercategorie;
+    this.userData.hobbies = userInfo.hobbies;
   }
 
   saveHobbies(hobbies: string[]) {

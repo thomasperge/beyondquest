@@ -6,55 +6,58 @@ import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import HeadingComponent from "../../../components/heading/heading.js";
 import UserService from './../../../services/userservice.js'
 import "./loading.css";
+import userservice from "./../../../services/userservice.js";
 
 const LoadingPage: React.FC = () => {
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
 
 	// ==> Fetch Data
-	// useEffect(() => {
-	// 	const fetchData = async () => {
-	// 		try {
-	// 			const response = await fetch('http://localhost:3000/users/signup', {
-	// 				method: 'POST',
-	// 				headers: {
-	// 					'Content-Type': 'application/json'
-	// 				},
-	// 				body: JSON.stringify(UserService.getUserData())
-	// 			});
-
-	// 			// Vérifier si la requête a réussi
-	// 			if (response.ok) {
-	// 				const data = await response.json();
-	// 				console.log(data);
-
-	// 				// Arrêter le chargement
-	// 				setIsLoading(false);
-	// 				localStorage.setItem('isNewUser', 'true');
-	// 				localStorage.setItem('isRegistred', 'true');
-	// 				localStorage.setItem('user_id', data._id);
-	// 				history.push('/home');
-	// 			} else {
-	// 				throw new Error('Failed to fetch');
-	// 			}
-	// 		} catch (error) {
-	// 			console.error('Error:', error);
-	// 		}
-	// 	};
-
-	// 	fetchData();
-	// }, []);
-
 	useEffect(() => {
-		const timeoutId = setTimeout(() => {
-			setIsLoading(false);
-			localStorage.setItem('isNewUser', 'true');
-			localStorage.setItem('isRegistred', 'true')
-			history.push('/home');
-		}, 3500);
+		const fetchData = async () => {
+			try {
+				const response = await fetch('http://localhost:3000/users/signup', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(UserService.getUserData())
+				});
 
-		return () => clearTimeout(timeoutId);
+				// Vérifier si la requête a réussi
+				if (response.ok) {
+					const data = await response.json();
+					console.log(data);
+					userservice.saveUserInfo(data)
+					console.log("Loading : User Service Stockage user data : ", userservice.getUserData())
+
+					// Arrêter le chargement
+					setIsLoading(false);
+					localStorage.setItem('isNewUser', 'true');
+					localStorage.setItem('isRegistred', 'true');
+					localStorage.setItem('user_id', data._id);
+					history.push('/home');
+				} else {
+					throw new Error('Failed to fetch');
+				}
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		};
+
+		fetchData();
 	}, []);
+
+	// useEffect(() => {
+	// 	const timeoutId = setTimeout(() => {
+	// 		setIsLoading(false);
+	// 		localStorage.setItem('isNewUser', 'true');
+	// 		localStorage.setItem('isRegistred', 'true')
+	// 		history.push('/home');
+	// 	}, 3500);
+
+	// 	return () => clearTimeout(timeoutId);
+	// }, []);
 	
 	return (
 		<IonPage>

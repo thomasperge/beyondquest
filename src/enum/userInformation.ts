@@ -3,5 +3,5 @@ export interface UserInformationsDto {
   lastname: string;
   age: number;
   password: string;
-  usercategorie: string[]
+  hobbies: string[]
 }
