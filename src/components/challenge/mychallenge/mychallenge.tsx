@@ -57,35 +57,7 @@ const MyChallengeComponent: React.FC = () => {
           <IonSpinner name="crescent" />
         </div>
       ) : (
-        <div className='ion-padding-bottom'>
-          {/* Latest Challenges */}
-          <HeadingComponent
-            text="Latest Challenges"
-            fontSize="1.2rem"
-            fontWeight="600"
-            color="var(--ion-color-dark)"
-            padding="0 0 .5rem 0"
-          />
-
-          {/* Aucun challenge terminé */}
-          {challenges.every(({ completed }) => !completed) && (
-            <div style={{ color: "gray" }}>Aucun challenge terminé</div>
-          )}
-
-          {/* Challenges Terminés */}
-          <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-            {challenges.filter(({ completed }) => completed).map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
-              <ChallengeItemsComponent
-                key={challenge_id}
-                _id={challenge_joined_id}
-                createdAt={createdAt}
-                categorie={hobbies}
-                challenge={text}
-                completed={completed}
-                image=""
-              />
-            ))}
-          </div>
+        <div className='ion-padding-vertical'>
 
           {/* Challenges en Cours */}
           <HeadingComponent
@@ -105,6 +77,34 @@ const MyChallengeComponent: React.FC = () => {
           <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
             {challenges.filter(({ completed }) => !completed).map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
               <ChallengeItemsInProgressComponent
+                key={challenge_id}
+                _id={challenge_joined_id}
+                createdAt={createdAt}
+                categorie={hobbies}
+                challenge={text}
+                completed={completed}
+                image=""
+              />
+            ))}
+          </div>
+          {/* Latest Challenges */}
+          <HeadingComponent
+            text="Latest Challenges"
+            fontSize="1.2rem"
+            fontWeight="600"
+            color="var(--ion-color-dark)"
+            padding="0 0 .5rem 0"
+          />
+
+          {/* Aucun challenge terminé */}
+          {challenges.every(({ completed }) => !completed) && (
+            <div style={{ color: "gray" }}>Aucun challenge terminé</div>
+          )}
+
+          {/* Challenges Terminés */}
+          <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+            {challenges.filter(({ completed }) => completed).map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
+              <ChallengeItemsComponent
                 key={challenge_id}
                 _id={challenge_joined_id}
                 createdAt={createdAt}

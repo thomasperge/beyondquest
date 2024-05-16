@@ -20,6 +20,7 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
   const [showModal, setShowModal] = useState(false);
   const [showToastRedo, setShowToastRedo] = useState(false);
   const [showToastDelete, setShowToastDelete] = useState(false);
+  const [showCompletionToast, setShowCompletionToast] = useState(false);
 
   const createdAtDate = new Date(props.createdAt || '');
   const timeDifference = Date.now() - createdAtDate.getTime();
@@ -65,6 +66,8 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
 
       if (!response.ok) {
         throw new Error('Une erreur est survenue lors de la complétion du challenge.');
+      } else {
+        setShowCompletionToast(true); // Afficher le toast lorsque le challenge est complété avec succès
       }
     } catch (error) {
       console.error(error);
@@ -183,6 +186,15 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
         onDidDismiss={() => setShowToastDelete(false)}
         message="You delete a challenge !"
         duration={5500}
+        position="top"
+        className="redtoaststyle"
+      />
+
+      <IonToast
+        isOpen={showCompletionToast}
+        onDidDismiss={() => setShowCompletionToast(false)}
+        message="Challenge complété avec succès !"
+        duration={2000}
         position="top"
         className="redtoaststyle"
       />
