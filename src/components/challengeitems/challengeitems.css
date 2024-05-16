@@ -16,6 +16,14 @@
   padding: .5rem;
   border-radius: 8px;
   background-size: cover;
+  border: 1px solid rgb(204, 204, 204);
+  background-color: rgb(247, 247, 247);
+}
+
+.challenge-items-logo-area > img {
+  width: 35px;
+  height: 35px;
+  margin-bottom: 3px;
 }
 
 .challenge-items-text {
@@ -36,14 +44,15 @@
 
 .challenge-items-retweet {
   width: fit-content;
-  background: var(--ion-color-200);
+  background-color: rgb(247, 247, 247);
   padding: .2rem .4rem;
   color: black;
-  border: 1.3px solid var(--ion-color-500);
+  border: 1.3px solid gray;
   font-size: .85rem;
   font-weight: 500;
   border-radius: 8px;
   gap: .5rem;
+  white-space: nowrap;
 }
 
 .challenge-items-retweet-pp {
@@ -51,6 +60,8 @@
   height: 32px;
   background-color: greenyellow;
   border-radius: 150px;
+  font-weight: 550;
+  font-size: 1.2rem;
   object-fit: contain;
 }
 

@@ -1,6 +1,6 @@
 import { IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonTextarea, IonTitle, IonToast, IonToolbar } from '@ionic/react';
 import { caretBack, caretForwardOutline, } from 'ionicons/icons';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ButtonComponent from '../button/button.js';
 import HeadingComponent from '../heading/heading.js';
 import bustsvg from './../../assets/svg/bust.svg'
@@ -10,6 +10,8 @@ import userservice from '../../services/userservice.js';
 import booksvg from '../../assets/svg/book.svg'
 import peoplesvg from '../../assets/svg/people.svg'
 import camerasvg from '../../assets/svg/camera.svg'
+import bookmarsvg from '../../assets/svg/bookmar.svg'
+import bookmarYellowsvg from '../../assets/svg/bookmar_yellow.svg'
 import './challengeitems.css';
 
 interface ContainerProps {
@@ -27,7 +29,8 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const [showToastDelete, setShowToastDelete] = useState(false);
   const [isRetweetModalOpen, setIsRetweetModalOpen] = useState(false);
   const [tweetContent, setTweetContent] = useState('');
-
+  const tweetContentRef = useRef(tweetContent);
+  
   const createdAtDate = new Date(props.createdAt || '');
   const timeDifference = Date.now() - createdAtDate.getTime();
 
@@ -35,6 +38,8 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
   const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
   const monthsDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+
+  const firstCharacter = (userservice.getUserData()?.name ?? '?')[0].toUpperCase();
 
   let timeRepresentation = '';
   if (monthsDifference >= 1) {
@@ -46,6 +51,41 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   } else {
     timeRepresentation = `${minutesDifference}m`;
   }
+
+  const fetchData = async (content: any) => {
+    try {
+      const userData = {
+        user_id: userservice.getUserData()._id,
+        challenge_joined_id: props._id,
+        text: content
+      };
+
+      console.log("fetchData => userData :", content);
+
+      const response = await fetch('http://localhost:3000/tweet/new', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+
+      if (response.ok) {
+        setIsRetweetModalOpen(false);
+      } else {
+        throw new Error('Une erreur est survenue lors de la récupération des données.');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleTweetContentChange = (e: any) => {
+    const newValue = e.detail.value;
+    console.log("handleTweetContentChange :", newValue);
+    setTweetContent(newValue);
+    tweetContentRef.current = newValue;
+  };
 
   const openModal = () => {
     setShowModal(true);
@@ -67,13 +107,10 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
   const handleCancelClick = () => {
     setIsRetweetModalOpen(false);
-    setTweetContent('');
   };
 
   const handleSubmitClick = () => {
-    console.log('Tweet submitted:', tweetContent);
-    setIsRetweetModalOpen(false);
-    setTweetContent('');
+    fetchData(tweetContentRef.current);
   };
 
   return (
@@ -85,7 +122,9 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
       {/* Logo */}
       {/* <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div> */}
-      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${camerasvg})` }}></div>
+      <div className="challenge-items-logo-area flex">
+        <img src={camerasvg} alt="" className='flex' />
+      </div>
 
       <div className="challenge-items-text column" style={{ justifyContent: "space-between" }}>
         <>
@@ -101,12 +140,17 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
         <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
           <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
             <img src={retweetsvg} className="flex" style={{ width: "18px", height: "18px" }} />
+            Tweet
           </div>
 
           <div className="challenge-items-retweet flex">
             <img src={peoplesvg} className="flex" style={{ width: "18px", height: "18px" }} />
             1200
             {/* {props._id} */}
+          </div>
+
+          <div className="challenge-items-retweet flex">
+            <img src={bookmarsvg} className="flex" style={{ width: "18px", height: "18px" }} />
           </div>
         </div>
       </div>
@@ -203,7 +247,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
               <IonIcon onClick={() => setIsRetweetModalOpen(false)} icon={caretBack} size='medium' />
             </IonButtons>
 
-            <IonTitle>Retweet</IonTitle>
+            <IonTitle>Tweet</IonTitle>
           </IonToolbar>
         </IonHeader>
 
@@ -222,23 +266,31 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
             <div className="challenge-items-text column">
               <div>
-                <span style={{ fontWeight: "600" }}>Joined {timeRepresentation} ago</span>
+                <span style={{ fontWeight: "600" }}>{ }</span>{props.categorie} - il y a {timeRepresentation}
               </div>
 
-              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
+              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, fontWeight: "525", fontSize: "1.07rem" }}>
                 {props.challenge}
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '.5rem' }}>
+                <div className="challenge-items-retweet flex">
+                  <img src={peoplesvg} className="flex" style={{ width: "18px", height: "18px" }} />
+                  1200 joined
+                </div>
               </div>
             </div>
           </div>
 
           <div style={{ display: "flex", gap: ".7rem" }} className='ion-padding-vertical'>
             <div style={{ paddingTop: "5.5px" }}>
-              <div className="challenge-items-retweet-pp flex">{userservice.getUserData().name[0]}</div>
+              <div className="challenge-items-retweet-pp flex">
+                {firstCharacter}
+              </div>
             </div>
 
             <IonTextarea
-              value={tweetContent}
-              onIonChange={(e) => setTweetContent(e.detail.value!)}
+              onIonChange={handleTweetContentChange}
               rows={5}
               placeholder="What is happening?!"
               style={{ width: 'auto' }}
