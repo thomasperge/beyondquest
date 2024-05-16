@@ -82,7 +82,8 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
       </div>
 
       {/* Logo */}
-      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div>
+      {/* <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div> */}
+      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${booksvg})` }}></div>
 
       <div className="challenge-items-text column" style={{ justifyContent: "space-between" }}>
         <>
@@ -96,8 +97,8 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
         </>
 
         <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
-          <img src={retweetsvg} className="flex" style={{ width: "20px", height: "20px" }} />
-          Retweet
+          <img src={retweetsvg} className="flex" style={{ width: "18px", height: "18px" }} />
+          Tweet
         </div>
       </div>
 
@@ -120,6 +121,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
               <div style={{ fontSize: "1.1rem" }}><span style={{ fontWeight: "600", fontSize: "1.15rem" }}>Challenge: </span>{props.challenge}</div>
 
               <div className="challenge-modal-infos-container">
+                {/* <img className="challenge-modal-image" src={props.image} alt="" /> */}
                 <img className="challenge-modal-image" src={booksvg} alt="" />
 
                 <div className="challenge-modal-infos">

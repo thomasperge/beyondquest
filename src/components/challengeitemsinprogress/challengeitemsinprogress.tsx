@@ -4,6 +4,7 @@ import { useState } from 'react';
 import ButtonComponent from '../button/button.js';
 import donesvg from './../../assets/svg/done.svg'
 import camerasvg from './../../assets/svg/camera.svg'
+import crosssvg from './../../assets/svg/cross.svg'
 import './challengeitemsinprogress.css';
 import userservice from '../../services/userservice.js';
 
@@ -21,6 +22,7 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
   const [showToastRedo, setShowToastRedo] = useState(false);
   const [showToastDelete, setShowToastDelete] = useState(false);
   const [showCompletionToast, setShowCompletionToast] = useState(false);
+  const [showLeaveToast, setShowLeaveToast] = useState(false);
 
   const createdAtDate = new Date(props.createdAt || '');
   const timeDifference = Date.now() - createdAtDate.getTime();
@@ -74,6 +76,25 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
     }
   };
 
+  const handleLeave = async (idChallenge: string) => {
+    try {
+      const response = await fetch(`http://localhost:3000/challenge/leave/${idChallenge}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Une erreur est survenue lors de la complétion du challenge.');
+      } else {
+        setShowLeaveToast(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="challenge-items-progress-container">
       {/* Arrow redirection */}
@@ -83,18 +104,25 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
 
       <div className="challenge-items-progress-text column" style={{ justifyContent: "space-between" }}>
         <>
-          <div>
-            <span style={{ fontWeight: "600" }}>{ }</span>{props.categorie} - il y a {timeRepresentation}
+          <div style={{ display: 'flex', alignItems: 'center', gap: ".2rem" }}>
+            <span style={{ fontWeight: "500" }}>{props.categorie}</span> - il y a {timeRepresentation}
           </div>
 
-          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, fontWeight: "525", fontSize: "1.07rem" }}>
+          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, fontWeight: "560", fontSize: "1.07rem" }}>
             {props.challenge}
           </div>
         </>
 
-        <div className="challenge-items-progress-finish flex" onClick={() => handleCompletion(props._id ? props._id : '')}>
-          <img src={donesvg} className="flex" style={{ width: "20px", height: "20px" }} alt="Done" />
-          Completed
+        <div style={{ display: "flex", alignContent: "center", gap: ".5rem" }}>
+          <div className="challenge-items-progress-finish flex" onClick={() => handleCompletion(props._id ? props._id : '')}>
+            <img src={donesvg} className="flex" style={{ width: "18px", height: "18px" }} alt="Done" />
+            Completed
+          </div>
+
+          <div className="challenge-items-progress-cross flex" onClick={() => handleCompletion(props._id ? props._id : '')}>
+            <img src={crosssvg} className="flex" style={{ width: "18px", height: "18px" }} alt="Done" />
+            Leave
+          </div>
         </div>
       </div>
 
@@ -131,15 +159,9 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
 
               {/* People */}
               <div style={{ display: "flex", justifyContent: "space-between", width: "100%", gap: ".5rem" }}>
-
-                <div className="challenge-modal-progress-button flex">
-                  <div className="flex" style={{ color: "white" }}>Take Picture</div>
-                </div>
-
                 <div className="challenge-modal-progress-button flex">
                   <div className="flex" style={{ color: "white" }}>Finish</div>
                 </div>
-
               </div>
             </div>
 
@@ -193,7 +215,16 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
       <IonToast
         isOpen={showCompletionToast}
         onDidDismiss={() => setShowCompletionToast(false)}
-        message="Challenge complété avec succès !"
+        message="A finish a challenge"
+        duration={2000}
+        position="top"
+        className="greentoaststyle"
+      />
+
+      <IonToast
+        isOpen={showCompletionToast}
+        onDidDismiss={() => setShowCompletionToast(false)}
+        message="You leave the challenge"
         duration={2000}
         position="top"
         className="redtoaststyle"
