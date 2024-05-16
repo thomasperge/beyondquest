@@ -9,6 +9,7 @@ import retweetsvg from './../../assets/svg/retweet.svg'
 import userservice from '../../services/userservice.js';
 import booksvg from '../../assets/svg/book.svg'
 import peoplesvg from '../../assets/svg/people.svg'
+import camerasvg from '../../assets/svg/camera.svg'
 import './challengeitems.css';
 
 interface ContainerProps {
@@ -84,7 +85,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
       {/* Logo */}
       {/* <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div> */}
-      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${booksvg})` }}></div>
+      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${camerasvg})` }}></div>
 
       <div className="challenge-items-text column" style={{ justifyContent: "space-between" }}>
         <>
@@ -97,15 +98,15 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
           </div>
         </>
 
-        <div style={{display: "flex", alignItems: "center", gap: ".5rem"}}>
+        <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
           <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
             <img src={retweetsvg} className="flex" style={{ width: "18px", height: "18px" }} />
           </div>
 
           <div className="challenge-items-retweet flex">
             <img src={peoplesvg} className="flex" style={{ width: "18px", height: "18px" }} />
-            {/* 1200 */}
-            {props._id}
+            1200
+            {/* {props._id} */}
           </div>
         </div>
       </div>
@@ -214,11 +215,14 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
             </div>
 
             {/* Logo */}
-            <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div>
+            {/* <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div> */}
+            <div className="challenge-items-logo-area flex">
+              <img src={camerasvg} alt="" className='flex' />
+            </div>
 
             <div className="challenge-items-text column">
               <div>
-                <span style={{ fontWeight: "600" }}>{timeRepresentation}</span>
+                <span style={{ fontWeight: "600" }}>Joined {timeRepresentation} ago</span>
               </div>
 
               <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
@@ -229,7 +233,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
           <div style={{ display: "flex", gap: ".7rem" }} className='ion-padding-vertical'>
             <div style={{ paddingTop: "5.5px" }}>
-              <img className="challenge-items-retweet-pp" />
+              <div className="challenge-items-retweet-pp flex">{userservice.getUserData().name[0]}</div>
             </div>
 
             <IonTextarea
