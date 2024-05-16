@@ -44,14 +44,14 @@
   object-fit: contain;
 }
 
-.challenge-modal-container {
+.challenge-modal-progress-container {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.challenge-modal-content {
+.challenge-modal-progress-content {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -60,31 +60,51 @@
   gap: 1rem;
 }
 
-.challenge-modal-infos-container {
+.challenge-modal-progress-infos-container {
   display: flex;
   gap: 1rem;
 }
 
-.challenge-modal-image {
+.challenge-modal-progress-image {
   width: 120px;
   height: 170px;
   border-radius: 12px;
   object-fit: cover;
+  border: 1.5px solid black;
+  padding: .6rem;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
-.challenge-modal-infos {
+.challenge-modal-progress-svg {
+  width: 45px;
+  height: 45px;
+}
+
+.challenge-modal-progress-infos {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.challenge-modal-people-container {
-  display: flex;
-  flex-direction: column;
-  gap: .2rem;
+.challenge-modal-progress-button {
+  width: 100%;
+  background: var(--ion-gradient-400);
+  padding: .5rem 2rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  gap: .4rem;
+  white-space: nowrap;
 }
 
-.challenge-modal-button {
+.challenge-modal-progress-button > img {
+  width: 25px;
+  height: 25px;
+}
+
+.challenge-modal-progress-button-container {
   display: flex;
   width: 100%;
   align-items: center;
@@ -92,7 +112,7 @@
   gap: .5rem;
 }
 
-.challenge-modal-button-not-selected {
+.challenge-modal-progress-button-container-not-selected {
   background-color: transparent !important;
   border: 3.15px solid var(--ion-color-600);
   color: black !important;
