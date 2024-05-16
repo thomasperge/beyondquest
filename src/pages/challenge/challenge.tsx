@@ -3,6 +3,7 @@ import MyChallengeComponent from '../../components/challenge/mychallenge/mychall
 import ButtonComponent from '../../components/button/button.js';
 import FriendsChallengeComponent from '../../components/challenge/friendschallenge/friendschallenge.js';
 import './challenge.css'
+import withUserData from '../../services/useUserData.js';
 
 const Challenge: React.FC = () => {
   const [displayedComponent, setDisplayedComponent] = useState<string | null>('myChallenge');
@@ -42,4 +43,4 @@ const Challenge: React.FC = () => {
   );
 };
 
-export default Challenge;
+export default withUserData(Challenge);

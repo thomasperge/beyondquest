@@ -11,6 +11,8 @@ const MainLoadingPage: React.FC = () => {
 
 	// ==> Fetch Data
 	useEffect(() => {
+		console.log("HERRRE");
+		
 		const checkUserRegistration = async () => {
 			const isRegistred = localStorage.getItem('isRegistred') == 'true' || localStorage.getItem('isRegistred') == 'True';
 			const userId = localStorage.getItem('user_id');
@@ -20,8 +22,8 @@ const MainLoadingPage: React.FC = () => {
 					const response = await fetch(`http://localhost:3000/users/data/${userId}`);
 					if (response.status === 200) {
 						const userData = await response.json();
-						console.log('User data:', userData);
 						userservice.saveUserInfo(userData)
+						console.log('User data:', userData);
 						console.log("MainLoading : User Service Stockage user data : ", userservice.getUserData())
 						history.push('/home');
 					} else {

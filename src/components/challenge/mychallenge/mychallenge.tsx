@@ -75,7 +75,7 @@ const MyChallengeComponent: React.FC = () => {
 
           {/* Challenges en Cours */}
           <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-            {challenges.filter(({ completed }) => !completed).map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
+            {challenges.filter(({ completed }) => !completed).reverse().map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
               <ChallengeItemsInProgressComponent
                 key={challenge_id}
                 _id={challenge_joined_id}
@@ -103,7 +103,7 @@ const MyChallengeComponent: React.FC = () => {
 
           {/* Challenges Terminés */}
           <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-            {challenges.filter(({ completed }) => completed).map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
+            {challenges.filter(({ completed }) => completed).reverse().map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
               <ChallengeItemsComponent
                 key={challenge_id}
                 _id={challenge_joined_id}
