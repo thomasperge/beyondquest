@@ -5,6 +5,7 @@ http://ionicframework.com/docs/theming/ */
 :root {
   /** Colors 400-500-600-800-950 **/
   --ion-color-50: #EBFEF8;
+  --ion-color-200: #cffff0;
   --ion-color-400: #27E0B9;
   --ion-color-500: #02C7A4;
   --ion-color-600: #00A286;

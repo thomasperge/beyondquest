@@ -1,7 +1,8 @@
 export interface UserInformationsDto {
+  _id: string;
   name: string;
   lastname: string;
   age: number;
   password: string;
-  usercategorie: string[]
+  hobbies: string[]
 }

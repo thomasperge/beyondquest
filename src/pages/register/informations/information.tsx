@@ -23,7 +23,7 @@ const InformationPage: React.FC = () => {
 		lastname: '',
 		age: 0,
 		password: '',
-		usercategorie: []
+		hobbies: []
 	});
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>, fieldName: keyof typeof formData) => {

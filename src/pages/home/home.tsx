@@ -11,6 +11,7 @@ import ChallengeItemsComponent from "../../components/challengeitems/challengeit
 import ButtonComponent from "../../components/button/button.js";
 import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/trendchallengeitems.js";
 import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
+import withUserData from "../../services/useUserData.js";
 
 const challenges = [
   {
@@ -53,8 +54,6 @@ const challenges = [
 
 const Home: React.FC = () => {
   const history = useHistory();
-
-  console.log('Test'); // ---> Executed twice
 
   const isNewUser = localStorage.getItem("isNewUser") === "true";
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
@@ -179,4 +178,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default withUserData(Home);

@@ -1,4 +1,4 @@
-.challenge-items-container {
+.challenge-items-progress-container {
   position: relative;
   display: flex;
   width: 100%;
@@ -9,16 +9,7 @@
   gap: .7rem;
 }
 
-.challenge-items-logo-area {
-  min-width: 70px;
-  min-height: 90px;
-  padding: 1rem;
-  padding: .5rem;
-  border-radius: 8px;
-  background-size: cover;
-}
-
-.challenge-items-text {
+.challenge-items-progress-text {
   gap: .5rem;
 }
 
@@ -28,40 +19,27 @@
   right: 10px;
 }
 
-.challenge-items-caretForwardOutline {
+.challenge-items-progress-caretForwardOutline {
   color: black;
   width: 20px;
   height: 20px;
 }
 
-.challenge-items-retweet {
-  width: fit-content;
-  background: var(--ion-color-200);
-  padding: .2rem .4rem;
-  color: black;
-  border: 1.3px solid var(--ion-color-500);
-  font-size: .85rem;
-  font-weight: 500;
-  border-radius: 8px;
-  gap: .5rem;
-}
-
-.challenge-items-retweet-pp {
+.challenge-items-progress-retweet-pp {
   width: 32px;
   height: 32px;
-  background-color: greenyellow;
   border-radius: 150px;
   object-fit: contain;
 }
 
-.challenge-modal-container {
+.challenge-modal-progress-container {
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.challenge-modal-content {
+.challenge-modal-progress-content {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -70,31 +48,51 @@
   gap: 1rem;
 }
 
-.challenge-modal-infos-container {
+.challenge-modal-progress-infos-container {
   display: flex;
   gap: 1rem;
 }
 
-.challenge-modal-image {
+.challenge-modal-progress-image {
   width: 120px;
   height: 170px;
   border-radius: 12px;
   object-fit: cover;
+  border: 1.5px solid black;
+  padding: .6rem;
+  white-space: nowrap;
+  cursor: pointer;
 }
 
-.challenge-modal-infos {
+.challenge-modal-progress-svg {
+  width: 45px;
+  height: 45px;
+}
+
+.challenge-modal-progress-infos {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.challenge-modal-people-container {
-  display: flex;
-  flex-direction: column;
-  gap: .2rem;
+.challenge-modal-progress-button {
+  width: 100%;
+  background: var(--ion-gradient-400);
+  padding: .5rem 2rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 8px;
+  gap: .4rem;
+  white-space: nowrap;
 }
 
-.challenge-modal-button {
+.challenge-modal-progress-button > img {
+  width: 25px;
+  height: 25px;
+}
+
+.challenge-modal-progress-button-container {
   display: flex;
   width: 100%;
   align-items: center;
@@ -102,7 +100,7 @@
   gap: .5rem;
 }
 
-.challenge-modal-button-not-selected {
+.challenge-modal-progress-button-container-not-selected {
   background-color: transparent !important;
   border: 3.15px solid var(--ion-color-600);
   color: black !important;

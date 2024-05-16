@@ -1,21 +1,24 @@
-import { IonAvatar, IonButton, IonButtons, IonCol, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonModal, IonTextarea, IonTitle, IonToast, IonToolbar } from '@ionic/react';
-import { caretBack, caretForwardOutline, personCircleOutline } from 'ionicons/icons';
+import { IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonTextarea, IonTitle, IonToast, IonToolbar } from '@ionic/react';
+import { caretBack, caretForwardOutline, } from 'ionicons/icons';
 import { useState } from 'react';
-import { DifficultyDto } from '../../enum/difficulty.js';
 import ButtonComponent from '../button/button.js';
 import HeadingComponent from '../heading/heading.js';
 import bustsvg from './../../assets/svg/bust.svg'
 import blackflagsvg from './../../assets/svg/blackflag.svg'
 import retweetsvg from './../../assets/svg/retweet.svg'
+import userservice from '../../services/userservice.js';
+import booksvg from '../../assets/svg/book.svg'
+import peoplesvg from '../../assets/svg/people.svg'
+import camerasvg from '../../assets/svg/camera.svg'
 import './challengeitems.css';
 
 interface ContainerProps {
-  days: string;
-  hours: string;
-  categorie: string;
-  challenge: string;
-  difficulty: DifficultyDto;
-  image: string;
+  _id?: string;
+  createdAt?: string;
+  categorie?: string;
+  challenge?: string;
+  completed?: boolean;
+  image?: string;
 }
 
 const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
@@ -24,6 +27,25 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const [showToastDelete, setShowToastDelete] = useState(false);
   const [isRetweetModalOpen, setIsRetweetModalOpen] = useState(false);
   const [tweetContent, setTweetContent] = useState('');
+
+  const createdAtDate = new Date(props.createdAt || '');
+  const timeDifference = Date.now() - createdAtDate.getTime();
+
+  const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+  const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+  const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  const monthsDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+
+  let timeRepresentation = '';
+  if (monthsDifference >= 1) {
+    timeRepresentation = `${monthsDifference}mo`;
+  } else if (daysDifference >= 1) {
+    timeRepresentation = `${daysDifference}d`;
+  } else if (hoursDifference >= 1) {
+    timeRepresentation = `${hoursDifference}h`;
+  } else {
+    timeRepresentation = `${minutesDifference}m`;
+  }
 
   const openModal = () => {
     setShowModal(true);
@@ -62,22 +84,30 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
       </div>
 
       {/* Logo */}
-      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div>
+      {/* <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div> */}
+      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${camerasvg})` }}></div>
 
       <div className="challenge-items-text column" style={{ justifyContent: "space-between" }}>
         <>
           <div>
-            <span style={{ fontWeight: "600" }}>{props.days}</span> - {props.hours}
+            <span style={{ fontWeight: "600" }}>{ }</span>{props.categorie} - il y a {timeRepresentation}
           </div>
 
-          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
+          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, fontWeight: "525", fontSize: "1.07rem" }}>
             {props.challenge}
           </div>
         </>
 
-        <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
-          <img src={retweetsvg} className="flex" style={{ width: "20px", height: "20px" }} />
-          Retweet
+        <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
+          <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
+            <img src={retweetsvg} className="flex" style={{ width: "18px", height: "18px" }} />
+          </div>
+
+          <div className="challenge-items-retweet flex">
+            <img src={peoplesvg} className="flex" style={{ width: "18px", height: "18px" }} />
+            1200
+            {/* {props._id} */}
+          </div>
         </div>
       </div>
 
@@ -100,19 +130,21 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
               <div style={{ fontSize: "1.1rem" }}><span style={{ fontWeight: "600", fontSize: "1.15rem" }}>Challenge: </span>{props.challenge}</div>
 
               <div className="challenge-modal-infos-container">
-                <img className="challenge-modal-image" src={props.image} alt="" />
+                {/* <img className="challenge-modal-image" src={props.image} alt="" /> */}
+                <img className="challenge-modal-image" src={booksvg} alt="" />
 
                 <div className="challenge-modal-infos">
-                  <div><span style={{ fontWeight: "600" }}>Generated by: </span> <span style={{ textDecoration: "underline" }}>@thomasperge</span></div>
-                  <div><span style={{ fontWeight: "600" }}>Status: </span> <span style={{ color: "var(--ion-color-500)", fontWeight: "500" }}>Finished</span> ({props.days} {props.hours})</div>
-                  <div><span style={{ fontWeight: "600" }}>Duration: </span> <span style={{ fontWeight: "500" }}>2d 18h</span></div>
+                  <div><span style={{ fontWeight: "600" }}>Generated by: </span> <span style={{ textDecoration: "underline" }}>@{userservice.getUserData().name}</span></div>
+                  <div><span style={{ fontWeight: "600" }}>Status: </span> <span style={{ color: "var(--ion-color-500)", fontWeight: "500" }}>Finished</span></div>
+                  <div><span style={{ fontWeight: "600" }}>Categorie: </span> <span style={{ fontWeight: "500" }}>{props.categorie}</span></div>
+                  <div><span style={{ fontWeight: "600" }}>Completed in: </span> <span style={{ fontWeight: "500" }}>{timeRepresentation}</span></div>
                 </div>
               </div>
 
               {/* People */}
               <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
                 <HeadingComponent
-                  text="People's"
+                  text="People's joined :"
                   fontSize="1.15rem"
                   fontWeight="600"
                 />
@@ -128,7 +160,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
                     <span style={{ fontWeight: "600", fontSize: "1.11rem" }}>12</span>finished
                   </div>
 
-                  <div className="challenge-modal-people-joined"><span style={{ fontWeight: "600", fontSize: "1.11rem" }}>Average time:</span> 3d 12h</div>
+                  <div className="challenge-modal-people-joined"><span style={{ fontWeight: "600", fontSize: "1.11rem" }}>Average completion time:</span> 3d 12h</div>
                 </div>
               </div>
 
@@ -163,7 +195,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
         </IonContent>
       </IonModal>
 
-      {/* Modal Display Tweet input */}
+      {/* Modal Display Completed */}
       <IonModal isOpen={isRetweetModalOpen} onDidDismiss={() => setIsRetweetModalOpen(false)}>
         <IonHeader>
           <IonToolbar>
@@ -183,11 +215,14 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
             </div>
 
             {/* Logo */}
-            <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div>
+            {/* <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div> */}
+            <div className="challenge-items-logo-area flex">
+              <img src={camerasvg} alt="" className='flex' />
+            </div>
 
             <div className="challenge-items-text column">
               <div>
-                <span style={{ fontWeight: "600" }}>{props.days}</span> - {props.hours}
+                <span style={{ fontWeight: "600" }}>Joined {timeRepresentation} ago</span>
               </div>
 
               <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
@@ -198,7 +233,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
           <div style={{ display: "flex", gap: ".7rem" }} className='ion-padding-vertical'>
             <div style={{ paddingTop: "5.5px" }}>
-              <img className="challenge-items-retweet-pp" />
+              <div className="challenge-items-retweet-pp flex">{userservice.getUserData().name[0]}</div>
             </div>
 
             <IonTextarea
@@ -207,6 +242,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
               rows={5}
               placeholder="What is happening?!"
               style={{ width: 'auto' }}
+              autofocus
             ></IonTextarea>
           </div>
 

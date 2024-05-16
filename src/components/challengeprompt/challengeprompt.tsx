@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IonAlert, IonActionSheet, IonLoading } from '@ionic/react';
 import { toastController } from '@ionic/core';
+import userservice from '../../services/userservice';
 
 interface ChallengePromptProps {
   onDismiss: () => void;
@@ -16,15 +17,47 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
     setShowActionSheet(true);
   };
 
-  const handleActionSheetSelected = async (category: string) => {
+  const handleActionSheetSelected = async (hobby: string) => {
     setShowActionSheet(false);
     setShowLoading(true);
 
-    setTimeout(() => {
+    // setTimeout(() => {
+    //   setShowLoading(false);
+    //   showToastChallenge("Chargement terminé.");
+    //   onDismiss();
+    // }, 3000);
+
+    try {
+      const userData = { ...userservice.getUserData(), hobbies: hobby };
+      const response = await fetch('http://localhost:3000/challenge/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+
+      console.log(response);
+
+      if (response.ok) {
+        try {
+          const responseData = await response.json();
+
+          setShowLoading(false);
+          showToastChallenge(responseData.text);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        throw new Error('Une erreur est survenue lors de la récupération des données.');
+      }
+    } catch (error: any) {
+      console.log(error);
       setShowLoading(false);
-      showToastChallenge("Chargement terminé.");
+      showToastChallenge(error.message);
+    } finally {
       onDismiss();
-    }, 3000);
+    }
   };
 
   const showToastChallenge = async (message: string) => {
@@ -66,24 +99,14 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
       <IonActionSheet
         isOpen={showActionSheet}
         buttons={[
-          {
-            text: "Cuisine",
-            handler: () => handleActionSheetSelected("Faire 10 cookies"),
-          },
-          {
-            text: "Musculation",
-            handler: () => handleActionSheetSelected("Faire 250 pompes"),
-          },
-          {
-            text: "Lecture",
-            handler: () => handleActionSheetSelected("Lire 25 pages"),
-          },
+          ...(userservice.getUserData().hobbies || []).map((hobby, index) => ({
+            text: hobby,
+            handler: () => handleActionSheetSelected(hobby),
+          })),
           {
             text: "Annuler",
             role: "cancel",
-            handler: () => {
-              onDismiss();
-            },
+            handler: onDismiss,
           },
         ]}
       />

@@ -6,11 +6,13 @@ import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import HeadingComponent from "../../../components/heading/heading.js";
 import UserService from './../../../services/userservice.js'
 import "./loading.css";
+import userservice from "./../../../services/userservice.js";
 
 const LoadingPage: React.FC = () => {
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
 
+	// ==> Fetch Data
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -25,13 +27,15 @@ const LoadingPage: React.FC = () => {
 				// Vérifier si la requête a réussi
 				if (response.ok) {
 					const data = await response.json();
-					console.log("FETCH SUCESSSS MY FUCK");
 					console.log(data);
+					userservice.saveUserInfo(data)
+					console.log("Loading : User Service Stockage user data : ", userservice.getUserData())
 
 					// Arrêter le chargement
 					setIsLoading(false);
 					localStorage.setItem('isNewUser', 'true');
 					localStorage.setItem('isRegistred', 'true');
+					localStorage.setItem('user_id', data._id);
 					history.push('/home');
 				} else {
 					throw new Error('Failed to fetch');
@@ -44,6 +48,17 @@ const LoadingPage: React.FC = () => {
 		fetchData();
 	}, []);
 
+	// useEffect(() => {
+	// 	const timeoutId = setTimeout(() => {
+	// 		setIsLoading(false);
+	// 		localStorage.setItem('isNewUser', 'true');
+	// 		localStorage.setItem('isRegistred', 'true')
+	// 		history.push('/home');
+	// 	}, 3500);
+
+	// 	return () => clearTimeout(timeoutId);
+	// }, []);
+	
 	return (
 		<IonPage>
 			<IonContent fullscreen>

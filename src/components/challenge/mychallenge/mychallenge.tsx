@@ -1,89 +1,131 @@
-import { DifficultyDto } from '../../../enum/difficulty.js';
+import { useEffect, useState } from 'react';
+import { IonRefresher, IonRefresherContent, IonSpinner } from '@ionic/react';
 import ChallengeItemsComponent from '../../challengeitems/challengeitems.js';
 import HeadingComponent from '../../heading/heading.js';
-import bookImage from './../../../assets/imagecalendar/books.png'
-import gymImage from './../../../assets/imagecalendar/gym.png'
-import smoothieImage from './../../../assets/imagecalendar/smoothie.png'
+import ChallengeItemsInProgressComponent from '../../challengeitemsinprogress/challengeitemsinprogress.js';
 import './mychallenge.css'
+import hourglassvg from '../../../assets/svg/hourglass.svg'
+import targetvg from '../../../assets/svg/target.svg'
 
 const MyChallengeComponent: React.FC = () => {
-  const challenges = [
-    {
-      id: 1,
-      days: "Mondays",
-      hours: "21h25",
-      categories: "Cuisine",
-      challenge: "Faire des cookies originaux",
-      difficulty: DifficultyDto.Easy,
-      image: bookImage,
-    },
-    {
-      id: 2,
-      days: "Yesterday",
-      hours: "06h15",
-      categories: "Sport",
-      challenge: "Faire 20 pompes et des 40 squats",
-      difficulty: DifficultyDto.Medium,
-      image: gymImage,
-    },
-    {
-      id: 3,
-      days: "Friday",
-      hours: "12h35",
-      categories: "Lecture",
-      challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
-      difficulty: DifficultyDto.Hard,
-      image: smoothieImage,
-    },
-    {
-      id: 4,
-      days: "Sunday",
-      hours: "23h56",
-      categories: "Lecture",
-      challenge: "Lire 60 pages et achter un nouveaux livre",
-      difficulty: DifficultyDto.Medium,
-      image: gymImage,
-    },
-    {
-      id: 5,
-      days: "Monday",
-      hours: "11h45",
-      categories: "Organisation",
-      challenge: "Organiser fete des mères et pères",
-      difficulty: DifficultyDto.Easy,
-      image: smoothieImage,
-    },
-  ];
+  const [challenges, setChallenges] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchData = async () => {
+    try {
+      const userId = localStorage.getItem('user_id');
+
+      const response = await fetch(`http://localhost:3000/challenge/user/${userId}`);
+      if (!response.ok) {
+        throw new Error('Une erreur est survenue lors de la récupération des données.');
+      }
+
+      const data = await response.json();
+      console.log(data);
+      setChallenges(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '1.5rem 0' }}>
+        <IonSpinner name="crescent" />
+      </div>
+    );
+  }
+
+  const handleRefresh = async (event: CustomEvent) => {
+    await fetchData();
+    event.detail.complete();
+  };
 
   return (
-    <div className='ion-padding-vertical'>
-      {/* Latest Challenge */}
-      <HeadingComponent
-        text="Latest Challenges"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      />
+    <>
+      <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+        <IonRefresherContent />
+      </IonRefresher>
 
-      {/* All Challenge */}
-      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-        {challenges.map(
-          ({ id, days, hours, categories, challenge, difficulty, image }) => (
-            <ChallengeItemsComponent
-              key={id}
-              days={days}
-              hours={hours}
-              categorie={categories}
-              challenge={challenge}
-              difficulty={difficulty}
-              image={image}
+      {/* Affichage des données */}
+      {loading ? (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <IonSpinner name="crescent" />
+        </div>
+      ) : (
+        <div className='ion-padding-vertical'>
+          {/* Challenges en Cours */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: ".5rem" }} className='ion-padding-bottom'>
+            <img src={hourglassvg} className='flex' alt="" style={{ width: "21px", height: "21px" }} />
+
+            <HeadingComponent
+              text="Challenges in progress"
+              fontSize="1.2rem"
+              fontWeight="600"
+              color="var(--ion-color-dark)"
             />
-          )
-        )}
-      </div>
-    </div>
+          </div>
+
+          {/* Aucun challenge en cours */}
+          {challenges.every(({ completed }) => completed) && (
+            <div style={{ color: "gray" }}>Aucun challenge en cours</div>
+          )}
+
+          {/* Challenges en Cours */}
+          <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+            {challenges.filter(({ completed }) => !completed).reverse().map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
+              <ChallengeItemsInProgressComponent
+                key={challenge_id}
+                _id={challenge_joined_id}
+                createdAt={createdAt}
+                categorie={hobbies}
+                challenge={text}
+                completed={completed}
+                image=""
+              />
+            ))}
+          </div>
+          {/* Latest Challenges */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: ".5rem" }} className='ion-padding-bottom'>
+            <img src={targetvg} className='flex' alt="" style={{ width: "23px", height: "23px" }} />
+
+            <HeadingComponent
+              text="Challenges completed"
+              fontSize="1.2rem"
+              fontWeight="600"
+              color="var(--ion-color-dark)"
+            />
+          </div>
+
+          {/* Aucun challenge terminé */}
+          {challenges.every(({ completed }) => !completed) && (
+            <div style={{ color: "gray" }}>Aucun challenge terminé</div>
+          )}
+
+          {/* Challenges Terminés */}
+          <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+            {challenges.filter(({ completed }) => completed).reverse().map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
+              <ChallengeItemsComponent
+                key={challenge_id}
+                _id={challenge_joined_id}
+                createdAt={createdAt}
+                categorie={hobbies}
+                challenge={text}
+                completed={completed}
+                image=""
+              />
+            ))}
+          </div>
+        </div>
+      )}
+    </>
   );
-};
+}
 
 export default MyChallengeComponent;

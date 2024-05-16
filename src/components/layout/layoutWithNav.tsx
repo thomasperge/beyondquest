@@ -3,7 +3,6 @@ import ToolBarComponent from '../toolbar/toolbar';
 import { IonContent, IonFooter, IonPage } from '@ionic/react';
 import Navbar from '../navbar/navbar';
 
-
 interface ContainerProps {
   children: any,
   classname?: string,
