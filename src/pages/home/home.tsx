@@ -178,4 +178,5 @@ const Home: React.FC = () => {
   );
 };
 
-export default withUserData(Home);
+// export default withUserData(Home);
+export default Home;

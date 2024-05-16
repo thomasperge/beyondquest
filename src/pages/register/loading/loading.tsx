@@ -38,10 +38,12 @@ const LoadingPage: React.FC = () => {
 					localStorage.setItem('user_id', data._id);
 					history.push('/home');
 				} else {
-					throw new Error('Failed to fetch');
+					history.push('/home');
+					// throw new Error('Failed to fetch');
 				}
 			} catch (error) {
-				console.error('Error:', error);
+					history.push('/home');
+					console.error('Error:', error);
 			}
 		};
 
