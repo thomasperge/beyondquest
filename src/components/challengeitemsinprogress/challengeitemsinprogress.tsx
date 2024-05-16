@@ -152,16 +152,29 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
 
             {/* Button */}
             <div className="challenge-modal-progress-button-container">
-              <div style={{ display: "flex", justifyContent: "space-between", width: "100%", gap: ".5rem" }}>
-                <div className="challenge-items-progress-finish flex" onClick={() => handleCompletion(props._id ? props._id : '')}>
-                  <img src={donesvg} className="flex" style={{ width: "18px", height: "18px" }} alt="Done" />
-                  Completed
-                </div>
+              <div className="challenge-modal-button">
+                <ButtonComponent
+                  text="Completed"
+                  width='65%'
+                  background='var(--ion-gradient-400)'
+                  padding='.5rem .6rem'
+                  color='white'
+                  fontSize='1rem'
+                  fontWeight='500'
+                  borderRadius='8px'
+                  onClick={() => handleCompletion(props._id ? props._id : '')}
+                ></ButtonComponent>
 
-                <div className="challenge-items-progress-cross flex" onClick={() => handleLeave(props._id ? props._id : '')}>
-                  <img src={crosssvg} className="flex" style={{ width: "18px", height: "18px" }} alt="Done" />
-                  Leave
-                </div>
+                <ButtonComponent
+                  text="Leave"
+                  width='35%'
+                  padding='.5rem .6rem'
+                  fontSize='1rem'
+                  fontWeight='500'
+                  borderRadius='8px'
+                  className='challenge-modal-button-not-selected'
+                  onClick={() => handleLeave(props._id ? props._id : '')}
+                ></ButtonComponent>
               </div>
             </div>
           </div>
