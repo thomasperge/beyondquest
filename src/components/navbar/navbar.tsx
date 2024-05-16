@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonTabBar, IonTabButton, IonIcon, IonActionSheet } from '@ionic/react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { homeSharp, receiptSharp, playSharp, peopleSharp, addSharp } from 'ionicons/icons';
@@ -17,6 +17,11 @@ const Navbar: React.FC = () => {
     console.log("DISMISSS");
     localStorage.setItem("isNewUser", "false");
   };
+
+  // Ajout d'un effet pour réinitialiser showActionSheet lorsque l'utilisateur change de page
+  useEffect(() => {
+    setShowActionSheet(false);
+  }, [location.pathname]);
 
   return (
     <>
@@ -50,6 +55,7 @@ const Navbar: React.FC = () => {
 
       <IonActionSheet
         isOpen={showActionSheet}
+        onDidDismiss={() => setShowActionSheet(false)} // Assurez-vous de réinitialiser l'état lorsque l'ActionSheet est fermé
         buttons={[
           {
             text: "Profil",
