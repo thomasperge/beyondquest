@@ -52,7 +52,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
     timeRepresentation = `${minutesDifference}m`;
   }
 
-  const fetchData = async (content: any) => {
+  const fetchDataCreateTweet = async (content: any) => {
     try {
       const userData = {
         user_id: userservice.getUserData()._id,
@@ -80,6 +80,26 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
     }
   };
 
+  const fetchDataRedoAChallenge = async () => {
+    try {
+      const response = await fetch(`http://localhost:3000/challenge/redo/${props._id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Une erreur est survenue lors de la complétion du challenge.');
+      } else {
+        setShowToastRedo(true);
+        setShowModal(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleTweetContentChange = (e: any) => {
     const newValue = e.detail.value;
     console.log("handleTweetContentChange :", newValue);
@@ -92,8 +112,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   };
 
   const handleRedoButtonClick = () => {
-    setShowToastRedo(true);
-    setShowModal(false);
+    fetchDataRedoAChallenge()
   };
 
   const handleDeleteButtonClick = () => {
@@ -110,7 +129,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   };
 
   const handleSubmitClick = () => {
-    fetchData(tweetContentRef.current);
+    fetchDataCreateTweet(tweetContentRef.current);
   };
 
   return (
