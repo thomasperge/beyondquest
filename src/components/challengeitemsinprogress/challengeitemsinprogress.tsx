@@ -69,7 +69,8 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
       if (!response.ok) {
         throw new Error('Une erreur est survenue lors de la complétion du challenge.');
       } else {
-        setShowCompletionToast(true); // Afficher le toast lorsque le challenge est complété avec succès
+        setShowCompletionToast(true);
+        setShowModal(false)
       }
     } catch (error) {
       console.error(error);
@@ -89,6 +90,7 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
         throw new Error('Une erreur est survenue lors de la complétion du challenge.');
       } else {
         setShowLeaveToast(true);
+        setShowModal(false)
       }
     } catch (error) {
       console.error(error);
@@ -112,18 +114,6 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
             {props.challenge}
           </div>
         </>
-
-        <div style={{ display: "flex", alignContent: "center", gap: ".5rem" }}>
-          <div className="challenge-items-progress-finish flex" onClick={() => handleCompletion(props._id ? props._id : '')}>
-            <img src={donesvg} className="flex" style={{ width: "18px", height: "18px" }} alt="Done" />
-            Completed
-          </div>
-
-          <div className="challenge-items-progress-cross flex" onClick={() => handleCompletion(props._id ? props._id : '')}>
-            <img src={crosssvg} className="flex" style={{ width: "18px", height: "18px" }} alt="Done" />
-            Leave
-          </div>
-        </div>
       </div>
 
       {/* Modal Display Challenge*/}
@@ -145,8 +135,10 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
               <div style={{ fontSize: "1.1rem" }}><span style={{ fontWeight: "600", fontSize: "1.15rem" }}>Challenge: </span>{props.challenge}</div>
 
               <div className="challenge-modal-progress-infos-container">
-                <div className="challenge-modal-progress-image flex">
-                  <img src={camerasvg} className="challenge-modal-progress-svg flex" alt="Take Picture" />
+                <div className="challenge-modal-progress-image flex column">
+                  <div style={{ fontWeight: "500" }}>Take</div>
+                  <div style={{ fontWeight: "500" }}>Picture</div>
+                  <img src={camerasvg} className="challenge-modal-progress-svg flex" alt="Take Picture" style={{ marginTop: ".5rem" }} />
                 </div>
 
                 <div className="challenge-modal-progress-infos">
@@ -156,39 +148,21 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
                   <div><span style={{ fontWeight: "600" }}>Start since: </span> <span style={{ fontWeight: "500" }}>{timeRepresentation}</span></div>
                 </div>
               </div>
-
-              {/* People */}
-              <div style={{ display: "flex", justifyContent: "space-between", width: "100%", gap: ".5rem" }}>
-                <div className="challenge-modal-progress-button flex">
-                  <div className="flex" style={{ color: "white" }}>Finish</div>
-                </div>
-              </div>
             </div>
 
             {/* Button */}
             <div className="challenge-modal-progress-button-container">
-              <ButtonComponent
-                text="Redo"
-                width='100%'
-                background='var(--ion-gradient-400)'
-                padding='.4rem 2rem'
-                color='white'
-                fontSize='1rem'
-                fontWeight='500'
-                borderRadius='8px'
-                onClick={handleRedoButtonClick}
-              ></ButtonComponent>
+              <div style={{ display: "flex", justifyContent: "space-between", width: "100%", gap: ".5rem" }}>
+                <div className="challenge-items-progress-finish flex" onClick={() => handleCompletion(props._id ? props._id : '')}>
+                  <img src={donesvg} className="flex" style={{ width: "18px", height: "18px" }} alt="Done" />
+                  Completed
+                </div>
 
-              <ButtonComponent
-                text="Delete"
-                width='100%'
-                padding='.4rem 2rem'
-                fontSize='1rem'
-                fontWeight='500'
-                borderRadius='8px'
-                className='challenge-modal-progress-button-container-not-selected'
-                onClick={handleDeleteButtonClick}
-              ></ButtonComponent>
+                <div className="challenge-items-progress-cross flex" onClick={() => handleLeave(props._id ? props._id : '')}>
+                  <img src={crosssvg} className="flex" style={{ width: "18px", height: "18px" }} alt="Done" />
+                  Leave
+                </div>
+              </div>
             </div>
           </div>
         </IonContent>
@@ -222,7 +196,7 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
       />
 
       <IonToast
-        isOpen={showCompletionToast}
+        isOpen={showLeaveToast}
         onDidDismiss={() => setShowCompletionToast(false)}
         message="You leave the challenge"
         duration={2000}

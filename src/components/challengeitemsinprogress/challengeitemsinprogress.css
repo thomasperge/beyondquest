@@ -26,24 +26,24 @@
 }
 
 .challenge-items-progress-finish {
-  width: fit-content;
+  width: 65%;
   background: var(--ion-color-200);
-  padding: .3rem .6rem;
+  padding: .4rem .6rem;
   color: black;
   border: 1.6px solid var(--ion-color-500);
-  font-size: .85rem;
+  font-size: .95rem;
   font-weight: 500;
   border-radius: 8px;
   gap: .5rem;
 }
 
 .challenge-items-progress-cross {
-  width: fit-content;
+  width: 35%;
   background: rgb(255, 212, 212);
-  padding: .3rem .6rem;
+  padding: .4rem .6rem;
   color: black;
   border: 1.6px solid rgb(238, 0, 0);
-  font-size: .85rem;
+  font-size: .95rem;
   font-weight: 500;
   border-radius: 8px;
   gap: .5rem;
