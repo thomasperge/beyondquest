@@ -6,9 +6,10 @@ import HeadingComponent from '../heading/heading.js';
 import bustsvg from './../../assets/svg/bust.svg'
 import blackflagsvg from './../../assets/svg/blackflag.svg'
 import retweetsvg from './../../assets/svg/retweet.svg'
-import './challengeitems.css';
 import userservice from '../../services/userservice.js';
 import booksvg from '../../assets/svg/book.svg'
+import peoplesvg from '../../assets/svg/people.svg'
+import './challengeitems.css';
 
 interface ContainerProps {
   _id?: string;
@@ -96,9 +97,15 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
           </div>
         </>
 
-        <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
-          <img src={retweetsvg} className="flex" style={{ width: "18px", height: "18px" }} />
-          Tweet
+        <div style={{display: "flex", alignItems: "center", gap: ".5rem"}}>
+          <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
+            <img src={retweetsvg} className="flex" style={{ width: "18px", height: "18px" }} />
+          </div>
+
+          <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
+            <img src={peoplesvg} className="flex" style={{ width: "18px", height: "18px" }} />
+            1200
+          </div>
         </div>
       </div>
 

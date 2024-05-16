@@ -4,6 +4,8 @@ import ChallengeItemsComponent from '../../challengeitems/challengeitems.js';
 import HeadingComponent from '../../heading/heading.js';
 import ChallengeItemsInProgressComponent from '../../challengeitemsinprogress/challengeitemsinprogress.js';
 import './mychallenge.css'
+import hourglassvg from '../../../assets/svg/hourglass.svg'
+import targetvg from '../../../assets/svg/target.svg'
 
 const MyChallengeComponent: React.FC = () => {
   const [challenges, setChallenges] = useState([]);
@@ -58,15 +60,17 @@ const MyChallengeComponent: React.FC = () => {
         </div>
       ) : (
         <div className='ion-padding-vertical'>
-
           {/* Challenges en Cours */}
-          <HeadingComponent
-            text="Challenges in progress"
-            fontSize="1.2rem"
-            fontWeight="600"
-            color="var(--ion-color-dark)"
-            padding="0 0 .5rem 0"
-          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: ".5rem" }} className='ion-padding-bottom'>
+            <img src={hourglassvg} className='flex' alt="" style={{ width: "21px", height: "21px" }} />
+
+            <HeadingComponent
+              text="Challenges in progress"
+              fontSize="1.2rem"
+              fontWeight="600"
+              color="var(--ion-color-dark)"
+            />
+          </div>
 
           {/* Aucun challenge en cours */}
           {challenges.every(({ completed }) => completed) && (
@@ -88,13 +92,16 @@ const MyChallengeComponent: React.FC = () => {
             ))}
           </div>
           {/* Latest Challenges */}
-          <HeadingComponent
-            text="Challenges completed"
-            fontSize="1.2rem"
-            fontWeight="600"
-            color="var(--ion-color-dark)"
-            padding="0 0 .5rem 0"
-          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: ".5rem" }} className='ion-padding-bottom'>
+            <img src={targetvg} className='flex' alt="" style={{ width: "23px", height: "23px" }} />
+
+            <HeadingComponent
+              text="Challenges completed"
+              fontSize="1.2rem"
+              fontWeight="600"
+              color="var(--ion-color-dark)"
+            />
+          </div>
 
           {/* Aucun challenge terminé */}
           {challenges.every(({ completed }) => !completed) && (
