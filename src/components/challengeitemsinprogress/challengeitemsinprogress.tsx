@@ -47,16 +47,6 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
     setShowModal(true);
   };
 
-  const handleRedoButtonClick = () => {
-    setShowToastRedo(true);
-    setShowModal(false);
-  };
-
-  const handleDeleteButtonClick = () => {
-    setShowToastDelete(true);
-    setShowModal(false);
-  };
-
   const handleCompletion = async (idChallenge: string) => {
     try {
       const response = await fetch(`http://localhost:3000/challenge/complete/${idChallenge}`, {

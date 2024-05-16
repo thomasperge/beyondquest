@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
 import { useHistory } from "react-router";
 import gymimage from './../../assets/imagecalendar/gym.png'
@@ -12,59 +12,64 @@ import ButtonComponent from "../../components/button/button.js";
 import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/trendchallengeitems.js";
 import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
 import withUserData from "../../services/useUserData.js";
-
-const challenges = [
-  {
-    id: 1,
-    days: "Mondays",
-    hours: "21h25",
-    categories: "Cuisine",
-    challenge: "Faire des cookies originaux",
-    difficulty: DifficultyDto.Easy,
-    image: gymimage,
-  },
-  {
-    id: 2,
-    days: "Yesterday",
-    hours: "06h15",
-    categories: "Sport",
-    challenge: "Faire 20 pompes et des 40 squats",
-    difficulty: DifficultyDto.Medium,
-    image: smoothieimage,
-  },
-  {
-    id: 3,
-    days: "Friday",
-    hours: "12h35",
-    categories: "Lecture",
-    challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
-    difficulty: DifficultyDto.Hard,
-    image: booksimage,
-  },
-  {
-    id: 4,
-    days: "Sunday",
-    hours: "23h56",
-    categories: "Lecture",
-    challenge: "Lire 60 pages et achter un nouveaux livre",
-    difficulty: DifficultyDto.Medium,
-    image: smoothieimage,
-  },
-];
+import userservice from "../../services/userservice.js";
+import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
 
 const Home: React.FC = () => {
   const history = useHistory();
-
   const isNewUser = localStorage.getItem("isNewUser") === "true";
+
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
+  const [challenges, setChallenges] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const handleChallengePromptDismiss = () => {
     setShowChallengePrompt(false);
     localStorage.setItem("isNewUser", "false");
   };
 
+  const fetchData = async () => {
+    try {
+      const userId = userservice.getUserData()._id;
+      const response = await fetch(`http://localhost:3000/challenge/user/${userId}`);
+
+      if (!response.ok) {
+        throw new Error('Une erreur est survenue lors de la récupération des données.');
+      }
+
+      const data = await response.json();
+
+      const finishedChallenges = data.filter((challenge: any) => challenge.completed);
+
+      finishedChallenges.sort((a: any, b: any) => {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      });
+
+      const lastFinishedChallenges = finishedChallenges.slice(0, 3);
+      console.log(lastFinishedChallenges);
+      setChallenges(lastFinishedChallenges);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRefresh = async (event: CustomEvent) => {
+    await fetchData();
+    event.detail.complete();
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <>
+      <IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+        <IonRefresherContent />
+      </IonRefresher>
+
       {/* Good Morning / Afternoon */}
       <div className="flex">
         <HeadingComponent
@@ -108,31 +113,48 @@ const Home: React.FC = () => {
 
       {/* All Challenge */}
       <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-        {challenges.slice(0, 3).map(
-          ({ id, days, hours, categories, challenge, difficulty, image }) => (
-            <ChallengeItemsComponent
-              key={id}
-              days={days}
-              hours={hours}
-              categorie={categories}
-              challenge={challenge}
-              difficulty={difficulty}
-              image={image}
-            />
+        {loading ? (
+          <div className="flex" style={{ margin: "1rem 0" }}>
+            <IonSpinner name="crescent"></IonSpinner>
+          </div>
+        ) : (
+          challenges.length === 0 && loading == false ? (
+            <ButtonComponent
+              text='No challenge'
+              padding='1rem 0'
+              background='transparent'
+              color='#686868'
+              fontSize='.9rem'
+              fontWeight='500'
+            ></ButtonComponent>
+          ) : (
+            <>
+              {challenges.slice(0, 3).map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
+                <ChallengeItemsComponent
+                  key={challenge_joined_id}
+                  _id={challenge_joined_id}
+                  createdAt={createdAt}
+                  categorie={hobbies}
+                  challenge={text}
+                  completed={completed}
+                  image=""
+                />
+              ))}
+              {challenges.length > 3 && (
+                <ButtonComponent
+                  text='View all'
+                  padding='1rem 0'
+                  background='transparent'
+                  color='#686868'
+                  fontSize='.9rem'
+                  fontWeight='500'
+                  onClick={() => history.replace('/challenge', 'root')}
+                ></ButtonComponent>
+              )}
+            </>
           )
         )}
 
-        {challenges.length > 3 && (
-          <ButtonComponent
-            text='View all'
-            padding='.3rem 1.5rem .8rem 1.5rem'
-            background='transparent'
-            color='#686868'
-            fontSize='.9rem'
-            fontWeight='500'
-            onClick={() => history.replace('/challenge', 'root')}
-          ></ButtonComponent>
-        )}
       </div>
 
       {/* Trends Challenge */}

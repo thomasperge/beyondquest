@@ -20,7 +20,7 @@
   background-color: rgb(247, 247, 247);
 }
 
-.challenge-items-logo-area > img {
+.challenge-items-logo-area>img {
   width: 35px;
   height: 35px;
   margin-bottom: 3px;
@@ -87,10 +87,20 @@
 }
 
 .challenge-modal-image {
-  width: 120px;
-  height: 170px;
-  border-radius: 12px;
-  object-fit: cover;
+  min-width: 100px;
+  min-height: 140px;
+  padding: 1rem;
+  padding: .5rem;
+  border-radius: 8px;
+  background-size: cover;
+  border: 1px solid rgb(204, 204, 204);
+  background-color: rgb(247, 247, 247);
+}
+
+.challenge-modal-image>img {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 3px;
 }
 
 .challenge-modal-infos {
