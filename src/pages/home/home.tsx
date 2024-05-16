@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
 import { useHistory } from "react-router";
 import gymimage from './../../assets/imagecalendar/gym.png'
@@ -11,8 +11,7 @@ import ChallengeItemsComponent from "../../components/challengeitems/challengeit
 import ButtonComponent from "../../components/button/button.js";
 import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/trendchallengeitems.js";
 import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
-import userservice from "../../services/userservice.js";
-import useUserData from "../../services/useUserData.js";
+import withUserData from "../../services/useUserData.js";
 
 const challenges = [
   {
@@ -54,7 +53,6 @@ const challenges = [
 ];
 
 const Home: React.FC = () => {
-  useUserData()
   const history = useHistory();
 
   const isNewUser = localStorage.getItem("isNewUser") === "true";
@@ -64,12 +62,6 @@ const Home: React.FC = () => {
     setShowChallengePrompt(false);
     localStorage.setItem("isNewUser", "false");
   };
-
-  useEffect(() => {
-    if (userservice.getUserData() == undefined || Object.keys(userservice.getUserData()).length === 0) {
-      history.push('/');
-    }
-  })
 
   return (
     <>
@@ -186,4 +178,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default withUserData(Home);
