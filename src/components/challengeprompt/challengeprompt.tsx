@@ -29,7 +29,7 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
 
     try {
       const userData = { ...userservice.getUserData(), hobbies: hobby };
-      const response = await fetch('http://localhost:3000/challenge/generate', {
+      const response = await fetch('https://scary-ruby-cuff-links.cyclic.app/challenge/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

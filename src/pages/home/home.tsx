@@ -34,7 +34,7 @@ const Home: React.FC = () => {
   const fetchData = async () => {
     try {
       const userId = userservice.getUserData()._id;
-      const response = await fetch(`http://localhost:3000/challenge/user/${userId}`);
+      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/user/${userId}`);
 
       if (!response.ok) {
         throw new Error('Une erreur est survenue lors de la récupération des données.');

@@ -10,7 +10,7 @@ const Discover: React.FC = () => {
 
 	const fetchData = async () => {
 		try {
-			const response = await fetch(`http://localhost:3000/tweet/all`, {
+			const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/tweet/all`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'

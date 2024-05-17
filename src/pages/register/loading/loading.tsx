@@ -16,7 +16,7 @@ const LoadingPage: React.FC = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch('http://localhost:3000/users/signup', {
+				const response = await fetch('https://scary-ruby-cuff-links.cyclic.app/users/signup', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'

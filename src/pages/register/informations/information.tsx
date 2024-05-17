@@ -19,6 +19,7 @@ const InformationPage: React.FC = () => {
 
 	// User data
 	const [formData, setFormData] = useState<UserInformationsDto>({
+		_id: '',
 		name: '',
 		lastname: '',
 		age: 0,

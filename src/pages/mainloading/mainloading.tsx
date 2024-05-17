@@ -19,7 +19,7 @@ const MainLoadingPage: React.FC = () => {
 
 			if (isRegistred && userId) {
 				try {
-					const response = await fetch(`http://localhost:3000/users/data/${userId}`);
+					const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/users/data/${userId}`);
 					if (response.status === 200) {
 						const userData = await response.json();
 						userservice.saveUserInfo(userData)

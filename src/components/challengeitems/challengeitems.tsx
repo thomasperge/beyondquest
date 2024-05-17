@@ -60,9 +60,9 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
         text: content
       };
 
-      console.log("fetchData => userData :", content);
+      console.log("fetchData => userData :", userData);
 
-      const response = await fetch('http://localhost:3000/tweet/new', {
+      const response = await fetch('https://scary-ruby-cuff-links.cyclic.app/tweet/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
   const fetchDataRedoAChallenge = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/challenge/redo/${props._id}`, {
+      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/redo/${props._id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -103,7 +103,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
   const fetchLeave = async (idChallenge: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/challenge/leave/${idChallenge}`, {
+      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/leave/${idChallenge}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

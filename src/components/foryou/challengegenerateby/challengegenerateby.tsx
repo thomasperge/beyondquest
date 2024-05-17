@@ -26,7 +26,7 @@ const ForYouChallengeGenerateByComponent: React.FC<ContainerProps> = ({ ...props
         challenge_id: props.challenge_id,
       };
 
-      const response = await fetch('http://localhost:3000/challenge/join-challenge', {
+      const response = await fetch('https://scary-ruby-cuff-links.cyclic.app/challenge/join-challenge', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

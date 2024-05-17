@@ -49,7 +49,7 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
 
   const handleCompletion = async (idChallenge: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/challenge/complete/${idChallenge}`, {
+      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/complete/${idChallenge}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -69,7 +69,7 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
 
   const handleLeave = async (idChallenge: string) => {
     try {
-      const response = await fetch(`http://localhost:3000/challenge/leave/${idChallenge}`, {
+      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/leave/${idChallenge}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
