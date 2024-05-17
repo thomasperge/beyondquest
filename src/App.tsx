@@ -79,10 +79,10 @@ const App: React.FC = () => {
             ></LayoutWithNav>
           </Route>
           <Route exact path="/challenge">
-            <LayoutWithNav
+            <LayoutWithoutNav
               classname="ion-padding-horizontal"
               children={<Challenge />}
-            ></LayoutWithNav>
+            ></LayoutWithoutNav>
           </Route>
           <Route exact path="/settings">
             <LayoutWithNav

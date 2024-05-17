@@ -1,16 +1,31 @@
-import { IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonTextarea, IonTitle, IonToast, IonToolbar } from '@ionic/react';
-import { caretBack, caretForwardOutline, } from 'ionicons/icons';
-import { useState } from 'react';
-import ButtonComponent from '../button/button.js';
-import HeadingComponent from '../heading/heading.js';
-import bustsvg from './../../assets/svg/bust.svg'
-import blackflagsvg from './../../assets/svg/blackflag.svg'
-import retweetsvg from './../../assets/svg/retweet.svg'
-import userservice from '../../services/userservice.js';
-import booksvg from '../../assets/svg/book.svg'
-import peoplesvg from '../../assets/svg/people.svg'
-import camerasvg from '../../assets/svg/camera.svg'
-import './challengeitems.css';
+import {
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonModal,
+  IonTextarea,
+  IonTitle,
+  IonToast,
+  IonToolbar,
+} from "@ionic/react";
+import { caretBack, caretForwardOutline } from "ionicons/icons";
+import { useState } from "react";
+import ButtonComponent from "../button/button.js";
+import HeadingComponent from "../heading/heading.js";
+import bustsvg from "./../../assets/svg/bust.svg";
+import blackflagsvg from "./../../assets/svg/blackflag.svg";
+import userservice from "../../services/userservice.js";
+import booksvg from "../../assets/svg/book.svg";
+import camerasvg from "../../assets/svg/camera.svg";
+import back from "../../assets/svg/back.svg";
+import gymimage from "./../../assets/imagecalendar/gym.png";
+import booksimage from "./../../assets/imagecalendar/books.png";
+import smoothieimage from "./../../assets/imagecalendar/smoothie.png";
+
+import { DifficultyDto } from "../../enum/difficulty.js";
+
+import "./challengeitems.css";
 
 interface ContainerProps {
   _id?: string;
@@ -21,22 +36,67 @@ interface ContainerProps {
   image?: string;
 }
 
+const challenges = [
+  {
+    id: 1,
+    days: "Mondays",
+    hours: "21h25",
+    categories: "Cuisine",
+    challenge: "Faire des cookies originaux",
+    difficulty: DifficultyDto.Easy,
+    image: gymimage,
+    followers: 115,
+  },
+  {
+    id: 2,
+    days: "Yesterday",
+    hours: "06h15",
+    categories: "Sport",
+    challenge: "Faire 20 pompes et des 40 squats",
+    difficulty: DifficultyDto.Medium,
+    image: smoothieimage,
+    followers: 194,
+  },
+  {
+    id: 3,
+    days: "Friday",
+    hours: "12h35",
+    categories: "Lecture",
+    challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
+    difficulty: DifficultyDto.Hard,
+    image: booksimage,
+    followers: 59,
+  },
+  {
+    id: 4,
+    days: "Sunday",
+    hours: "23h56",
+    categories: "Lecture",
+    challenge: "Lire 60 pages et achter un nouveaux livre",
+    difficulty: DifficultyDto.Medium,
+    image: smoothieimage,
+    followers: 15695,
+  },
+];
+
 const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const [showModal, setShowModal] = useState(false);
   const [showToastRedo, setShowToastRedo] = useState(false);
   const [showToastDelete, setShowToastDelete] = useState(false);
   const [isRetweetModalOpen, setIsRetweetModalOpen] = useState(false);
-  const [tweetContent, setTweetContent] = useState('');
+  const [tweetContent, setTweetContent] = useState("");
 
-  const createdAtDate = new Date(props.createdAt || '');
+  const createdAtDate = new Date(props.createdAt || "");
   const timeDifference = Date.now() - createdAtDate.getTime();
 
   const minutesDifference = Math.floor(timeDifference / (1000 * 60));
   const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
   const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-  const monthsDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+  const monthsDifference = Math.floor(
+    timeDifference / (1000 * 60 * 60 * 24 * 30)
+  );
 
-  let timeRepresentation = '';
+  let timeRepresentation = "";
   if (monthsDifference >= 1) {
     timeRepresentation = `${monthsDifference}mo`;
   } else if (daysDifference >= 1) {
@@ -67,127 +127,197 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
   const handleCancelClick = () => {
     setIsRetweetModalOpen(false);
-    setTweetContent('');
+    setTweetContent("");
   };
 
   const handleSubmitClick = () => {
-    console.log('Tweet submitted:', tweetContent);
+    console.log("Tweet submitted:", tweetContent);
     setIsRetweetModalOpen(false);
-    setTweetContent('');
+    setTweetContent("");
   };
 
   return (
-    <div className="challenge-items-container">
-      {/* Arrow redirection */}
-      <div className="arrow-icon-container" onClick={openModal}>
-        <IonIcon icon={caretForwardOutline} className='challenge-items-caretForwardOutline' />
-      </div>
-
-      {/* Logo */}
-      {/* <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div> */}
-      <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${camerasvg})` }}></div>
-
-      <div className="challenge-items-text column" style={{ justifyContent: "space-between" }}>
-        <>
-          <div>
-            <span style={{ fontWeight: "600" }}>{ }</span>{props.categorie} - il y a {timeRepresentation}
+    <div>
+      {challenges.map((challenge) => (
+        <div key={challenge.id} className="challenge">
+          <img
+            src={challenge.image}
+            alt={challenge.challenge}
+            className="challenge-image"
+          />
+          <div className="flex justify-between challenge-stats">
+            <div className="challenge-categories">{challenge.categories}</div>
+            <div className="challenge-followers">{challenge.followers}</div>
           </div>
-
-          <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2, fontWeight: "525", fontSize: "1.07rem" }}>
-            {props.challenge}
-          </div>
-        </>
-
-        <div style={{ display: "flex", alignItems: "center", gap: ".5rem" }}>
-          <div className="challenge-items-retweet flex" onClick={handleRetweetClick}>
-            <img src={retweetsvg} className="flex" style={{ width: "18px", height: "18px" }} />
-          </div>
-
-          <div className="challenge-items-retweet flex">
-            <img src={peoplesvg} className="flex" style={{ width: "18px", height: "18px" }} />
-            1200
-            {/* {props._id} */}
+          <div className="flex justify-between challenge-details">
+            <div className="challenge-title">{challenge.challenge}</div>
+            <button className="challenge-button" onClick={openModal}>
+              See more
+            </button>
           </div>
         </div>
-      </div>
+      ))}
 
       {/* Modal Display Challenge*/}
       <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)}>
-        <IonHeader>
+        <IonHeader collapse="fade">
           <IonToolbar>
             <IonButtons slot="start">
-              <IonIcon onClick={() => setShowModal(false)} icon={caretBack} size='medium' />
+              <IonIcon
+                onClick={() => setShowModal(false)}
+                icon={back}
+                size="large"
+              />
             </IonButtons>
 
             <IonTitle>Challenge</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <div></div>
 
-        <IonContent className='ion-padding challenge-modal-container'>
+        <IonContent className="challenge-modal-container">
           <div className="challenge-modal-container">
             {/* Content */}
             <div className="challenge-modal-content">
-              <div style={{ fontSize: "1.1rem" }}><span style={{ fontWeight: "600", fontSize: "1.15rem" }}>Challenge: </span>{props.challenge}</div>
-
-              <div className="challenge-modal-infos-container">
-                {/* <img className="challenge-modal-image" src={props.image} alt="" /> */}
-                <img className="challenge-modal-image" src={booksvg} alt="" />
-
-                <div className="challenge-modal-infos">
-                  <div><span style={{ fontWeight: "600" }}>Generated by: </span> <span style={{ textDecoration: "underline" }}>@{userservice.getUserData().name}</span></div>
-                  <div><span style={{ fontWeight: "600" }}>Status: </span> <span style={{ color: "var(--ion-color-500)", fontWeight: "500" }}>Finished</span></div>
-                  <div><span style={{ fontWeight: "600" }}>Categorie: </span> <span style={{ fontWeight: "500" }}>{props.categorie}</span></div>
-                  <div><span style={{ fontWeight: "600" }}>Completed in: </span> <span style={{ fontWeight: "500" }}>{timeRepresentation}</span></div>
+              <img
+                className="challenge-modal-image"
+                src="https://images.pexels.com/photos/19602378/pexels-photo-19602378/free-photo-of-pizza-au-levain-c-est-l-heure-de-margherita.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load"
+                alt=""
+              />
+              <div className="tag">Sport</div>
+              <div className="description">
+                zzrbetnjukus atque! Repellendus, minima quia t illum id.
+              </div>
+            </div>
+            <div className="challenge-modal-description">
+              <div className="challenge-modal-description-section">
+                <div className="challenge-modal-description-user">
+                  Generated by @{userservice.getUserData()?.name ?? "thomato"}
+                </div>
+                <div className="status-tag">Done</div>
+              </div>
+              <div className="challenge-modal-description-stats">
+                <div className="challenge-modal-description-stat">
+                  <img src="#" alt="" />
+                  <div className="challenge-modal-description-stat-text">
+                    <div>9215</div>
+                    <div>Joined</div>
+                  </div>
+                </div>
+                <div className="challenge-modal-description-stat">
+                  <img src="#" alt="" />
+                  <div className="challenge-modal-description-stat-text">
+                    <div>6125</div>
+                    <div>Finished</div>
+                  </div>
+                </div>
+                <div className="challenge-modal-description-stat">
+                  <img src="#" alt="" />
+                  <div className="challenge-modal-description-stat-text">
+                    <div>25:07</div>
+                    <div>Average</div>
+                  </div>
                 </div>
               </div>
 
-              {/* People */}
-              <div style={{ display: "flex", flexDirection: "column", gap: ".5rem" }}>
-                <HeadingComponent
-                  text="People's joined :"
-                  fontSize="1.15rem"
-                  fontWeight="600"
-                />
-
-                <div className="challenge-modal-people-container">
-                  <div className="flex" style={{ gap: ".25rem", fontSize: "1.05rem", justifyContent: "start" }}>
-                    <img src={bustsvg} style={{ width: "18px", height: "18px" }} className='flex' alt="" />
-                    <span style={{ fontWeight: "600", fontSize: "1.11rem" }}>758</span>joined this challenge
+              <div className="challenge-modal-description-comment">
+                <div className="challenge-modal-description-comment-container">
+                  <div className="challenge-modal-description-comment-image-container">
+                    <img
+                      src="https://images.pexels.com/photos/23657500/pexels-photo-23657500/free-photo-of-lumineux-leger-homme-gens.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                      alt=""
+                      className="challenge-modal-description-comment-image"
+                    />
                   </div>
-
-                  <div className="flex" style={{ gap: ".25rem", fontSize: "1.05rem", justifyContent: "start" }}>
-                    <img src={blackflagsvg} style={{ width: "18px", height: "18px" }} className='flex' alt="" />
-                    <span style={{ fontWeight: "600", fontSize: "1.11rem" }}>12</span>finished
+                  <div>
+                    <div>Thomato</div>
+                    <div className="challenge-modal-description-comment-text">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Architecto recusandae dignissimos pariatur voluptates? Ut vel
+                      praesentium commodi eius ipsam nemo, harum eum blanditiis
+                      quasi minus, quo enim facere cum qui?{" "}
+                    </div>
                   </div>
-
-                  <div className="challenge-modal-people-joined"><span style={{ fontWeight: "600", fontSize: "1.11rem" }}>Average completion time:</span> 3d 12h</div>
+                </div>
+                <div className="challenge-modal-description-comment-container">
+                  <div className="challenge-modal-description-comment-image-container">
+                    <img
+                      src="https://images.pexels.com/photos/23657500/pexels-photo-23657500/free-photo-of-lumineux-leger-homme-gens.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                      alt=""
+                      className="challenge-modal-description-comment-image"
+                    />
+                  </div>
+                  <div>
+                    <div>Thomato</div>
+                    <div className="challenge-modal-description-comment-text">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Architecto recusandae dignissimos pariatur voluptates? Ut vel
+                      praesentium commodi eius ipsam nemo, harum eum blanditiis
+                      quasi minus, quo enim facere cum qui?{" "}
+                    </div>
+                  </div>
+                </div>
+                <div className="challenge-modal-description-comment-container">
+                  <div className="challenge-modal-description-comment-image-container">
+                    <img
+                      src="https://images.pexels.com/photos/23657500/pexels-photo-23657500/free-photo-of-lumineux-leger-homme-gens.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                      alt=""
+                      className="challenge-modal-description-comment-image"
+                    />
+                  </div>
+                  <div>
+                    <div>Thomato</div>
+                    <div className="challenge-modal-description-comment-text">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Architecto recusandae dignissimos pariatur voluptates? Ut vel
+                      praesentium commodi eius ipsam nemo, harum eum blanditiis
+                      quasi minus, quo enim facere cum qui?{" "}
+                    </div>
+                  </div>
+                </div>
+                <div className="challenge-modal-description-comment-container">
+                  <div className="challenge-modal-description-comment-image-container">
+                    <img
+                      src="https://images.pexels.com/photos/23657500/pexels-photo-23657500/free-photo-of-lumineux-leger-homme-gens.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                      alt=""
+                      className="challenge-modal-description-comment-image"
+                    />
+                  </div>
+                  <div>
+                    <div>Thomato</div>
+                    <div className="challenge-modal-description-comment-text">
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Architecto recusandae dignissimos pariatur voluptates? Ut vel
+                      praesentium commodi eius ipsam nemo, harum eum blanditiis
+                      quasi minus, quo enim facere cum qui?{" "}
+                    </div>
+                  </div>
                 </div>
               </div>
-
             </div>
 
             {/* Button */}
             <div className="challenge-modal-button">
               <ButtonComponent
                 text="Redo"
-                width='100%'
-                background='var(--ion-gradient-400)'
-                padding='.4rem 2rem'
-                color='white'
-                fontSize='1rem'
-                fontWeight='500'
-                borderRadius='8px'
+                width="100%"
+                background="var(--ion-gradient-400)"
+                padding=".4rem 2rem"
+                color="white"
+                fontSize="1rem"
+                fontWeight="500"
+                borderRadius="8px"
                 onClick={handleRedoButtonClick}
               ></ButtonComponent>
 
               <ButtonComponent
                 text="Delete"
-                width='100%'
-                padding='.4rem 2rem'
-                fontSize='1rem'
-                fontWeight='500'
-                borderRadius='8px'
-                className='challenge-modal-button-not-selected'
+                width="100%"
+                padding=".4rem 2rem"
+                fontSize="1rem"
+                fontWeight="500"
+                borderRadius="8px"
+                className="challenge-modal-button-not-selected"
                 onClick={handleDeleteButtonClick}
               ></ButtonComponent>
             </div>
@@ -196,44 +326,69 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
       </IonModal>
 
       {/* Modal Display Completed */}
-      <IonModal isOpen={isRetweetModalOpen} onDidDismiss={() => setIsRetweetModalOpen(false)}>
+      <IonModal
+        isOpen={isRetweetModalOpen}
+        onDidDismiss={() => setIsRetweetModalOpen(false)}
+      >
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonIcon onClick={() => setIsRetweetModalOpen(false)} icon={caretBack} size='medium' />
+              <IonIcon
+                onClick={() => setIsRetweetModalOpen(false)}
+                icon={caretBack}
+                size="medium"
+              />
             </IonButtons>
 
             <IonTitle>Retweet</IonTitle>
           </IonToolbar>
         </IonHeader>
 
-        <IonContent className='ion-padding'>
+        <IonContent className="ion-padding">
           <div className="challenge-items-container">
             {/* Arrow redirection */}
             <div className="arrow-icon-container" onClick={openModal}>
-              <IonIcon icon={caretForwardOutline} className='challenge-items-caretForwardOutline' />
+              <IonIcon
+                icon={caretForwardOutline}
+                className="challenge-items-caretForwardOutline"
+              />
             </div>
 
             {/* Logo */}
             {/* <div className="challenge-items-logo-area flex" style={{ backgroundImage: `url(${props.image})` }}></div> */}
             <div className="challenge-items-logo-area flex">
-              <img src={camerasvg} alt="" className='flex' />
+              <img src={camerasvg} alt="" className="flex" />
             </div>
 
             <div className="challenge-items-text column">
               <div>
-                <span style={{ fontWeight: "600" }}>Joined {timeRepresentation} ago</span>
+                <span style={{ fontWeight: "600" }}>
+                  Joined {timeRepresentation} ago
+                </span>
               </div>
 
-              <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitBoxOrient: 'vertical', WebkitLineClamp: 2 }}>
+              <div
+                style={{
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  display: "-webkit-box",
+                  WebkitBoxOrient: "vertical",
+                  WebkitLineClamp: 2,
+                }}
+              >
                 {props.challenge}
               </div>
             </div>
           </div>
 
-          <div style={{ display: "flex", gap: ".7rem" }} className='ion-padding-vertical'>
+          <div
+            style={{ display: "flex", gap: ".7rem" }}
+            className="ion-padding-vertical"
+          >
             <div style={{ paddingTop: "5.5px" }}>
-              <div className="challenge-items-retweet-pp flex">{userservice.getUserData().name[0]}</div>
+              <div className="challenge-items-retweet-pp flex">
+                {(userservice.getUserData()?.name ?? "?")[0].toUpperCase()}
+              </div>
             </div>
 
             <IonTextarea
@@ -241,32 +396,39 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
               onIonChange={(e) => setTweetContent(e.detail.value!)}
               rows={5}
               placeholder="What is happening?!"
-              style={{ width: 'auto' }}
+              style={{ width: "auto" }}
               autofocus
             ></IonTextarea>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem', gap: ".5rem" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginTop: "1rem",
+              gap: ".5rem",
+            }}
+          >
             <ButtonComponent
               text="Post"
-              width='100%'
-              background='var(--ion-gradient-400)'
-              padding='.4rem 2rem'
-              color='white'
-              fontSize='1rem'
-              fontWeight='500'
-              borderRadius='8px'
+              width="100%"
+              background="var(--ion-gradient-400)"
+              padding=".4rem 2rem"
+              color="white"
+              fontSize="1rem"
+              fontWeight="500"
+              borderRadius="8px"
               onClick={handleSubmitClick}
             ></ButtonComponent>
 
             <ButtonComponent
               text="Cancel"
-              width='100%'
-              padding='.4rem 2rem'
-              fontSize='1rem'
-              fontWeight='500'
-              borderRadius='8px'
-              className='challenge-modal-button-not-selected'
+              width="100%"
+              padding=".4rem 2rem"
+              fontSize="1rem"
+              fontWeight="500"
+              borderRadius="8px"
+              className="challenge-modal-button-not-selected"
               onClick={handleCancelClick}
             ></ButtonComponent>
           </div>

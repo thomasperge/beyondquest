@@ -1,64 +1,23 @@
 import React, { useState } from "react";
-import {IonToast } from '@ionic/react';
 import { DifficultyDto } from "../../enum/difficulty.js";
 import { useHistory } from "react-router";
 import gymimage from "./../../assets/imagecalendar/gym.png";
 import booksimage from "./../../assets/imagecalendar/books.png";
 import smoothieimage from "./../../assets/imagecalendar/smoothie.png";
 import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
+import fire from "../../assets/svg/fire.svg";
+import task from "../../assets/svg/task.svg";
+import gems from "../../assets/svg/gems.svg";
+import cooking from "../../assets/svg/cooking.svg";
+import reading from "../../assets/svg/reading.svg";
+import musculation from "../../assets/svg/musculation.svg";
 
 import "./home.css";
-
-const challenges = [
-  {
-    id: 1,
-    days: "Mondays",
-    hours: "21h25",
-    categories: "Cuisine",
-    challenge: "Faire des cookies originaux",
-    difficulty: DifficultyDto.Easy,
-    image: gymimage,
-    followers: 115,
-  },
-  {
-    id: 2,
-    days: "Yesterday",
-    hours: "06h15",
-    categories: "Sport",
-    challenge: "Faire 20 pompes et des 40 squats",
-    difficulty: DifficultyDto.Medium,
-    image: smoothieimage,
-    followers: 194,
-  },
-  {
-    id: 3,
-    days: "Friday",
-    hours: "12h35",
-    categories: "Lecture",
-    challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
-    difficulty: DifficultyDto.Hard,
-    image: booksimage,
-    followers: 59,
-  },
-  {
-    id: 4,
-    days: "Sunday",
-    hours: "23h56",
-    categories: "Lecture",
-    challenge: "Lire 60 pages et achter un nouveaux livre",
-    difficulty: DifficultyDto.Medium,
-    image: smoothieimage,
-    followers: 15695,
-  },
-];
+import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
 
 const Home: React.FC = () => {
   const history = useHistory();
 
-  const redirectToAuthPage = () => {
-    history.push('/challenge');
-
-  };
 
   const isNewUser = localStorage.getItem("isNewUser") === "true";
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
@@ -68,58 +27,108 @@ const Home: React.FC = () => {
     localStorage.setItem("isNewUser", "false");
   };
 
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      return "Good morning,";
+    } else if (hour < 18) {
+      return "Good afternoon,";
+    } else {
+      return "Good evening,";
+    }
+  };
+
   return (
     <div className="home">
       <div className="home-header">
         <div className="header">
           <div className="title">
-            <div>Good morning,</div>
+          <div>{getGreeting()}</div>
             <div>Thomas !</div>
           </div>
           <div className="stats">
-            <div className="stat">7</div>
-            <div className="stat">2/3</div>
-            <div className="stat">48</div>
+            <div className="stat">
+              <img src={fire} alt="" />
+              <div>7</div>
+            </div>
+            <div className="stat">
+              <img src={task} alt="" />
+              <div>2/3</div>
+            </div>
+            <div className="stat">
+              <img src={gems} alt="" />
+              <div>48</div>
+            </div>
           </div>
         </div>
         <div className="subtitle">Let's make a lot of Questies today !</div>
-        <input type="text" placeholder="Search" className="searchbar"/>
+        <form className="form">
+          <button>
+            <svg
+              width="17"
+              height="16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="search"
+            >
+              <path
+                d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                stroke="currentColor"
+                stroke-width="1.333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </button>
+          <input className="input" placeholder="Search" type="text"></input>
+          <button className="reset" type="reset">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </form>
         <div className="categories">
           <div className="category">
-            <div className="icon">icon</div>
+            <img src={cooking} alt="" className="category-icon"/>
             <div className="category-name">Cooking</div>
           </div>
           <div className="category">
-            <div className="icon">icon</div>
+            <img src={reading} alt="" className="category-icon"/>
             <div className="category-name">Reading</div>
           </div>
           <div className="category">
-            <div className="icon">icon</div>
+            <img src={musculation} alt="" className="category-icon"/>
             <div className="category-name">Musculation</div>
           </div>
         </div>
       </div>
 
       <div className="challenges">
-       <div>
-        <div className="flex justify-between">
-          <div className="trending">Trending challenges</div>
-          <div className="seeall" onClick={() => history.replace('/challenge', 'root')}>See all</div>
-        </div>
-        {challenges.map((challenge) => (
-          <div key={challenge.id} className="challenge">
-            <img src={challenge.image} alt={challenge.challenge} className="challenge-image"/>
-            <div className="flex justify-between challenge-stats">
-              <div className="challenge-categories">{challenge.categories}</div>
-              <div className="challenge-followers">{challenge.followers}</div>
-            </div>
-            <div className="flex justify-between challenge-details">
-              <div className="challenge-title">{challenge.challenge}</div>
-              <button className="challenge-button" onClick={redirectToAuthPage}>See more</button>
+        <div>
+          <div className="flex justify-between">
+            <div className="trending">Trending challenges</div>
+            <div
+              className="seeall"
+              onClick={() => history.replace("/challenge", "root")}
+            >
+              See all
             </div>
           </div>
-        ))}
-       </div>
+       
+          <ChallengeItemsComponent />
+        </div>
       </div>
 
       {showChallengePrompt && (
