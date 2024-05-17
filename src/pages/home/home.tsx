@@ -13,6 +13,8 @@ import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/
 import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
 import withUserData from "../../services/useUserData.js";
 import userservice from "../../services/userservice.js";
+import heartfireSvg from '../../assets/svg/heartfire.svg'
+import blackflagSvg from '../../assets/svg/blackflag.svg'
 import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
 
 const Home: React.FC = () => {
@@ -20,7 +22,8 @@ const Home: React.FC = () => {
   const isNewUser = localStorage.getItem("isNewUser") === "true";
 
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
-  const [challenges, setChallenges] = useState([]);
+  const [lastChallenges, setLastChallenges] = useState([]);
+  const [allChallenges, setAllChallenges] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const handleChallengePromptDismiss = () => {
@@ -47,7 +50,9 @@ const Home: React.FC = () => {
 
       const lastFinishedChallenges = finishedChallenges.slice(0, 3);
       console.log(lastFinishedChallenges);
-      setChallenges(lastFinishedChallenges);
+
+      setLastChallenges(lastFinishedChallenges);
+      setAllChallenges(data);
     } catch (error) {
       console.error(error);
     } finally {
@@ -103,70 +108,79 @@ const Home: React.FC = () => {
       />
 
       {/* Latest Challenge */}
-      <HeadingComponent
+      <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: ".5rem" }}>
+        <img src={blackflagSvg} alt="" style={{width: "1.35rem", height: "1.35rem"}} />
+
+        <HeadingComponent
         text="My Latest Challenges"
         fontSize="1.2rem"
         fontWeight="600"
         color="var(--ion-color-dark)"
         padding="0 0 .5rem 0"
       />
+      </div>
 
       {/* All Challenge */}
-      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+      <div className="column ion-margin-bottom" style={{ gap: ".5rem", border: "1.2px solid rgb(200, 200, 200)", backgroundColor: "rgb(248, 248, 248)", padding: ".5rem", borderRadius: "12px" }}>
         {loading ? (
           <div className="flex" style={{ margin: "1rem 0" }}>
             <IonSpinner name="crescent"></IonSpinner>
           </div>
         ) : (
-          challenges.length === 0 && loading == false ? (
-            <ButtonComponent
-              text='No challenge'
-              padding='1rem 0'
-              background='transparent'
-              color='#686868'
-              fontSize='.9rem'
-              fontWeight='500'
-            ></ButtonComponent>
-          ) : (
-            <>
-              {challenges.slice(0, 3).map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
-                <ChallengeItemsComponent
-                  key={challenge_joined_id}
-                  _id={challenge_joined_id}
-                  createdAt={createdAt}
-                  categorie={hobbies}
-                  challenge={text}
-                  completed={completed}
-                  image=""
-                />
-              ))}
-              {challenges.length > 3 && (
-                <ButtonComponent
-                  text='View all'
-                  padding='1rem 0'
-                  background='transparent'
-                  color='#686868'
-                  fontSize='.9rem'
-                  fontWeight='500'
-                  onClick={() => history.replace('/challenge', 'root')}
-                ></ButtonComponent>
-              )}
-            </>
-          )
+          <>
+            {lastChallenges.length === 0 ? (
+              <ButtonComponent
+                text='No challenge'
+                padding='1rem 0'
+                background='transparent'
+                color='#686868'
+                fontSize='.9rem'
+                fontWeight='500'
+              ></ButtonComponent>
+            ) : (
+              <>
+                {lastChallenges.slice(0, 3).map(({ challenge_joined_id, challenge_id, createdAt, hobbies, text, completed }) => (
+                  <ChallengeItemsComponent
+                    key={challenge_joined_id}
+                    _id={challenge_joined_id}
+                    createdAt={createdAt}
+                    categorie={hobbies}
+                    challenge={text}
+                    completed={completed}
+                    image=""
+                  />
+                ))}
+                {allChallenges.filter((challenge: any) => challenge.completed).length > 3 && (
+                  <ButtonComponent
+                    text='View all'
+                    padding='.5rem 0'
+                    background='transparent'
+                    color='#686868'
+                    fontSize='.9rem'
+                    fontWeight='550'
+                    onClick={() => history.replace('/challenge', 'root')}
+                  ></ButtonComponent>
+                )}
+              </>
+            )}
+          </>
         )}
-
       </div>
 
-      {/* Trends Challenge */}
-      <HeadingComponent
-        text="Trending Challenges"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      />
 
-      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
+      {/* Trends Challenge */}
+      <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: ".5rem" }}>
+        <img src={heartfireSvg} alt="" style={{width: "1.5rem", height: "1.5rem"}} />
+
+        <HeadingComponent
+          text="Trending Challenges"
+          fontSize="1.2rem"
+          fontWeight="600"
+          color="var(--ion-color-dark)"
+        />
+      </div>
+
+      <div className="column ion-margin-bottom" style={{ gap: ".5rem", border: "1.2px solid rgb(200, 200, 200)", backgroundColor: "rgb(248, 248, 248)", padding: ".5rem", borderRadius: "12px" }}>
         <TrendsChallengeItemsComponent
           categorie="Productivité"
           challenge="Planifier demain en 5 minutes"
@@ -191,6 +205,15 @@ const Home: React.FC = () => {
           nbOfParticipants={789}
           generateBy="@solarkaaaaaaaaaaaaaaaaaaaaaa"
         />
+        <ButtonComponent
+          text='View all'
+          padding='.5rem 0'
+          background='transparent'
+          color='#686868'
+          fontSize='.9rem'
+          fontWeight='550'
+          onClick={() => history.replace('/challenge', 'root')}
+        ></ButtonComponent>
       </div>
 
       {showChallengePrompt && (

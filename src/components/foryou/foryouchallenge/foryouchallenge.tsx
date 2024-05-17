@@ -3,14 +3,18 @@ import likesvg from "./../../../assets/svg/like.svg"
 import "./foryouchallenge.css";
 
 interface ContainerProps {
-  profilepicture: string;
+  user_id: string;
   username: string;
   name: string;
+  profilepictureLetter: string;
   waspostedtime: string;
   sentence: string;
   challengeid: string;
   likes: string;
   comments: string;
+  usernamehasgeneratechallenge: string;
+  challengetitle: string;
+  numberpeoplejoined: string;
 }
 
 const ForYouChallengeTweetComponent: React.FC<ContainerProps> = ({ ...props }) => {
@@ -18,7 +22,9 @@ const ForYouChallengeTweetComponent: React.FC<ContainerProps> = ({ ...props }) =
     <div className="for-you-tweet-container">
       {/* Left Tweet */}
       <div className="for-you-tweet-left-container">
-        <img src={props.profilepicture} className="for-you-tweet-profile-picture" />
+        <div className="for-you-tweet-profile-picture flex">
+          {props.profilepictureLetter.toUpperCase()}
+        </div>
         <div className="for-you-tweet-line"></div>
       </div>
 
@@ -29,15 +35,17 @@ const ForYouChallengeTweetComponent: React.FC<ContainerProps> = ({ ...props }) =
           <span style={{ fontWeight: "400", color: "gray" }}>@{props.username} • {props.waspostedtime}</span>
         </div>
 
-        <div style={{ fontWeight: "500", marginTop: "-5px" }}>{props.sentence}</div>
+        <div style={{ fontSize: "1.05rem", fontWeight: "500", marginTop: "-5px" }}>{props.sentence}</div>
 
         {/* Container challenge join */}
         <ForYouChallengeGenerateByComponent
-          usernamehasgeneratechallenge={"thomasperge"}
-          challengetitle={"Make 1000 pushup in 30m"}
-          numberpeoplejoined={"750"}
-          challengepicture={"https://assets.gqindia.com/photos/5cee7eb00379a73d25177759/4:3/w_1440,h_1080,c_limit/Pushup.jpg"}
-        />
+          user_id={props.user_id}
+          challenge_id={props.challengeid}
+          usernamehasgeneratechallenge={props.usernamehasgeneratechallenge}
+          usernamejoinedchallenge={props.username}
+          challengetitle={props.challengetitle}
+          numberpeoplejoined={props.numberpeoplejoined}
+          challengepicture={"https://assets.gqindia.com/photos/5cee7eb00379a73d25177759/4:3/w_1440,h_1080,c_limit/Pushup.jpg"} />
 
         <div className="for-you-tweet-interaction">
           <img className="for-you-tweet-like flex" src={likesvg} alt="" />

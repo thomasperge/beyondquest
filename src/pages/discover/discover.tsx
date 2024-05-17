@@ -1,110 +1,105 @@
+import { useEffect, useState } from "react";
 import ForYouChallengeTweetComponent from "../../components/foryou/foryouchallenge/foryouchallenge.js";
 import './discover.css'
+import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
+import React from "react";
 
 const Discover: React.FC = () => {
+	const [tweets, setTweets] = useState([]);
+	const [loading, setLoading] = useState(true);
+
+	const fetchData = async () => {
+		try {
+			const response = await fetch(`http://localhost:3000/tweet/all`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			});
+
+			if (!response.ok) {
+				throw new Error('Une erreur est survenue lors de la complétion du challenge.');
+			}
+
+			const data = await response.json();
+			setTweets(data);
+		} catch (error) {
+			console.error(error);
+		} finally {
+			setLoading(false);
+		}
+	};
+
+	const getStringTimePosted = (createdAt: any) => {
+		const createdAtDate = new Date(createdAt || '');
+		const timeDifference = Date.now() - createdAtDate.getTime();
+
+		const minutesDifference = Math.floor(timeDifference / (1000 * 60));
+		const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+		const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+		const monthsDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+
+		let timeRepresentation = '';
+		if (monthsDifference >= 1) {
+			timeRepresentation = `${monthsDifference}mo`;
+		} else if (daysDifference >= 1) {
+			timeRepresentation = `${daysDifference}d`;
+		} else if (hoursDifference >= 1) {
+			timeRepresentation = `${hoursDifference}h`;
+		} else {
+			timeRepresentation = `${minutesDifference}m`;
+		}
+
+		return timeRepresentation;
+	}
+
+	const handleRefresh = async (event: CustomEvent) => {
+		await fetchData();
+		event.detail.complete();
+	};
+
+	useEffect(() => {
+		fetchData();
+	}, []);
+
 	return (
-		<div className="discover-container ion-padding-vertical">
-			<ForYouChallengeTweetComponent
-				username={"godzila2.0"}
-				name={"godliza2.0"}
-				waspostedtime={"17h"}
-				sentence={"I found this challenge from @askralos, and I killed it 🤣🙃"}
-				challengeid={"456789"}
-				likes={"458"}
-				comments={"12"}
-				profilepicture={"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"}
-			></ForYouChallengeTweetComponent>
+		<>
+			<IonRefresher slot="fixed" onIonRefresh={handleRefresh}>
+				<IonRefresherContent />
+			</IonRefresher>
 
-			<div className="discover-separation"></div>
-
-			<ForYouChallengeTweetComponent
-				username={"godzila2.0"}
-				name={"godliza2.0"}
-				waspostedtime={"17h"}
-				sentence={"I found this challenge from @askralos, and I killed it 🤣🙃"}
-				challengeid={"456789"}
-				likes={"458"}
-				comments={"12"}
-				profilepicture={"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"}
-			></ForYouChallengeTweetComponent>
-
-			<div className="discover-separation"></div>
-
-			<ForYouChallengeTweetComponent
-				username={"godzila2.0"}
-				name={"godliza2.0"}
-				waspostedtime={"17h"}
-				sentence={"I found this challenge from @askralos, and I killed it 🤣🙃"}
-				challengeid={"456789"}
-				likes={"458"}
-				comments={"12"}
-				profilepicture={"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"}
-			></ForYouChallengeTweetComponent>
-
-			<div className="discover-separation"></div>
-
-			<ForYouChallengeTweetComponent
-				username={"godzila2.0"}
-				name={"godliza2.0"}
-				waspostedtime={"17h"}
-				sentence={"I found this challenge from @askralos, and I killed it 🤣🙃"}
-				challengeid={"456789"}
-				likes={"458"}
-				comments={"12"}
-				profilepicture={"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"}
-			></ForYouChallengeTweetComponent>
-
-			<div className="discover-separation"></div>
-
-			<ForYouChallengeTweetComponent
-				username={"godzila2.0"}
-				name={"godliza2.0"}
-				waspostedtime={"17h"}
-				sentence={"I found this challenge from @askralos, and I killed it 🤣🙃"}
-				challengeid={"456789"}
-				likes={"458"}
-				comments={"12"}
-				profilepicture={"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"}
-			></ForYouChallengeTweetComponent>
-
-			<div className="discover-separation"></div>
-
-			<ForYouChallengeTweetComponent
-				username={"godzila2.0"}
-				name={"godliza2.0"}
-				waspostedtime={"17h"}
-				sentence={"I found this challenge from @askralos, and I killed it 🤣🙃"}
-				challengeid={"456789"}
-				likes={"458"}
-				comments={"12"}
-				profilepicture={"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"}
-			></ForYouChallengeTweetComponent>
-
-			<div className="discover-separation"></div>
-
-			<ForYouChallengeTweetComponent
-				username={"godzila2.0"}
-				name={"godliza2.0"}
-				waspostedtime={"17h"}
-				sentence={"I found this challenge from @askralos, and I killed it 🤣🙃"}
-				challengeid={"456789"}
-				likes={"458"}
-				comments={"12"}
-				profilepicture={"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"}
-			></ForYouChallengeTweetComponent>
-			<div className="discover-separation"></div>
-
-			<ForYouChallengeTweetComponent
-				username={"godzila2.0"}
-				name={"godliza2.0"}
-				waspostedtime={"17h"}
-				sentence={"I found this challenge from @askralos, and I killed it 🤣🙃"}
-				challengeid={"456789"}
-				likes={"458"}
-				comments={"12"}
-				profilepicture={"https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/512px-LEGO_logo.svg.png"}
-			></ForYouChallengeTweetComponent>
-		</div>
+			<div className="discover-container ion-padding-vertical">
+				{loading ? (
+					<div className="flex" style={{ margin: "1rem 0" }}>
+						<IonSpinner name="crescent"></IonSpinner>
+					</div>
+				) : (
+					tweets.length === 0 ? (
+						<div>No tweets found.</div>
+					) : (
+						tweets.map((tweet: any, index: number) => (
+							<React.Fragment key={`${tweet._id}-${index}`}>
+								<ForYouChallengeTweetComponent
+									user_id={tweet.user_id}
+									username={tweet.joinedByUser.name}
+									name={tweet.joinedByUser.name}
+									profilepictureLetter={(tweet.joinedByUser.name ?? '?')[0].toUpperCase()}
+									waspostedtime={getStringTimePosted(tweet.createdAt)}
+									sentence={tweet.text}
+									challengeid={tweet.challenge_id}
+									likes={"458"}
+									comments={"12"}
+									usernamehasgeneratechallenge={tweet.generatedByUser.name}
+									challengetitle={tweet.challenge.text}
+									numberpeoplejoined={"750"}
+								/>
+								<div className="discover-separation"></div>
+							</React.Fragment>
+						))
+					)
+				)}
+			</div>
+		</>
 	);
 };
 

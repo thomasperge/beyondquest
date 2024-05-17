@@ -1,12 +1,16 @@
 import { IonToast } from '@ionic/react';
 import { useState } from 'react';
 import ButtonComponent from '../../button/button.js';
-import bustimage from './../../../assets/svg/bust.svg'
+import peoplesvg from './../../../assets/svg/people.svg'
+import camerasvg from '../../../assets/svg/camera.svg'
 import './challengegenerateby.css';
+import userservice from '../../../services/userservice.js';
 
 interface ContainerProps {
+  user_id: string;
+  challenge_id: string;
   usernamehasgeneratechallenge: string;
-  usernamejoinedchallenge?: string;
+  usernamejoinedchallenge: string;
   challengetitle: string;
   numberpeoplejoined: string;
   challengepicture: string;
@@ -15,40 +19,70 @@ interface ContainerProps {
 const ForYouChallengeGenerateByComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const [showToast, setShowToast] = useState(false);
 
-  const handleButtonClick = () => {
-    setShowToast(true);
+  const fetchDataJoinAChallenge = async () => {
+    try {
+      const userData = {
+        user_id: userservice.getUserData()._id,
+        challenge_id: props.challenge_id,
+      };
+
+      const response = await fetch('http://localhost:3000/challenge/join-challenge', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+
+      if (response.ok) {
+        setShowToast(true)
+      } else {
+        throw new Error('Une erreur est survenue lors de la récupération des données.');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleJoinChallengeButtonClick = () => {
+    fetchDataJoinAChallenge();
   };
 
   return (
     <>
       <div className="challenge-generate-by-container">
-        <div className="challenge-generate-for">
-          {props.usernamejoinedchallenge ? (
-            <div className='challenge-generate-for-text'>Generate for <span style={{ textDecoration: "underline" }}>@{props.usernamejoinedchallenge}</span> by <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge}</span></div>
+        <div className="challenge-generate-by">
+          {props.usernamejoinedchallenge && props.usernamejoinedchallenge != props.usernamehasgeneratechallenge  ? (
+            <div className='challenge-generate-by-text'>Generate for <span style={{ textDecoration: "underline" }}>@{props.usernamejoinedchallenge}</span> by <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge}</span></div>
           ) : (
-            <div className='challenge-generate-for-text'>Generate for <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge}</span></div>
+            <div className='challenge-generate-by-text'>Generate by <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge}</span></div>
           )}
         </div>
 
         <div className="challenge-generate-by-area">
-          <img src={props.challengepicture} alt="" className="challenge-generate-by-image" />
+          {/* <img src={props.challengepicture} alt="" className="challenge-generate-by-image" /> */}
+          <div className="challenge-generate-by-image flex">
+            <img src={camerasvg} alt="" />
+          </div>
 
           <div className="challenge-generate-by-infos">
             <div className="challenge-generate-by-title">{props.challengetitle}</div>
-            <div className="challenge-generate-by-people">
-              <img src={bustimage} alt="" className="challenge-generate-by-people-logo flex" />
-              <div className="flex">{props.numberpeoplejoined} joined</div>
+            <div className="challenge-items-retweet flex">
+              <img src={peoplesvg} className="flex" style={{ width: "18px", height: "18px" }} />
+              {props.numberpeoplejoined} joined
             </div>
+
             <ButtonComponent
-              text="Join"
-              background='var(--ion-gradient-400)'
+              text="Join now !"
+              background='rgb(247, 247, 247)'
               padding='.4rem 2rem'
-              color='white'
-              fontSize='1rem'
+              color='black'
+              border='1.3px solid gray'
+              fontSize='.9rem'
               fontWeight='500'
               borderRadius='8px'
               className='challenge-generate-by-join-button flex'
-              onClick={handleButtonClick}
+              onClick={handleJoinChallengeButtonClick}
             ></ButtonComponent>
 
             <IonToast

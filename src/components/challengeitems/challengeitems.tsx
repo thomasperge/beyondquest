@@ -25,6 +25,7 @@ interface ContainerProps {
 const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const [showModal, setShowModal] = useState(false);
   const [showToastRedo, setShowToastRedo] = useState(false);
+  const [showToastPost, setShowToastPost] = useState(false);
   const [showToastDelete, setShowToastDelete] = useState(false);
   const [isRetweetModalOpen, setIsRetweetModalOpen] = useState(false);
   const [tweetContent, setTweetContent] = useState('');
@@ -70,6 +71,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
       });
 
       if (response.ok) {
+        setShowToastPost(true)
         setIsRetweetModalOpen(false);
       } else {
         throw new Error('Une erreur est survenue lors de la récupération des données.');
@@ -381,6 +383,15 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
         duration={5500}
         position="top"
         className="redtoaststyle"
+      />
+
+      <IonToast
+        isOpen={showToastPost}
+        onDidDismiss={() => setShowToastPost(false)}
+        message="Votre tweet a été mis en ligne !"
+        duration={5500}
+        position="top"
+        className="greentoaststyle"
       />
     </div>
   );

@@ -8,18 +8,18 @@
   gap: .7rem;
 }
 
-.challenge-generate-for-text {
+.challenge-generate-by-text {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
-.challenge-generate-for {
-  font-weight: 450;
+.challenge-generate-by {
+  font-weight: 490;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-size: .85rem;
+  font-size: .91rem;
   max-width: 90%;
 }
 
@@ -30,10 +30,17 @@
 }
 
 .challenge-generate-by-image {
-  max-width: 120px;
-  min-width: 120px;
+  width: 90px;
+  min-width: 90px;
+  max-width: 150px;
   object-fit: cover;
   border-radius: 12px;
+  border: 1px solid gray;
+}
+
+.challenge-generate-by-image > img {
+  width: 35px;
+  height: 35px;
 }
 
 .challenge-generate-by-infos {
@@ -44,6 +51,7 @@
 
 .challenge-generate-by-title {
   font-weight: 650;
+  font-size: 1.02rem;
   text-wrap: wrap;
 }
 

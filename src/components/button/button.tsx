@@ -11,7 +11,7 @@ interface ContainerProps {
   fontSize?: string;
   fontWeight?: string;
   padding?: string;
-  className?: string
+  className?: string;
   onClick?: () => void;
 }
 
