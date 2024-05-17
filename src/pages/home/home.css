@@ -1,0 +1,136 @@
+.home {
+    background: var(
+        --gradient,
+        linear-gradient(180deg, #02c7aa 0%, #00a286 100%)
+      );
+}
+.home-header {
+  padding: 40px 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
+}
+.stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+.stat {
+  background-color: #fff;
+  border-radius: 60px;
+  height: fit-content;
+  padding: 5px 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.subtitle {
+  margin-top: 0.5rem;
+}
+
+.searchbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 10px;
+  background: white;
+  padding: 8px 20px;
+  border-radius: 60px;
+  border: none;
+  width: 100%;
+}
+
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 10px;
+}
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.category-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.icon {
+  background: #fff;
+  display: flex;
+  padding: 1rem 2rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.challenges {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px 20px 0px 0px;
+}
+
+.trending {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.seeall {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: black;
+  opacity: 0.6;
+}
+
+.challenge {
+  margin-top: 2rem;
+  
+}
+.challenge-image {
+  width: 100%;
+  height: 200px;
+  object-fit: fill;
+  border-radius: 10px;
+}
+.challenge-stats {
+  margin-top: 4px;
+}
+
+.challenge-categories {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.challenge-details {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  
+}
+.challenge-title{
+    width: 75%;
+}
+
+.challenge-button {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  background: var(
+    --gradient,
+    linear-gradient(180deg, #02c7aa 0%, #00a286 100%)
+  );
+}

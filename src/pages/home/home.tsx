@@ -1,17 +1,13 @@
 import React, { useState } from "react";
+import {IonToast } from '@ionic/react';
 import { DifficultyDto } from "../../enum/difficulty.js";
 import { useHistory } from "react-router";
-import gymimage from './../../assets/imagecalendar/gym.png'
-import booksimage from './../../assets/imagecalendar/books.png'
-import smoothieimage from './../../assets/imagecalendar/smoothie.png'
-import HeadingComponent from "../../components/heading/heading.js";
-import DailyStreakStatsComponent from "../../components/dailystreakstats/dailystreakstats.js";
-import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js";
-import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
-import ButtonComponent from "../../components/button/button.js";
-import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/trendchallengeitems.js";
+import gymimage from "./../../assets/imagecalendar/gym.png";
+import booksimage from "./../../assets/imagecalendar/books.png";
+import smoothieimage from "./../../assets/imagecalendar/smoothie.png";
 import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
-import withUserData from "../../services/useUserData.js";
+
+import "./home.css";
 
 const challenges = [
   {
@@ -22,6 +18,7 @@ const challenges = [
     challenge: "Faire des cookies originaux",
     difficulty: DifficultyDto.Easy,
     image: gymimage,
+    followers: 115,
   },
   {
     id: 2,
@@ -31,6 +28,7 @@ const challenges = [
     challenge: "Faire 20 pompes et des 40 squats",
     difficulty: DifficultyDto.Medium,
     image: smoothieimage,
+    followers: 194,
   },
   {
     id: 3,
@@ -40,6 +38,7 @@ const challenges = [
     challenge: "Lire 30 pages et rédigés un résumé sur ces 20 pages",
     difficulty: DifficultyDto.Hard,
     image: booksimage,
+    followers: 59,
   },
   {
     id: 4,
@@ -49,11 +48,17 @@ const challenges = [
     challenge: "Lire 60 pages et achter un nouveaux livre",
     difficulty: DifficultyDto.Medium,
     image: smoothieimage,
+    followers: 15695,
   },
 ];
 
 const Home: React.FC = () => {
   const history = useHistory();
+
+  const redirectToAuthPage = () => {
+    history.push('/challenge');
+
+  };
 
   const isNewUser = localStorage.getItem("isNewUser") === "true";
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
@@ -64,117 +69,63 @@ const Home: React.FC = () => {
   };
 
   return (
-    <>
-      {/* Good Morning / Afternoon */}
-      <div className="flex">
-        <HeadingComponent
-          text="Good morning, Thomas"
-          fontSize="1.5rem"
-          fontWeight="600"
-          color="var(--ion-color-950)"
-          padding="2rem 0 1.5rem 0"
-        />
+    <div className="home">
+      <div className="home-header">
+        <div className="header">
+          <div className="title">
+            <div>Good morning,</div>
+            <div>Thomas !</div>
+          </div>
+          <div className="stats">
+            <div className="stat">7</div>
+            <div className="stat">2/3</div>
+            <div className="stat">48</div>
+          </div>
+        </div>
+        <div className="subtitle">Let's make a lot of Questies today !</div>
+        <input type="text" placeholder="Search" className="searchbar"/>
+        <div className="categories">
+          <div className="category">
+            <div className="icon">icon</div>
+            <div className="category-name">Cooking</div>
+          </div>
+          <div className="category">
+            <div className="icon">icon</div>
+            <div className="category-name">Reading</div>
+          </div>
+          <div className="category">
+            <div className="icon">icon</div>
+            <div className="category-name">Musculation</div>
+          </div>
+        </div>
       </div>
 
-      {/* Streak Stats */}
-      <div className="ion-margin-bottom">
-        <DailyStreakStatsComponent nbStreak="16" dailyChallenge="2/3" />
-      </div>
-
-      {/* Calendar Title */}
-      <HeadingComponent
-        text="Calendar"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      />
-
-      {/* Calendar */}
-      <CalendarHomeComponent
-        lastnbDays={14}
-        daywithStreak={[["8", gymimage], ["11", smoothieimage], ["16", booksimage], ["20", booksimage]]}
-        redirection="/challenge"
-      />
-
-      {/* Latest Challenge */}
-      <HeadingComponent
-        text="My Latest Challenges"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      />
-
-      {/* All Challenge */}
-      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-        {challenges.slice(0, 3).map(
-          ({ id, days, hours, categories, challenge, difficulty, image }) => (
-            <ChallengeItemsComponent
-              key={id}
-              days={days}
-              hours={hours}
-              categorie={categories}
-              challenge={challenge}
-              difficulty={difficulty}
-              image={image}
-            />
-          )
-        )}
-
-        {challenges.length > 3 && (
-          <ButtonComponent
-            text='View all'
-            padding='.3rem 1.5rem .8rem 1.5rem'
-            background='transparent'
-            color='#686868'
-            fontSize='.9rem'
-            fontWeight='500'
-            onClick={() => history.replace('/challenge', 'root')}
-          ></ButtonComponent>
-        )}
-      </div>
-
-      {/* Trends Challenge */}
-      <HeadingComponent
-        text="Trending Challenges"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      />
-
-      <div className="column ion-margin-bottom" style={{ gap: ".5rem" }}>
-        <TrendsChallengeItemsComponent
-          categorie="Productivité"
-          challenge="Planifier demain en 5 minutes"
-          difficulty={DifficultyDto.Easy}
-          image={booksimage}
-          nbOfParticipants={11589}
-          generateBy="@eltoma"
-        />
-        <TrendsChallengeItemsComponent
-          categorie="Musculation"
-          challenge="Faire 850 tractions en 1 semaine"
-          difficulty={DifficultyDto.Hard}
-          image={smoothieimage}
-          nbOfParticipants={1254}
-          generateBy="@askralos"
-        />
-        <TrendsChallengeItemsComponent
-          categorie="Méditation"
-          challenge="Méditer pendant 10 minutes/jour"
-          difficulty={DifficultyDto.Medium}
-          image={gymimage}
-          nbOfParticipants={789}
-          generateBy="@solarkaaaaaaaaaaaaaaaaaaaaaa"
-        />
+      <div className="challenges">
+       <div>
+        <div className="flex justify-between">
+          <div className="trending">Trending challenges</div>
+          <div className="seeall" onClick={() => history.replace('/challenge', 'root')}>See all</div>
+        </div>
+        {challenges.map((challenge) => (
+          <div key={challenge.id} className="challenge">
+            <img src={challenge.image} alt={challenge.challenge} className="challenge-image"/>
+            <div className="flex justify-between challenge-stats">
+              <div className="challenge-categories">{challenge.categories}</div>
+              <div className="challenge-followers">{challenge.followers}</div>
+            </div>
+            <div className="flex justify-between challenge-details">
+              <div className="challenge-title">{challenge.challenge}</div>
+              <button className="challenge-button" onClick={redirectToAuthPage}>See more</button>
+            </div>
+          </div>
+        ))}
+       </div>
       </div>
 
       {showChallengePrompt && (
         <ChallengePromptComponent onDismiss={handleChallengePromptDismiss} />
       )}
-    </>
+    </div>
   );
 };
 

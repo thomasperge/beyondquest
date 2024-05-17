@@ -14,6 +14,7 @@ import Settings from "./pages/settings/settings.js";
 import MainLoadingPage from "./pages/mainloading/mainloading.js";
 import ProfilePage from "./pages/profile/profile.js";
 import LayoutWithNav from "./components/layout/layoutWithNav";
+import LayoutWithoutNav from "./components/layout/layoutWithoutNav";
 import UserDataUpdaterLayout from "./components/userdataupdater/userdataupdater";
 
 /* Core CSS required for Ionic components to work properly */
@@ -49,10 +50,9 @@ const App: React.FC = () => {
             <MainLoadingPage />
           </Route>
           <Route exact path="/home">
-            <LayoutWithNav
-              classname="ion-padding-horizontal"
+            <LayoutWithoutNav
               children={<Home />}
-            ></LayoutWithNav>
+            ></LayoutWithoutNav>
           </Route>
           <Route exact path="/auth">
             <Auth />
