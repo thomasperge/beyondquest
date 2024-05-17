@@ -53,7 +53,7 @@ const ForYouChallengeGenerateByComponent: React.FC<ContainerProps> = ({ ...props
       <div className="challenge-generate-by-container">
         <div className="challenge-generate-by">
           {props.usernamejoinedchallenge && props.usernamejoinedchallenge != props.usernamehasgeneratechallenge  ? (
-            <div className='challenge-generate-by-text'>Generate for <span style={{ textDecoration: "underline" }}>@{props.usernamejoinedchallenge}</span> by <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge}</span></div>
+            <div className='challenge-generate-by-text'>Joined for <span style={{ textDecoration: "underline" }}>@{props.usernamejoinedchallenge}</span> (by <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge})</span></div>
           ) : (
             <div className='challenge-generate-by-text'>Generate by <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge}</span></div>
           )}
