@@ -230,7 +230,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
                     />
                   </div>
                   <div>
-                    <div>Thomato</div>
+                    <div className="challenge-modal-description-comment-username">Thomato</div>
                     <div className="challenge-modal-description-comment-text">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Architecto recusandae dignissimos pariatur voluptates? Ut vel
@@ -248,7 +248,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
                     />
                   </div>
                   <div>
-                    <div>Thomato</div>
+                    <div className="challenge-modal-description-comment-username">Thomato</div>
                     <div className="challenge-modal-description-comment-text">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Architecto recusandae dignissimos pariatur voluptates? Ut vel
@@ -266,7 +266,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
                     />
                   </div>
                   <div>
-                    <div>Thomato</div>
+                    <div className="challenge-modal-description-comment-username">Thomato</div>
                     <div className="challenge-modal-description-comment-text">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Architecto recusandae dignissimos pariatur voluptates? Ut vel
@@ -284,7 +284,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
                     />
                   </div>
                   <div>
-                    <div>Thomato</div>
+                    <div className="challenge-modal-description-comment-username">Thomato</div>
                     <div className="challenge-modal-description-comment-text">
                       Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       Architecto recusandae dignissimos pariatur voluptates? Ut vel

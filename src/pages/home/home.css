@@ -22,7 +22,7 @@
 .stats {
   display: flex;
   justify-content: space-between;
-  gap: 4px;
+  gap: 8px;
 }
 .stat {
   display: flex;
@@ -32,8 +32,8 @@
   background-color: #fff;
   border-radius: 60px;
   height: 35px;
-  padding: 5px 15px;
   font-size: 0.8rem;
+  padding: 1rem 1.5rem;
   font-weight: 500;
 }
 .subtitle {

@@ -1,32 +1,23 @@
 .goalitems-items {
-  width: 100%;
-  gap: 1rem;
-  padding: 1rem 1rem;
+  height: 100% ;
+  padding: 4rem 1rem;
+  border-radius: 10px;
 }
-
-.goalitems-items-logo {
-  display: flex;
-  justify-content: center;
-  width: 20%;
-  height: 100%;
+.goalitems-items-logo{
+  display: grid;
+  place-content: center;
 }
-
-.goalitems-items-text {
-  width: 80%;
-  height: 100%;
-  align-items: start;
-  justify-content: center;
-  gap: .5rem;
+.goalitems-items-logo img{
+  height:100px;
 }
-
-.goalitems-items-title {
-  font-size: .95rem;
+.goalitems-items-title{
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.2rem;
   font-weight: 600;
-  color: var(--ion-color-dark);
 }
-
-.goalitems-items-subtitle {
-  font-size: .90rem;
+.goalitems-items-subtitle{
+  margin-top: 0.8rem;
+  font-size: 1rem;
   font-weight: 500;
-  color: gray;
 }
