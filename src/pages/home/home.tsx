@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
 import { useHistory } from "react-router";
+import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
 import gymimage from './../../assets/imagecalendar/gym.png'
 import booksimage from './../../assets/imagecalendar/books.png'
 import smoothieimage from './../../assets/imagecalendar/smoothie.png'
@@ -15,7 +16,7 @@ import withUserData from "../../services/useUserData.js";
 import userservice from "../../services/userservice.js";
 import heartfireSvg from '../../assets/svg/heartfire.svg'
 import blackflagSvg from '../../assets/svg/blackflag.svg'
-import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
+import environment from "../../environment.js";
 
 const Home: React.FC = () => {
   const history = useHistory();
@@ -34,7 +35,7 @@ const Home: React.FC = () => {
   const fetchData = async () => {
     try {
       const userId = userservice.getUserData()._id;
-      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/user/${userId}`);
+      const response = await fetch(environment.ACTIVE_URL + `/challenge/user/${userId}`);
 
       if (!response.ok) {
         throw new Error('Une erreur est survenue lors de la récupération des données.');
@@ -109,15 +110,15 @@ const Home: React.FC = () => {
 
       {/* Latest Challenge */}
       <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: ".5rem" }}>
-        <img src={blackflagSvg} alt="" style={{width: "1.35rem", height: "1.35rem"}} />
+        <img src={blackflagSvg} alt="" style={{ width: "1.35rem", height: "1.35rem" }} />
 
         <HeadingComponent
-        text="My Latest Challenges"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      />
+          text="My Latest Challenges"
+          fontSize="1.2rem"
+          fontWeight="600"
+          color="var(--ion-color-dark)"
+          padding="0 0 .5rem 0"
+        />
       </div>
 
       {/* All Challenge */}
@@ -170,7 +171,7 @@ const Home: React.FC = () => {
 
       {/* Trends Challenge */}
       <div style={{ display: "flex", alignItems: "center", gap: ".5rem", marginBottom: ".5rem" }}>
-        <img src={heartfireSvg} alt="" style={{width: "1.5rem", height: "1.5rem"}} />
+        <img src={heartfireSvg} alt="" style={{ width: "1.5rem", height: "1.5rem" }} />
 
         <HeadingComponent
           text="Trending Challenges"

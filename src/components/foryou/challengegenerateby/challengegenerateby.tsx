@@ -3,8 +3,9 @@ import { useState } from 'react';
 import ButtonComponent from '../../button/button.js';
 import peoplesvg from './../../../assets/svg/people.svg'
 import camerasvg from '../../../assets/svg/camera.svg'
-import './challengegenerateby.css';
 import userservice from '../../../services/userservice.js';
+import environment from '../../../environment.js';
+import './challengegenerateby.css';
 
 interface ContainerProps {
   user_id: string;
@@ -26,7 +27,7 @@ const ForYouChallengeGenerateByComponent: React.FC<ContainerProps> = ({ ...props
         challenge_id: props.challenge_id,
       };
 
-      const response = await fetch('https://scary-ruby-cuff-links.cyclic.app/challenge/join-challenge', {
+      const response = await fetch(environment.ACTIVE_URL + '/challenge/join-challenge', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

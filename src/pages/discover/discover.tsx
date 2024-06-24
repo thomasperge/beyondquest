@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
-import ForYouChallengeTweetComponent from "../../components/foryou/foryouchallenge/foryouchallenge.js";
-import './discover.css'
-import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
 import React from "react";
+import { useEffect, useState } from "react";
+import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
+import ForYouChallengeTweetComponent from "../../components/foryou/foryouchallenge/foryouchallenge.js";
+import environment from "../../environment.js";
+import './discover.css';
 
 const Discover: React.FC = () => {
 	const [tweets, setTweets] = useState([]);
@@ -10,7 +11,7 @@ const Discover: React.FC = () => {
 
 	const fetchData = async () => {
 		try {
-			const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/tweet/all`, {
+			const response = await fetch(environment.ACTIVE_URL + `/tweet/all`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json'

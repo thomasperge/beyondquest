@@ -5,8 +5,9 @@ import ProgressBarComponent from "../../../components/progressbar/progressbar.js
 import arrowSvg from "./../../../assets/svg/leftarrow.svg";
 import HeadingComponent from "../../../components/heading/heading.js";
 import UserService from './../../../services/userservice.js'
-import "./loading.css";
 import userservice from "./../../../services/userservice.js";
+import environment from "../../../environment.js";
+import "./loading.css";
 
 const LoadingPage: React.FC = () => {
 	const history = useHistory();
@@ -16,7 +17,7 @@ const LoadingPage: React.FC = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch('https://scary-ruby-cuff-links.cyclic.app/users/signup', {
+				const response = await fetch(environment.ACTIVE_URL + '/users/signup', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'

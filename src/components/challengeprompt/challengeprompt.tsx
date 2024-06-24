@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { IonAlert, IonActionSheet, IonLoading } from '@ionic/react';
 import { toastController } from '@ionic/core';
 import userservice from '../../services/userservice';
+import environment from '../../environment';
 
 interface ChallengePromptProps {
   onDismiss: () => void;
@@ -29,7 +30,7 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
 
     try {
       const userData = { ...userservice.getUserData(), hobbies: hobby };
-      const response = await fetch('https://scary-ruby-cuff-links.cyclic.app/challenge/generate', {
+      const response = await fetch(environment.ACTIVE_URL + '/challenge/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

@@ -10,7 +10,7 @@ import userservice from '../../services/userservice.js';
 import peoplesvg from '../../assets/svg/people.svg'
 import camerasvg from '../../assets/svg/camera.svg'
 import bookmarsvg from '../../assets/svg/bookmar.svg'
-import bookmarYellowsvg from '../../assets/svg/bookmar_yellow.svg'
+import environment from '../../environment.js';
 import './challengeitems.css';
 
 interface ContainerProps {
@@ -62,7 +62,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
       console.log("fetchData => userData :", userData);
 
-      const response = await fetch('https://scary-ruby-cuff-links.cyclic.app/tweet/new', {
+      const response = await fetch(environment.ACTIVE_URL + '/tweet/new', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -83,7 +83,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
   const fetchDataRedoAChallenge = async () => {
     try {
-      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/redo/${props._id}`, {
+      const response = await fetch(environment.ACTIVE_URL + `/challenge/redo/${props._id}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -103,7 +103,7 @@ const ChallengeItemsComponent: React.FC<ContainerProps> = ({ ...props }) => {
 
   const fetchLeave = async (idChallenge: string) => {
     try {
-      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/leave/${idChallenge}`, {
+      const response = await fetch(environment.ACTIVE_URL + `/challenge/leave/${idChallenge}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

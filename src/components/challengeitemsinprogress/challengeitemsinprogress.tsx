@@ -2,11 +2,10 @@ import { IonButtons, IonContent, IonHeader, IonIcon, IonModal, IonTitle, IonToas
 import { caretBack, caretForwardOutline, } from 'ionicons/icons';
 import { useState } from 'react';
 import ButtonComponent from '../button/button.js';
-import donesvg from './../../assets/svg/done.svg'
 import camerasvg from './../../assets/svg/camera.svg'
-import crosssvg from './../../assets/svg/cross.svg'
-import './challengeitemsinprogress.css';
 import userservice from '../../services/userservice.js';
+import environment from '../../environment.js';
+import './challengeitemsinprogress.css';
 
 interface ContainerProps {
   _id?: string;
@@ -49,7 +48,7 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
 
   const handleCompletion = async (idChallenge: string) => {
     try {
-      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/complete/${idChallenge}`, {
+      const response = await fetch(environment.ACTIVE_URL + `/challenge/complete/${idChallenge}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -69,7 +68,7 @@ const ChallengeItemsInProgressComponent: React.FC<ContainerProps> = ({ ...props 
 
   const handleLeave = async (idChallenge: string) => {
     try {
-      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/leave/${idChallenge}`, {
+      const response = await fetch(environment.ACTIVE_URL + `/challenge/leave/${idChallenge}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'

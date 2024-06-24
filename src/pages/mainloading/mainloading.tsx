@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import HeadingComponent from "../../components/heading/heading.js";
 import userservice from "../../services/userservice.js";
+import environment from "../../environment.js";
 import './mainloading.css'
 
 const MainLoadingPage: React.FC = () => {
@@ -19,7 +20,7 @@ const MainLoadingPage: React.FC = () => {
 
 			if (isRegistred && userId) {
 				try {
-					const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/users/data/${userId}`);
+					const response = await fetch(environment.ACTIVE_URL + `/users/data/${userId}`);
 					if (response.status === 200) {
 						const userData = await response.json();
 						userservice.saveUserInfo(userData)

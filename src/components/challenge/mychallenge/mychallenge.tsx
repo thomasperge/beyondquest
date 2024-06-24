@@ -3,9 +3,10 @@ import { IonRefresher, IonRefresherContent, IonSpinner } from '@ionic/react';
 import ChallengeItemsComponent from '../../challengeitems/challengeitems.js';
 import HeadingComponent from '../../heading/heading.js';
 import ChallengeItemsInProgressComponent from '../../challengeitemsinprogress/challengeitemsinprogress.js';
-import './mychallenge.css'
 import hourglassvg from '../../../assets/svg/hourglass.svg'
 import targetvg from '../../../assets/svg/target.svg'
+import environment from "../../../environment.js";
+import './mychallenge.css'
 
 const MyChallengeComponent: React.FC = () => {
   const [challenges, setChallenges] = useState([]);
@@ -15,7 +16,7 @@ const MyChallengeComponent: React.FC = () => {
     try {
       const userId = localStorage.getItem('user_id');
 
-      const response = await fetch(`https://scary-ruby-cuff-links.cyclic.app/challenge/user/${userId}`);
+      const response = await fetch(environment.ACTIVE_URL + `/challenge/user/${userId}`);
       if (!response.ok) {
         throw new Error('Une erreur est survenue lors de la récupération des données.');
       }
