@@ -35,72 +35,74 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
-import React from "react";
+import FriendsPage from "./pages/friends/friends";
 
 setupIonicReact();
 
-const App: React.FC = () => {
-  return (
-    <IonApp>
-      <IonReactRouter>
-        {/* <UserDataUpdaterLayout> */}
-        <IonRouterOutlet>
-          <Route exact path="/">
-            <MainLoadingPage />
-          </Route>
-          <Route exact path="/home">
-            <LayoutWithNav
-              classname="ion-padding-horizontal"
-              children={<Home />}
-            ></LayoutWithNav>
-          </Route>
-          <Route exact path="/auth">
-            <Auth />
-          </Route>
-          <Route exact path="/signin">
-            <Signin />
-          </Route>
-          <Route exact path="/signup/informations">
-            <Information />
-          </Route>
-          <Route exact path="/signup/hobbies">
-            <Hobbies />
-          </Route>
-          <Route exact path="/signup/goal">
-            <SetGoal />
-          </Route>
-          <Route exact path="/signup/loading">
-            <Loading />
-          </Route>
-          <Route exact path="/discover">
-            <LayoutWithNav
-              classname="ion-padding-horizontal"
-              children={<Discover />}
-            ></LayoutWithNav>
-          </Route>
-          <Route exact path="/challenge">
-            <LayoutWithNav
-              classname="ion-padding-horizontal"
-              children={<Challenge />}
-            ></LayoutWithNav>
-          </Route>
-          <Route exact path="/settings">
-            <LayoutWithNav
-              classname="ion-padding-horizontal"
-              children={<Settings />}
-            ></LayoutWithNav>
-          </Route>
-          <Route exact path="/profil">
-            <LayoutWithNav
-              classname="ion-padding-horizontal"
-              children={<ProfilePage />}
-            ></LayoutWithNav>
-          </Route>
-        </IonRouterOutlet>
-        {/* </UserDataUpdaterLayout> */}
-      </IonReactRouter>
-    </IonApp >
-  )
-};
+const App: React.FC = () => (
+  <IonApp>
+    <IonReactRouter>
+      <IonRouterOutlet>
+        <Route exact path="/home">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<Home />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/">
+          <MainLoadingPage />
+        </Route>
+        <Route exact path="/auth">
+          <Auth />
+        </Route>
+        <Route exact path="/signin">
+          <Signin />
+        </Route>
+        <Route exact path="/signup/informations">
+          <Information />
+        </Route>
+        <Route exact path="/signup/hobbies">
+          <Hobbies />
+        </Route>
+        <Route exact path="/signup/goal">
+          <SetGoal />
+        </Route>
+        <Route exact path="/signup/loading">
+          <Loading />
+        </Route>
+        <Route exact path="/discover">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<Discover />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/challenge">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<Challenge />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/settings">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<Settings />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/profil">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<ProfilePage />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/friends">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<FriendsPage />}
+          ></LayoutWithNav>
+        </Route>
+      </IonRouterOutlet>
+    </IonReactRouter>
+  </IonApp>
+);
 
 export default App;
