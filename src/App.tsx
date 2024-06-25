@@ -14,7 +14,7 @@ import Settings from "./pages/settings/settings.js";
 import MainLoadingPage from "./pages/mainloading/mainloading.js";
 import ProfilePage from "./pages/profile/profile.js";
 import LayoutWithNav from "./components/layout/layoutWithNav";
-import UserDataUpdaterLayout from "./components/userdataupdater/userdataupdater";
+import FriendsPage from "./pages/friends/friends";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -35,7 +35,6 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
-import FriendsPage from "./pages/friends/friends";
 
 setupIonicReact();
 

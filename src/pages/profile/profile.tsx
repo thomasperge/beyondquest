@@ -262,7 +262,6 @@ const ProfilePage: React.FC = () => {
               alignItems: "center",
               padding: "1rem 1.8rem",
               background: "linear-gradient(180deg, #2EB3EC 0%, #2582B7 100%)",
-
               borderRadius: "8px",
             }}
           >
