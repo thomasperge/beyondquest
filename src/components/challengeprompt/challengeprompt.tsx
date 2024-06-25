@@ -11,25 +11,28 @@ interface ChallengePromptProps {
 const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss }) => {
   const [showAlert, setShowAlert] = useState(true);
   const [showActionSheet, setShowActionSheet] = useState(false);
+  const [showLevelSheet, setShowLevelSheet] = useState(false);
   const [showLoading, setShowLoading] = useState(false);
+  const [challengeHobbies, setChallengeHobbies] = useState("");
 
   const handleAlertDismiss = () => {
     setShowAlert(false);
     setShowActionSheet(true);
+    setShowLevelSheet(false)
   };
 
   const handleActionSheetSelected = async (hobby: string) => {
     setShowActionSheet(false);
+    setShowLevelSheet(true)
+    setChallengeHobbies(hobby)
+  };
+
+  const handleLevelSelected = async (level: string) => {
+    setShowLevelSheet(false)
     setShowLoading(true);
 
-    // setTimeout(() => {
-    //   setShowLoading(false);
-    //   showToastChallenge("Chargement terminé.");
-    //   onDismiss();
-    // }, 3000);
-
     try {
-      const userData = { ...userservice.getUserData(), hobbies: hobby };
+      const userData = { ...userservice.getUserData(), hobbies: challengeHobbies, level: level };
       const response = await fetch(environment.ACTIVE_URL + '/challenge/generate', {
         method: 'POST',
         headers: {
@@ -37,8 +40,6 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
         },
         body: JSON.stringify(userData)
       });
-
-      console.log(response);
 
       if (response.ok) {
         try {
@@ -59,7 +60,7 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
     } finally {
       onDismiss();
     }
-  };
+  }
 
   const showToastChallenge = async (message: string) => {
     const toast = await toastController.create({
@@ -104,6 +105,29 @@ const ChallengePromptComponent: React.FC<ChallengePromptProps> = ({ onDismiss })
             text: hobby,
             handler: () => handleActionSheetSelected(hobby),
           })),
+          {
+            text: "Annuler",
+            role: "cancel",
+            handler: onDismiss,
+          },
+        ]}
+      />
+
+      <IonActionSheet
+        isOpen={showLevelSheet}
+        buttons={[
+          {
+            text: "Level 1",
+            handler: () => handleLevelSelected("facile"),
+          },
+          {
+            text: "Level 2",
+            handler: () => handleLevelSelected("moyennement dur"),
+          },
+          {
+            text: "Level 3",
+            handler: () => handleLevelSelected("dur"),
+          },
           {
             text: "Annuler",
             role: "cancel",
