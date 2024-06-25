@@ -35,7 +35,7 @@ const CalendarHomeComponent: React.FC<ContainerProps> = ({ ...props }) => {
           const backgroundImage = matchingPair ? `url(${matchingPair[1]})` : 'none';
 
           return (
-            <div key={index} className={`calendar-day ${matchingPair ? 'special-day' : ''} flex`} style={{ background: backgroundImage !== 'none' ? `rgba(255, 255, 255, 0.5) ${backgroundImage} no-repeat center center / cover` : 'none', }}>
+            <div key={index} className={`calendar-day ${matchingPair ? 'special-day' : ''} flex`} style={{ backgroundImage: 'rgba(255, 255, 255, 0.5)' }}>
               {day}
             </div>
           );

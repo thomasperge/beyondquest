@@ -1,5 +1,4 @@
 import ForYouChallengeGenerateByComponent from "../challengegenerateby/challengegenerateby.js";
-import likesvg from "./../../../assets/svg/like.svg"
 import "./foryouchallenge.css";
 
 interface ContainerProps {
@@ -15,6 +14,8 @@ interface ContainerProps {
   usernamehasgeneratechallenge: string;
   challengetitle: string;
   numberpeoplejoined: string;
+  generatedByUserId: string;
+  joinedByUserId: string;
 }
 
 const ForYouChallengeTweetComponent: React.FC<ContainerProps> = ({ ...props }) => {
@@ -45,12 +46,10 @@ const ForYouChallengeTweetComponent: React.FC<ContainerProps> = ({ ...props }) =
           usernamejoinedchallenge={props.username}
           challengetitle={props.challengetitle}
           numberpeoplejoined={props.numberpeoplejoined}
-          challengepicture={"https://assets.gqindia.com/photos/5cee7eb00379a73d25177759/4:3/w_1440,h_1080,c_limit/Pushup.jpg"} />
-
-        <div className="for-you-tweet-interaction">
-          <img className="for-you-tweet-like flex" src={likesvg} alt="" />
-          <div>{props.likes} likes</div>
-        </div>
+          challengepicture={"https://assets.gqindia.com/photos/5cee7eb00379a73d25177759/4:3/w_1440,h_1080,c_limit/Pushup.jpg"}
+          generatedByUserId={props.generatedByUserId}
+          joinedByUserId={props.joinedByUserId}
+        />
       </div>
     </div>
   );

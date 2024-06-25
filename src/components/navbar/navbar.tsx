@@ -49,24 +49,26 @@ const Navbar: React.FC = () => {
 
       <IonActionSheet
         isOpen={showActionSheet}
+        onDidDismiss={() => setShowActionSheet(false)}
         buttons={[
           {
-            text: "Profil",
-            handler: () => history.push('/profil'),
-          },
-          {
-            text: "Friends",
-            handler: () => history.push("/friends", "root"),
-          },
-          {
-            text: "Disconnect",
-            handler: () => history.push('/signin'),
-          },
-          {
-            text: "Cancel",
-            role: "cancel",
+            text: 'Profil',
             handler: () => {
-              setShowActionSheet(false)
+              history.push('/profil');
+            },
+          },
+          {
+            text: 'Disconnect',
+            handler: () => {
+              localStorage.clear()
+              history.push('/auth');
+            },
+          },
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              setShowActionSheet(false);
             },
           },
         ]}

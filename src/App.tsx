@@ -15,6 +15,7 @@ import MainLoadingPage from "./pages/mainloading/mainloading.js";
 import ProfilePage from "./pages/profile/profile.js";
 import LayoutWithNav from "./components/layout/layoutWithNav";
 import FriendsPage from "./pages/friends/friends";
+import LoadingPageSignIn from "./pages/register/loadingSignin/loading-signin";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -57,6 +58,9 @@ const App: React.FC = () => (
         <Route exact path="/signin">
           <Signin />
         </Route>
+        <Route exact path="/signin/loading">
+          <LoadingPageSignIn />
+        </Route>
         <Route exact path="/signup/informations">
           <Information />
         </Route>
@@ -88,6 +92,12 @@ const App: React.FC = () => (
           ></LayoutWithNav>
         </Route>
         <Route exact path="/profil">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<ProfilePage />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/profil/:userid">
           <LayoutWithNav
             classname="ion-padding-horizontal"
             children={<ProfilePage />}

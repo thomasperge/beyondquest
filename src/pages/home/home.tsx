@@ -89,7 +89,7 @@ const Home: React.FC = () => {
 
       {/* Streak Stats */}
       <div className="ion-margin-bottom">
-        <DailyStreakStatsComponent nbStreak="16" dailyChallenge="2/3" />
+        <DailyStreakStatsComponent nbStreak="0" dailyChallenge="0/3" />
       </div>
 
       {/* Calendar Title */}

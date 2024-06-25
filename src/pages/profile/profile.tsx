@@ -1,21 +1,90 @@
 import "./profile.css";
-import { IonIcon } from "@ionic/react";
-import ButtonComponent from "../../components/button/button";
+import { IonIcon, IonSpinner } from "@ionic/react";
+import { useParams } from "react-router";
+import { useEffect, useState } from "react";
 import {
-  addCircleOutline,
-  barbellOutline,
-  bookOutline,
   checkmark,
-  checkmarkDoneOutline,
   clipboardOutline,
-  colorPaletteOutline,
   flame,
   timer,
 } from "ionicons/icons";
+import userservice from "../../services/userservice";
+import ButtonComponent from "../../components/button/button";
+import UserHobbiesComponent from "../../components/userHobbies/userHobbies";
+import environment from "../../environment";
+import { UserInformationsDto } from "../../enum/userInformation";
 
 const ProfilePage: React.FC = () => {
+  const userData = userservice.getUserData();
+  const params = useParams();
+  const userid: any = params;
+  const [profileUserProps, setProfileUserProps] = useState<UserInformationsDto>({
+    _id: '',
+    name: '',
+    lastname: '',
+    age: 0,
+    password: '',
+    hobbies: [],
+    createdAt: new Date(),
+  });
+  const [loading, setLoading] = useState(false);
+
+  // == Followed useState
+  const [isFollowed, setIsFollowed] = useState(false);
+  const handleFollowClick = () => {
+    setIsFollowed(!isFollowed);
+  };
+
+  let result;
+
+  const getDateString = (userDateJoined: any) => {
+    if (userDateJoined) {
+      const date = new Date(userDateJoined);
+
+      const options: Intl.DateTimeFormatOptions = {
+        day: 'numeric',
+        month: 'long' as 'long'
+      };
+      const formattedDate = date.toLocaleDateString('fr-FR', options);
+
+      result = `A rejoint le ${formattedDate}`;
+      return result;
+    }
+  }
+
+  const fetchUserData = async (userId: string) => {
+    setLoading(true);
+    try {
+      const response = await fetch(environment.ACTIVE_URL + `/users/data/${userId}`);
+      if (!response.ok) {
+        throw new Error('Une erreur est survenue lors de la récupération des données.');
+      }
+
+      const data = await response.json();
+      setProfileUserProps({ ...data });
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (userid?.userid) {
+      fetchUserData(userid.userid);
+    }
+  }, [userid.userid]);
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: '1.5rem 0' }}>
+        <IonSpinner name="crescent" />
+      </div>
+    );
+  }
+
   return (
-    <div style={{ marginTop: "30px" }}>
+    <div style={{ marginTop: "30px" }} className="ion-padding-bottom">
       <div
         style={{
           display: "flex",
@@ -25,11 +94,11 @@ const ProfilePage: React.FC = () => {
       >
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           <div style={{ fontWeight: "700", fontSize: " 1.5rem" }}>
-            Thomasperge
+            {userid.userid ? profileUserProps.name : userData.name}
           </div>
           <div style={{ fontWeight: "500", color: "#00302B80" }}>France</div>
           <div style={{ fontWeight: "500", color: "#00302B80" }}>
-            Joined February 2021
+            {userid.userid ? getDateString(profileUserProps.createdAt) : getDateString(userData.createdAt)}
           </div>
         </div>
         <div
@@ -47,24 +116,42 @@ const ProfilePage: React.FC = () => {
             fontSize: "2rem",
           }}
         >
-          T
+          {userid.userid ? profileUserProps.name?.toUpperCase()[0] : userData.name?.toUpperCase()[0]}
         </div>
       </div>
       <div style={{ margin: "20px 0px", color: "#02C7A4", fontWeight: "600" }}>
-        12 Followers
+        0 Followers
       </div>
 
-      <ButtonComponent
-        text="Edit"
-        background="var(--ion-gradient-400)"
-        padding=".7rem"
-        width="100%"
-        color="white"
-        fontSize="1rem"
-        fontWeight="500"
-        borderRadius="8px"
-        className="flex"
-      ></ButtonComponent>
+
+      {!userid?.userid ? (
+        <ButtonComponent
+          text="Edit"
+          background="var(--ion-gradient-400)"
+          padding=".7rem"
+          width="100%"
+          color="white"
+          fontSize="1rem"
+          fontWeight="500"
+          borderRadius="8px"
+          className="flex"
+        />
+      ) : (
+        <ButtonComponent
+          text={isFollowed ? "Followed" : "Follow"}
+          background={isFollowed ? "blue" : "transparent"}
+          padding=".7rem"
+          width="100%"
+          color={isFollowed ? "white" : "black"}
+          fontSize="1rem"
+          fontWeight="500"
+          borderRadius="8px"
+          border={isFollowed ? "none" : "1.5px solid gray"}
+          className="flex"
+          onClick={handleFollowClick}
+        />
+      )}
+
       <div style={{ margin: "30px 0px" }}>
         <div
           style={{ fontWeight: "600", fontSize: "1.1rem", marginBottom: "10px" }}
@@ -72,9 +159,10 @@ const ProfilePage: React.FC = () => {
           Biographie
         </div>
         <div style={{ fontSize: "0.9rem" }}>
-          Fighting tout le monde, soyez joyeux et atteigner vos objectif !!!
+          No bio.
         </div>
       </div>
+
       <div>
         <div
           style={{ fontWeight: "600", fontSize: "1.1rem", marginBottom: "10px" }}
@@ -105,7 +193,7 @@ const ProfilePage: React.FC = () => {
                   fontSize: "1.2rem",
                 }}
               >
-                12
+                0
               </div>
             </div>
             <div
@@ -135,7 +223,7 @@ const ProfilePage: React.FC = () => {
                   fontSize: "1.2rem",
                 }}
               >
-                43
+                0
               </div>
             </div>
             <div
@@ -165,7 +253,7 @@ const ProfilePage: React.FC = () => {
                   fontSize: "1.2rem",
                 }}
               >
-                8:12
+                0:00
               </div>
             </div>
             <div
@@ -195,7 +283,7 @@ const ProfilePage: React.FC = () => {
                   fontSize: "1.2rem",
                 }}
               >
-                2/3
+                0/3
               </div>
             </div>
             <div
@@ -219,7 +307,7 @@ const ProfilePage: React.FC = () => {
             marginTop: "30px",
           }}
         >
-          Area of interest
+          Centre d'intérêt(s)
         </div>
         <div
           style={{
@@ -229,45 +317,9 @@ const ProfilePage: React.FC = () => {
             alignItems: "center",
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "1rem 1.8rem",
-              background: "linear-gradient(180deg, #FF4545 0%, #BF2222 100%)",
-              borderRadius: "8px",
-            }}
-          >
-            <IonIcon icon={bookOutline} size="large"></IonIcon>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "1rem 1.8rem",
-              background: "linear-gradient(180deg, #7DF452 0%, #39AD10 100%)",
+          <UserHobbiesComponent hobbies={userData.hobbies || []} />
+          {userid.userid ? <UserHobbiesComponent hobbies={profileUserProps.hobbies || []} /> : <UserHobbiesComponent hobbies={userData.hobbies || []} />}
 
-              borderRadius: "8px",
-            }}
-          >
-            {" "}
-            <IonIcon icon={colorPaletteOutline} size="large"></IonIcon>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              padding: "1rem 1.8rem",
-              background: "linear-gradient(180deg, #2EB3EC 0%, #2582B7 100%)",
-              borderRadius: "8px",
-            }}
-          >
-            {" "}
-            <IonIcon icon={barbellOutline} size="large"></IonIcon>
-          </div>
           <div
             style={{
               display: "flex",
@@ -277,7 +329,6 @@ const ProfilePage: React.FC = () => {
               borderRadius: "8px",
             }}
           >
-            <IonIcon icon={addCircleOutline} size="large"></IonIcon>
           </div>
         </div>
       </div>

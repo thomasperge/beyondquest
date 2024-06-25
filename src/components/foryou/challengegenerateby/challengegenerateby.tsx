@@ -1,5 +1,6 @@
 import { IonToast } from '@ionic/react';
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import ButtonComponent from '../../button/button.js';
 import peoplesvg from './../../../assets/svg/people.svg'
 import camerasvg from '../../../assets/svg/camera.svg'
@@ -15,10 +16,17 @@ interface ContainerProps {
   challengetitle: string;
   numberpeoplejoined: string;
   challengepicture: string;
+  generatedByUserId: string;
+  joinedByUserId: string;
 }
 
 const ForYouChallengeGenerateByComponent: React.FC<ContainerProps> = ({ ...props }) => {
   const [showToast, setShowToast] = useState(false);
+  const history = useHistory();
+
+  const handleSpanClick = (userid: any) => {
+    history.push(`/profil/${userid}`);
+  };
 
   const fetchDataJoinAChallenge = async () => {
     try {
@@ -54,9 +62,9 @@ const ForYouChallengeGenerateByComponent: React.FC<ContainerProps> = ({ ...props
       <div className="challenge-generate-by-container">
         <div className="challenge-generate-by">
           {props.usernamejoinedchallenge && props.usernamejoinedchallenge != props.usernamehasgeneratechallenge  ? (
-            <div className='challenge-generate-by-text'>Joined for <span style={{ textDecoration: "underline" }}>@{props.usernamejoinedchallenge}</span> (by <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge})</span></div>
+            <div className='challenge-generate-by-text'>Joined by <span onClick={() => handleSpanClick(props.joinedByUserId)} style={{ textDecoration: "underline", fontWeight: "600" }}>@{props.usernamejoinedchallenge}</span> (by <span onClick={() => handleSpanClick(props.generatedByUserId)} style={{ textDecoration: "underline", fontWeight: "600" }}>@{props.usernamehasgeneratechallenge})</span></div>
           ) : (
-            <div className='challenge-generate-by-text'>Generate by <span style={{ textDecoration: "underline" }}>@{props.usernamehasgeneratechallenge}</span></div>
+            <div className='challenge-generate-by-text'>Generate by <span onClick={() => handleSpanClick(props.generatedByUserId)} style={{ textDecoration: "underline", fontWeight: "600" }}>@{props.usernamehasgeneratechallenge}</span></div>
           )}
         </div>
 

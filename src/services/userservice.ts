@@ -9,6 +9,7 @@ class UserService {
     age?: number;
     password?: string;
     hobbies?: string[];
+    createdAt?: Date
   } = {};
 
   saveUserInfo(userInfo: UserInformationsDto) {
@@ -18,6 +19,7 @@ class UserService {
     this.userData.age = userInfo.age;
     this.userData.password = userInfo.password;
     this.userData.hobbies = userInfo.hobbies;
+    this.userData.createdAt = userInfo.createdAt;
   }
 
   saveHobbies(hobbies: string[]) {

@@ -92,7 +92,9 @@ const Discover: React.FC = () => {
 									comments={"12"}
 									usernamehasgeneratechallenge={tweet.generatedByUser.name}
 									challengetitle={tweet.challenge.text}
-									numberpeoplejoined={"750"}
+									numberpeoplejoined={tweet.numberOfParticipants}
+  								generatedByUserId= {tweet.generatedByUser._id}
+  								joinedByUserId= {tweet.joinedByUser._id}
 								/>
 								<div className="discover-separation"></div>
 							</React.Fragment>

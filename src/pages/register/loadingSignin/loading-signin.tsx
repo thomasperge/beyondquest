@@ -7,9 +7,9 @@ import HeadingComponent from "../../../components/heading/heading.js";
 import UserService from './../../../services/userservice.js'
 import userservice from "./../../../services/userservice.js";
 import environment from "../../../environment.js";
-import "./loading.css";
+import "./../loading/loading.css";
 
-const LoadingPage: React.FC = () => {
+const LoadingPageSignIn: React.FC = () => {
 	const history = useHistory();
 	const [isLoading, setIsLoading] = useState(true);
 
@@ -17,7 +17,7 @@ const LoadingPage: React.FC = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const response = await fetch(environment.ACTIVE_URL + '/users/signup', {
+				const response = await fetch(environment.ACTIVE_URL + '/users/signin', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json'
@@ -25,12 +25,9 @@ const LoadingPage: React.FC = () => {
 					body: JSON.stringify(UserService.getUserData())
 				});
 
-				console.log(userservice.getUserData());
-
 				// Vérifier si la requête a réussi
 				if (response.ok) {
 					const data = await response.json();
-					console.log(data);
 					userservice.saveUserInfo(data)
 					console.log("Loading : User Service Stockage user data : ", userservice.getUserData())
 
@@ -51,17 +48,6 @@ const LoadingPage: React.FC = () => {
 		fetchData();
 	}, []);
 
-	// useEffect(() => {
-	// 	const timeoutId = setTimeout(() => {
-	// 		setIsLoading(false);
-	// 		localStorage.setItem('isNewUser', 'true');
-	// 		localStorage.setItem('isRegistred', 'true')
-	// 		history.push('/home');
-	// 	}, 3500);
-
-	// 	return () => clearTimeout(timeoutId);
-	// }, []);
-	
 	return (
 		<IonPage>
 			<IonContent fullscreen>
@@ -72,7 +58,7 @@ const LoadingPage: React.FC = () => {
 						<img
 							src={arrowSvg}
 							alt=""
-							onClick={() => history.push("/signup/goal", "root")}
+							onClick={() => history.push("/signin", "root")}
 						/>
 
 						{/* Progress Bar */}
@@ -106,4 +92,4 @@ const LoadingPage: React.FC = () => {
 	);
 };
 
-export default LoadingPage;
+export default LoadingPageSignIn;
