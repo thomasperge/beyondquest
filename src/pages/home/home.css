@@ -1,0 +1,221 @@
+.home {
+  background: var(
+      --gradient,
+      linear-gradient(180deg, #02c7aa 0%, #00a286 100%)
+    );
+}
+.home-header {
+  padding: 40px 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.1;
+}
+.stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.stat {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #fff;
+  border-radius: 60px;
+  height: 35px;
+  font-size: 0.8rem;
+  padding: 1rem 1.5rem;
+  font-weight: 500;
+}
+.subtitle {
+  margin-top: 0.5rem;
+}
+
+.searchbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 10px;
+  background: white;
+  padding: 8px 20px;
+  border-radius: 60px;
+  border: none;
+  width: 100%;
+}
+
+.categories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 10px;
+}
+.category {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.category-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.category-icon {
+  background: #fff;
+  display: flex;
+  padding: 1rem 2rem;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  height: 62px;
+}
+
+.challenges {
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px 20px 0px 0px;
+}
+
+.trending {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.seeall {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: black;
+  opacity: 0.6;
+}
+
+.challenge {
+  margin-top: 2rem;
+  
+}
+.challenge-image {
+  width: 100%;
+  height: 200px;
+  object-fit: fill;
+  border-radius: 10px;
+}
+.challenge-stats {
+  margin-top: 4px;
+}
+
+.challenge-categories {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.challenge-details {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  
+}
+.challenge-title{
+    width: 75%;
+}
+
+.challenge-button {
+  margin-top: 10px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  background: var(
+    --gradient,
+    linear-gradient(180deg, #02c7aa 0%, #00a286 100%)
+  );
+}
+
+.form button {
+  border: none;
+  background: none;
+  color: #8b8ba7;
+}
+.form {
+  --timing: 0.3s;
+  --width-of-input: 200px;
+  --height-of-input: 40px;
+  --border-height: 2px;
+  --input-bg: #fff;
+  --border-color: #2f2ee9;
+  --border-radius: 30px;
+  --after-border-radius: 1px;
+  position: relative;
+  width: 100%;
+  height: var(--height-of-input);
+  display: flex;
+  align-items: center;
+  padding-inline: 0.8em;
+  border-radius: var(--border-radius);
+  transition: border-radius 0.5s ease;
+  background: var(--input-bg,#fff);
+  margin-top: 2rem;
+}
+/* styling of Input */
+.input {
+  font-size: 0.9rem;
+  background-color: transparent;
+  width: 100%;
+  height: 100%;
+  padding-inline: 0.5em;
+  padding-block: 0.7em;
+  border: none;
+}
+/* styling of animated border */
+.form:before {
+  content: "";
+  position: absolute;
+  background: var(--border-color);
+  transform: scaleX(0);
+  transform-origin: center;
+  width: 100%;
+  height: var(--border-height);
+  left: 0;
+  bottom: 0;
+  border-radius: 1px;
+  transition: transform var(--timing) ease;
+}
+/* Hover on Input */
+.form:focus-within {
+  border-radius: var(--after-border-radius);
+}
+
+input:focus {
+  outline: none;
+}
+/* here is code of animated border */
+.form:focus-within:before {
+  transform: scale(1);
+}
+/* styling of close button */
+/* == you can click the close button to remove text == */
+.reset {
+  border: none;
+  background: none;
+  opacity: 0;
+  visibility: hidden;
+}
+/* close button shown when typing */
+input:not(:placeholder-shown) ~ .reset {
+  opacity: 1;
+  visibility: visible;
+}
+/* sizing svg icons */
+.form svg {
+  width: 17px;
+  margin-top: 3px;
+}
