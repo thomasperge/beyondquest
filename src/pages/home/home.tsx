@@ -310,6 +310,7 @@ const Home: React.FC = () => {
       {/* Choose Level Sheet */}
       <IonActionSheet
         isOpen={showLevelSheet}
+        onDidDismiss={() => setShowLevelSheet(false)}
         buttons={[
           {
             text: "Level 1",
