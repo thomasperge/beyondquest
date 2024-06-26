@@ -13,14 +13,15 @@ import ButtonComponent from "../../components/button/button.js";
 import TrendsChallengeItemsComponent from "../../components/trendchallengeitems/trendchallengeitems.js";
 import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
 import withUserData from "../../services/useUserData.js";
-import userservice from "../../services/userservice.js";
 import heartfireSvg from '../../assets/svg/heartfire.svg'
 import blackflagSvg from '../../assets/svg/blackflag.svg'
 import environment from "../../environment.js";
+import userservice from "../../services/userservice.js";
 
 const Home: React.FC = () => {
   const history = useHistory();
   const isNewUser = localStorage.getItem("isNewUser") === "true";
+  const userService = userservice.getUserData();
 
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
   const [lastChallenges, setLastChallenges] = useState([]);
@@ -34,7 +35,7 @@ const Home: React.FC = () => {
 
   const fetchData = async () => {
     try {
-      const userId = userservice.getUserData()._id;
+      const userId = userService._id;
       const response = await fetch(environment.ACTIVE_URL + `/challenge/user/${userId}`);
 
       if (!response.ok) {
@@ -64,6 +65,17 @@ const Home: React.FC = () => {
   const handleRefresh = async (event: CustomEvent) => {
     await fetchData();
     event.detail.complete();
+  };
+
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      return "Good morning,";
+    } else if (hour < 18) {
+      return "Good afternoon,";
+    } else {
+      return "Good evening,";
+    }
   };
 
   useEffect(() => {
