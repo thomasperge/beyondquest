@@ -18,7 +18,7 @@ const SetGoalPage: React.FC = () => {
     if (currentIndex < goals.length - 1) {
       setCurrentIndex(currentIndex + 1);
     } else {
-      history.push('/home');
+      history.push('/signup/loading', 'root')
     }
   };
 
