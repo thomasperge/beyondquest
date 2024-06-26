@@ -4,14 +4,15 @@ interface ContainerProps {
   title: string;
   subtitle: string;
   svg: string;
+  bgColor: string;
 }
 
-const GoalitemsComponent: React.FC<ContainerProps> = ({ title, subtitle, svg }) => {
+const GoalitemsComponent: React.FC<ContainerProps> = ({ title, subtitle, svg, bgColor }) => {
   return (
-    <div className="goalitems-items flex">
+    <div className="goalitems-items " style={{background: bgColor}}>
       {/* Logo */}
       <div className="goalitems-items-logo">
-        <img src={svg} alt="" style={{width: "35px", height: "70%"}} />
+        <img src={svg} alt=""  />
       </div>
       {/* Text */}
       <div className="goalitems-items-text column">
