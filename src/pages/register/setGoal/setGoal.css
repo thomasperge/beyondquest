@@ -24,14 +24,17 @@
 }
 
 .button_prev{
+  font-size: 1rem;
   color: #00302B ;
   border-radius: 10px;
+  background-color: transparent;
   padding: 0.8rem 1.5rem;
   font-weight: 600;
   border: 2px #02C7AA solid;
   width: 100%;
 }
 .button_next{
+  font-size: 1rem;
   padding: 0.8rem 1.5rem;
   color: white;
   font-weight: 600;

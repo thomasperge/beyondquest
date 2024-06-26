@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import { DifficultyDto } from "../../enum/difficulty.js";
 import { useHistory } from "react-router";
-import gymimage from "./../../assets/imagecalendar/gym.png";
-import booksimage from "./../../assets/imagecalendar/books.png";
-import smoothieimage from "./../../assets/imagecalendar/smoothie.png";
 import ChallengePromptComponent from "../../components/challengeprompt/challengeprompt.js";
 import fire from "../../assets/svg/fire.svg";
 import task from "../../assets/svg/task.svg";
@@ -11,12 +7,13 @@ import gems from "../../assets/svg/gems.svg";
 import cooking from "../../assets/svg/cooking.svg";
 import reading from "../../assets/svg/reading.svg";
 import musculation from "../../assets/svg/musculation.svg";
-
-import "./home.css";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
+import userservice from "../../services/userservice.js";
+import "./home.css";
 
 const Home: React.FC = () => {
   const history = useHistory();
+  const userService = userservice.getUserData()
 
 
   const isNewUser = localStorage.getItem("isNewUser") === "true";
@@ -44,7 +41,7 @@ const Home: React.FC = () => {
         <div className="header">
           <div className="title">
           <div>{getGreeting()}</div>
-            <div>Thomas !</div>
+            <div>{userService.name} !</div>
           </div>
           <div className="stats">
             <div className="stat">
