@@ -171,9 +171,7 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div className="ion-padding-horizontal">
-
-
+      <div className="challenges ion-padding-horizontal">
         {/* Good Morning / Afternoon */}
         {/* <div className="flex">
         <HeadingComponent
