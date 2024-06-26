@@ -76,8 +76,83 @@ const Home: React.FC = () => {
         <IonRefresherContent />
       </IonRefresher>
 
+      <div className="home-header">
+        <div className="header">
+          <div className="title">
+          <div>{getGreeting()}</div>
+            <div>{userService.name} !</div>
+          </div>
+          <div className="stats">
+            <div className="stat">
+              <img src={fire} alt="" />
+              <div>7</div>
+            </div>
+            <div className="stat">
+              <img src={task} alt="" />
+              <div>2/3</div>
+            </div>
+            <div className="stat">
+              <img src={gems} alt="" />
+              <div>48</div>
+            </div>
+          </div>
+        </div>
+        <div className="subtitle">Let's make a lot of Questies today !</div>
+        <form className="form">
+          <button>
+            <svg
+              width="17"
+              height="16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              role="img"
+              aria-labelledby="search"
+            >
+              <path
+                d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
+                stroke="currentColor"
+                stroke-width="1.333"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>
+            </svg>
+          </button>
+          <input className="input" placeholder="Search" type="text"></input>
+          <button className="reset" type="reset">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              ></path>
+            </svg>
+          </button>
+        </form>
+        <div className="categories">
+          <div className="category">
+            <img src={cooking} alt="" className="category-icon"/>
+            <div className="category-name">Cooking</div>
+          </div>
+          <div className="category">
+            <img src={reading} alt="" className="category-icon"/>
+            <div className="category-name">Reading</div>
+          </div>
+          <div className="category">
+            <img src={musculation} alt="" className="category-icon"/>
+            <div className="category-name">Musculation</div>
+          </div>
+        </div>
+      </div>
+
       {/* Good Morning / Afternoon */}
-      <div className="flex">
+      {/* <div className="flex">
         <HeadingComponent
           text="Good morning, Thomas"
           fontSize="1.5rem"
@@ -85,21 +160,21 @@ const Home: React.FC = () => {
           color="var(--ion-color-950)"
           padding="2rem 0 1.5rem 0"
         />
-      </div>
+      </div> */}
 
       {/* Streak Stats */}
-      <div className="ion-margin-bottom">
+      {/* <div className="ion-margin-bottom">
         <DailyStreakStatsComponent nbStreak="0" dailyChallenge="0/3" />
-      </div>
+      </div> */}
 
       {/* Calendar Title */}
-      <HeadingComponent
+      {/* <HeadingComponent
         text="Calendar"
         fontSize="1.2rem"
         fontWeight="600"
         color="var(--ion-color-dark)"
         padding="0 0 .5rem 0"
-      />
+      /> */}
 
       {/* Calendar */}
       <CalendarHomeComponent
