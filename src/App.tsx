@@ -45,7 +45,6 @@ const App: React.FC = () => (
       <IonRouterOutlet>
         <Route exact path="/home">
           <LayoutWithNav
-            classname="ion-padding-horizontal"
             children={<Home />}
           ></LayoutWithNav>
         </Route>
