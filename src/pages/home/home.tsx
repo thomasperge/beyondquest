@@ -6,7 +6,6 @@ import gymimage from './../../assets/imagecalendar/gym.png'
 import booksimage from './../../assets/imagecalendar/books.png'
 import smoothieimage from './../../assets/imagecalendar/smoothie.png'
 import HeadingComponent from "../../components/heading/heading.js";
-import DailyStreakStatsComponent from "../../components/dailystreakstats/dailystreakstats.js";
 import CalendarHomeComponent from "../../components/calendarhome/calendarhome.js";
 import ChallengeItemsComponent from "../../components/challengeitems/challengeitems.js";
 import ButtonComponent from "../../components/button/button.js";
