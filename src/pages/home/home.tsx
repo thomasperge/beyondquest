@@ -2,6 +2,12 @@ import React, { useEffect, useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
 import { useHistory } from "react-router";
 import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
+import fire from "../../assets/svg/fire.svg";
+import task from "../../assets/svg/task.svg";
+import gems from "../../assets/svg/gems.svg";
+import cooking from "../../assets/svg/cooking.svg";
+import reading from "../../assets/svg/reading.svg";
+import musculation from "../../assets/svg/musculation.svg";
 import gymimage from './../../assets/imagecalendar/gym.png'
 import booksimage from './../../assets/imagecalendar/books.png'
 import smoothieimage from './../../assets/imagecalendar/smoothie.png'
