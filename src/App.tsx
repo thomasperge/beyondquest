@@ -36,6 +36,7 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 import "./theme/global.css";
+import Achievment from "./pages/achievment/achievment";
 
 setupIonicReact();
 
@@ -106,6 +107,12 @@ const App: React.FC = () => (
           <LayoutWithNav
             classname="ion-padding-horizontal"
             children={<FriendsPage />}
+          ></LayoutWithNav>
+        </Route>
+        <Route exact path="/achievment">
+          <LayoutWithNav
+            classname="ion-padding-horizontal"
+            children={<Achievment />}
           ></LayoutWithNav>
         </Route>
       </IonRouterOutlet>

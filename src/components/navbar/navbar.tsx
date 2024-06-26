@@ -58,6 +58,12 @@ const Navbar: React.FC = () => {
             },
           },
           {
+            text: 'Achievment',
+            handler: () => {
+              history.push('/achievment');
+            },
+          },
+          {
             text: 'Disconnect',
             handler: () => {
               localStorage.clear()

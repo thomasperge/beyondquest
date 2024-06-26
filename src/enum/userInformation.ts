@@ -3,6 +3,7 @@ export interface UserInformationsDto {
   name?: string;
   lastname?: string;
   age?: number;
+  gem?: number;
   password?: string;
   hobbies?: string[]
   createdAt?: Date;

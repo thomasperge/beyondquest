@@ -11,7 +11,7 @@ interface ContainerProps {
 const LayoutWithNav: React.FC<ContainerProps> = ({ children, classname }) => {
   return (
     <IonPage>
-      <ToolBarComponent />
+      {/* <ToolBarComponent /> */}
       <IonContent fullscreen className={classname}>
         {children}
       </IonContent >

@@ -7,6 +7,7 @@ class UserService {
     name?: string;
     lastname?: string;
     age?: number;
+    gem?: number;
     password?: string;
     hobbies?: string[];
     createdAt?: Date
@@ -20,6 +21,7 @@ class UserService {
     this.userData.password = userInfo.password;
     this.userData.hobbies = userInfo.hobbies;
     this.userData.createdAt = userInfo.createdAt;
+    this.userData.gem = userInfo.gem;
   }
 
   saveHobbies(hobbies: string[]) {

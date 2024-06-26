@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { DifficultyDto } from "../../enum/difficulty.js";
 import { useHistory } from "react-router";
-import { IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
+import { IonActionSheet, IonLoading, IonRefresher, IonRefresherContent, IonSpinner } from "@ionic/react";
+import { toastController } from "@ionic/core";
 import fire from "../../assets/svg/fire.svg";
-import task from "../../assets/svg/task.svg";
 import gems from "../../assets/svg/gems.svg";
 import cooking from "../../assets/svg/cooking.svg";
 import reading from "../../assets/svg/reading.svg";
@@ -22,33 +22,87 @@ import heartfireSvg from '../../assets/svg/heartfire.svg'
 import blackflagSvg from '../../assets/svg/blackflag.svg'
 import environment from "../../environment.js";
 import userservice from "../../services/userservice.js";
+import userallchallengejoinedservice from "../../services/userallchallengejoinedservice.js";
 import './home.css'
 
 const Home: React.FC = () => {
   const history = useHistory();
   const isNewUser = localStorage.getItem("isNewUser") === "true";
   const userService = userservice.getUserData();
-
+  const [showLevelSheet, setShowLevelSheet] = useState(false);
   const [showChallengePrompt, setShowChallengePrompt] = useState(isNewUser);
   const [lastChallenges, setLastChallenges] = useState([]);
   const [allChallenges, setAllChallenges] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [hobbiesSelected, setHobbiesSelected] = useState('true');
+  const [showLoading, setShowLoading] = useState(false);
 
   const handleChallengePromptDismiss = () => {
     setShowChallengePrompt(false);
     localStorage.setItem("isNewUser", "false");
   };
 
+  const showlevelPopUp = (hobbies: any) => {
+    setShowLevelSheet(true)
+    setHobbiesSelected(hobbies)
+  }
+
+  const handleLevelSelected = async (level: string) => {
+    setShowLevelSheet(false)
+    setShowLoading(true);
+
+    try {
+      const userData = { ...userservice.getUserData(), hobbies: hobbiesSelected, level: level };
+      const response = await fetch(environment.ACTIVE_URL + '/challenge/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userData)
+      });
+
+      if (response.ok) {
+        try {
+          const responseData = await response.json();
+
+          setShowLoading(false);
+          showToastChallenge(responseData.text);
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        throw new Error('Une erreur est survenue lors de la récupération des données.');
+      }
+    } catch (error: any) {
+      console.log(error);
+      setShowLoading(false);
+      showToastChallenge(error.message);
+    }
+  }
+
+  const showToastChallenge = async (message: string) => {
+    const toast = await toastController.create({
+      message: message,
+      duration: 5500,
+      position: "top",
+      cssClass: "greentoaststyle",
+    });
+    toast.present();
+  };
+
   const fetchData = async () => {
     try {
       const userId = userService._id;
       const response = await fetch(environment.ACTIVE_URL + `/challenge/user/${userId}`);
+      const response2 = await fetch(environment.ACTIVE_URL + `/users/data/${userId}`);
 
-      if (!response.ok) {
+      if (!response.ok || !response2.ok) {
         throw new Error('Une erreur est survenue lors de la récupération des données.');
       }
 
       const data = await response.json();
+      const data2 = await response2.json();
+      userservice.saveUserInfo(data2)
 
       const finishedChallenges = data.filter((challenge: any) => challenge.completed);
 
@@ -57,10 +111,10 @@ const Home: React.FC = () => {
       });
 
       const lastFinishedChallenges = finishedChallenges.slice(0, 3);
-      console.log(lastFinishedChallenges);
 
       setLastChallenges(lastFinishedChallenges);
       setAllChallenges(data);
+      userallchallengejoinedservice.setAllUserChallengeJoined(data)
     } catch (error) {
       console.error(error);
     } finally {
@@ -104,99 +158,34 @@ const Home: React.FC = () => {
             <div className="stats">
               <div className="stat">
                 <img src={fire} alt="" />
-                <div>7</div>
-              </div>
-              <div className="stat">
-                <img src={task} alt="" />
-                <div>2/3</div>
+                <div className="number-stats">0</div>
               </div>
               <div className="stat">
                 <img src={gems} alt="" />
-                <div>48</div>
+                <div className="number-stats">{userService.gem}</div>
               </div>
             </div>
           </div>
           <div className="subtitle">Let's make a lot of Questies today !</div>
-          <form className="form">
-            <button>
-              <svg
-                width="17"
-                height="16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                role="img"
-                aria-labelledby="search"
-              >
-                <path
-                  d="M7.667 12.667A5.333 5.333 0 107.667 2a5.333 5.333 0 000 10.667zM14.334 14l-2.9-2.9"
-                  stroke="currentColor"
-                  stroke-width="1.333"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                ></path>
-              </svg>
-            </button>
-            <input className="input" placeholder="Search" type="text"></input>
-            <button className="reset" type="reset">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
-              </svg>
-            </button>
-          </form>
+          
           <div className="categories">
             <div className="category">
-              <img src={cooking} alt="" className="category-icon" />
+              <img src={cooking} alt="" className="category-icon" onClick={() => showlevelPopUp("Cuisine")} />
               <div className="category-name">Cooking</div>
             </div>
             <div className="category">
-              <img src={reading} alt="" className="category-icon" />
+              <img src={reading} alt="" className="category-icon" onClick={() => showlevelPopUp("Lecture")}/>
               <div className="category-name">Reading</div>
             </div>
             <div className="category">
-              <img src={musculation} alt="" className="category-icon" />
-              <div className="category-name">Musculation</div>
+              <img src={musculation} alt="" className="category-icon" onClick={() => showlevelPopUp("Sport")}/>
+              <div className="category-name">Sport</div>
             </div>
           </div>
         </div>
       </div>
 
       <div className="challenges ion-padding-horizontal">
-        {/* Good Morning / Afternoon */}
-        {/* <div className="flex">
-        <HeadingComponent
-          text="Good morning, Thomas"
-          fontSize="1.5rem"
-          fontWeight="600"
-          color="var(--ion-color-950)"
-          padding="2rem 0 1.5rem 0"
-        />
-      </div> */}
-
-        {/* Streak Stats */}
-        {/* <div className="ion-margin-bottom">
-        <DailyStreakStatsComponent nbStreak="0" dailyChallenge="0/3" />
-      </div> */}
-
-        {/* Calendar Title */}
-        {/* <HeadingComponent
-        text="Calendar"
-        fontSize="1.2rem"
-        fontWeight="600"
-        color="var(--ion-color-dark)"
-        padding="0 0 .5rem 0"
-      /> */}
-
         {/* Calendar */}
         <CalendarHomeComponent
           lastnbDays={14}
@@ -317,6 +306,36 @@ const Home: React.FC = () => {
           <ChallengePromptComponent onDismiss={handleChallengePromptDismiss} />
         )}
       </div>
+
+      {/* Choose Level Sheet */}
+      <IonActionSheet
+        isOpen={showLevelSheet}
+        buttons={[
+          {
+            text: "Level 1",
+            handler: () => handleLevelSelected("facile"),
+          },
+          {
+            text: "Level 2",
+            handler: () => handleLevelSelected("moyennement dur"),
+          },
+          {
+            text: "Level 3",
+            handler: () => handleLevelSelected("dur"),
+          },
+          {
+            text: "Annuler",
+            role: "cancel",
+          },
+        ]}
+      />
+
+      {/* IonLoading */}
+      <IonLoading
+        isOpen={showLoading}
+        message={'Chargement... Veuillez patienter.'}
+        duration={3000}
+      />
     </>
   );
 };

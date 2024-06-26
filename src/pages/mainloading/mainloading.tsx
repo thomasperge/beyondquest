@@ -12,8 +12,6 @@ const MainLoadingPage: React.FC = () => {
 
 	// ==> Fetch Data
 	useEffect(() => {
-		console.log("HERRRE");
-		
 		const checkUserRegistration = async () => {
 			const isRegistred = localStorage.getItem('isRegistred') == 'true' || localStorage.getItem('isRegistred') == 'True';
 			const userId = localStorage.getItem('user_id');
